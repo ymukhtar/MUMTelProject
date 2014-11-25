@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * 
  * @author ymukhtar
  * @author aTariq
- *
+ * @author samual
  */
 @Embeddable
 public class Address implements Serializable{
