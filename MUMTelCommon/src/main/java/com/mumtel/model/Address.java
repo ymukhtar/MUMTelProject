@@ -18,6 +18,7 @@ public class Address implements Serializable{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = -7531141046395118359L;
 	//@Pattern(regexp="(?<=start)[\\d]+[A-Za-z0-9\\s,\\.]+?[\\d\\-]+|(?<=start)[A-Za-z0-9\\s,\\.]+?(?=end)",message="Street should be valid!")
 	@NotEmpty
