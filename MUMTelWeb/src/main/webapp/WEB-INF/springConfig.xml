@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	
+	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties" ref="hibernateProperties" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.mumtel.model.Address</value>
+				<value>com.mumtel.model.Authorities</value>
+				<value>com.mumtel.model.Bill</value>
+				<value>com.mumtel.model.CallDetail</value>
+				<value>com.mumtel.model.CallRates</value>
+				<value>com.mumtel.model.Country</value>
+				<value>com.mumtel.model.Customer</value>
+				<value>com.mumtel.model.PeakTimes</value>
+				<value>com.mumtel.model.Person</value>
+				<value>com.mumtel.model.SalesRep</value>
+				<value>com.mumtel.model.SalesRepCustomerRef</value>
+				<value>com.mumtel.model.Service</value>
+				<value>com.mumtel.model.Users</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="hibernateProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2008Dialect</prop>
+				<prop key="connection.pool.size">5</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url"
+			value="jdbc:sqlserver://localhost;databaseName=mumtel" />
+		<property name="username" value="sa" />
+		<property name="password" value="mumsql" />
+
+	</bean>
+	
+	 <sec:http >
+	 		<sec:intercept-url pattern="/index.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+	 		<sec:intercept-url pattern="/registerEmployer" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+			<sec:intercept-url pattern="/loginfailed" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+			<sec:intercept-url pattern="/index.html" access="ROLE_USER"/>
+			<sec:intercept-url pattern="/jobSeekerHome" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+			<sec:form-login login-page="/index.jsp" authentication-failure-url="/index.jsp?error=Login Failed" default-target-url="/home"/>
+			<sec:logout logout-success-url="/index.jsp" delete-cookies="JSESSIONID"/>
+		</sec:http> 
+	<sec:global-method-security secured-annotations="enabled"></sec:global-method-security>
+	<bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+	
+
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:jdbc-user-service data-source-ref="dataSource"
+			  users-by-username-query=
+			    "select username,password, enabled from user where username=?"
+			  authorities-by-username-query=
+			    "select username, role from authorities where username =?  " />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+</beans>
