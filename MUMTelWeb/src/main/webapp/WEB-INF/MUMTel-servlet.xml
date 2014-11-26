@@ -17,7 +17,7 @@
 	<!-- Enable Project Spring annotations -->
 	<mvc:annotation-driven />
 	<!-- Search Annotations in -->
-	<context:component-scan base-package="com.mum" />
+	<context:component-scan base-package="com.mumtel" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -co-->

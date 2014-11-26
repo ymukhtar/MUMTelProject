@@ -1,14 +1,14 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+<jsp:include page="includeHome.jsp">
+	<jsp:param value="a" name="a"/>
+</jsp:include>
+<title>Job Portal Welcome <sec:authentication property="principal.username" /></title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+	<h1>Welcome home <sec:authentication property="principal.username" /></h1>
 </body>
 </html>
