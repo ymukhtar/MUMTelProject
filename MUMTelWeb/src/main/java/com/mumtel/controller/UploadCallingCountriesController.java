@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mumtel.IService.ICountryService;
 import com.mumtel.model.Country;
+import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
@@ -75,17 +76,7 @@ public class UploadCallingCountriesController {
                if (row.getRowNum() == 0 || row.getRowNum()==1) {
                  continue;
                }
-               
-               
-               Cell countryCodeCell=row.getCell(1);
-               int code=0;
-               if(Cell.CELL_TYPE_NUMERIC==countryCodeCell.getCellType()){
-            	   code=Integer.parseInt(String.valueOf((int)countryCodeCell.getNumericCellValue()));
-               }else{
-            	   code=Integer.parseInt(countryCodeCell.getStringCellValue());
-               }
-               
-              countriesList.add(new Country(code, row.getCell(0).getStringCellValue()));
+              countriesList.add(new Country(ExcelUtil.getIntValueFromCell(row.getCell(1)), row.getCell(0).getStringCellValue()));
             }
             countryService.createAll(countriesList);
             if(logger.isDebugEnabled()){

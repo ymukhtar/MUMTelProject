@@ -13,7 +13,7 @@
 </head>
 <body>
 <br>
-    <form:form modelAttribute="fileuploadForm" method="post" enctype="multipart/form-data" action="uploadCallDetails">
+    <form:form modelAttribute="fileuploadForm" method="post" enctype="multipart/form-data" action="uploadCallingCountries">
     	<div class="container">
         <form:label class="lbl lbl-default" for="fileData" path="fileData">Select file</form:label><br/><br/>
         </div>
@@ -26,7 +26,7 @@
     </form:form>
     
     <div class="container">
-    	<a class="btn btn-default" href='<c:url value="/searchCountries"/>' role="button">View Call Logs</a>
+    <a class="btn btn-default" href='<c:url value="/searchCountries"/>' role="button">View Countries with Codes</a>
     </div>
 </body>
 </html>

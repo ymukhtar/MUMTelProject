@@ -27,6 +27,7 @@ public class CallDetail implements Serializable{
 	private Country toCallingCode;
 	private int duration;
 	private Date callDateandTime;
+	
 	public CallDetail(String fromTel, String toTel,
 			Country fromCallingCode, Country toCallingCode, int duration,
 			Date callDateandTime) {
