@@ -48,7 +48,7 @@ public class CountryDAO extends AbstractMumTelDAO implements ICountryDAO{
 
 	public long getPagedCountryListCount(String criteriaString) {
 		// TODO Auto-generated method stub
-		String q="select count(v.id) From Country c where 1=1 ";
+		String q="select count(c.id) From Country c where 1=1 ";
 		if(criteriaString!=null && criteriaString.length()>0)
 		{
 			q+=" AND c.countryName like :countryN";
@@ -66,7 +66,7 @@ public class CountryDAO extends AbstractMumTelDAO implements ICountryDAO{
 		String q="From Country c where 1=1";
 		if(criteriaString!=null && criteriaString.length()>0)
 		{
-			q+=" AND c.employer.name like :countryN";
+			q+=" AND c.countryName like :countryN";
 		}
 		Query query=sessionFactory.getCurrentSession().createQuery(q);
 		

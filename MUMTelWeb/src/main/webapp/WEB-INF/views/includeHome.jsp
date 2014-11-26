@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>My JobPortal</title>
+<title>MUMTel</title>
 <!-- Bootstrap core CSS -->
 		<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 		<link href="<c:url value="/resources/css/jumbotron.css"/>" rel="stylesheet">
@@ -16,7 +16,7 @@
 			<table style="width:100%;text-align: center">
 				<tr>
 					<td>
-						<a class="navbar-brand" href="<c:url value="/home"/>">Job Portal Home</a>
+						<a class="navbar-brand" href="<c:url value="/home"/>">MUMTel Home</a>
 					</td>
 					<td style="text-align: left">
 						<label class="navbar-brand"><strong>Welcome <sec:authentication property="principal.username" />!</strong></label>

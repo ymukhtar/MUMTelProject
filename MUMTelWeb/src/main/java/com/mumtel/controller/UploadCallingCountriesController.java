@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,6 +46,13 @@ public class UploadCallingCountriesController {
 	public String displayForm(Model model) {
 		model.addAttribute("fileuploadForm",new FileuploadForm());
 		return "uploadCallingCountryCodes";
+	}
+	
+	@Secured(MumTelAuthorities.ROLE_ADMIN)
+	@RequestMapping(value = "/searchCountries", method = RequestMethod.GET)
+	public String searchCountries(Locale locale, Model model) {
+		model.addAttribute("currentPage",1);
+		return "countrieslistPage";
 	}
 
 	@RequestMapping(value="/uploadCallingCountries",method = RequestMethod.POST)
@@ -88,8 +96,7 @@ public class UploadCallingCountriesController {
             e.printStackTrace();
         }
 
-//        return "import/importDone";
-        return "jobSeekerHome";
+        return "countrieslistPage";
     }
 	
 	@Secured(MumTelAuthorities.ROLE_ADMIN)
@@ -100,20 +107,20 @@ public class UploadCallingCountriesController {
 		int totalPages=(int)Math.ceil(1.0*count/CommonUtility.FETCH_SIZE);
 		model.addAttribute("searchString", searchString);
 		if(count==0){
-			model.addAttribute("message", "No jobs found matching your criteria!");
+			model.addAttribute("message", "No Country found matching your criteria!");
 		}else{
 			model.addAttribute("count", count);
 			int startIndex=(currentPage-1)*CommonUtility.FETCH_SIZE;
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("fetchSize", CommonUtility.FETCH_SIZE);
 			model.addAttribute("totalPages", totalPages);
-			model.addAttribute("message", "Total jobs found matching your criteria "+count);
+			model.addAttribute("message", "Total Countries found matching your criteria "+count);
 			int fetchSize=(int)( (startIndex+CommonUtility.FETCH_SIZE)<count?CommonUtility.FETCH_SIZE:(count-startIndex));
 			
 			List<Country> countryList=countryService.getPagedCountryList(startIndex, fetchSize,searchString);
 			model.addAttribute("countryList", countryList);
 		}
 		
-		return "jobSeekerHome";
+		return "countrieslistPage";
 	}
 }

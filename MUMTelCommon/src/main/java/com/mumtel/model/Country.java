@@ -16,6 +16,11 @@ public class Country implements Serializable{
 	@Id
 	private int callingCode;
 	private String countryName;
+	
+	public Country() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Country(int callingCode, String countryName) {
 		super();
 		this.callingCode = callingCode;

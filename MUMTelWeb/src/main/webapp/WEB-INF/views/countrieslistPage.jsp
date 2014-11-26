@@ -7,11 +7,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<sec:authorize access="hasRole('ROLE_JOB_SEEKER')">
+
 <jsp:include page="includeHome.jsp">
 	<jsp:param value="a" name="a" />
 </jsp:include>
-</sec:authorize>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,22 +30,14 @@
 		{}
 		else
 		{
-			
-			var urlA="<%=request.getContextPath()%>/JobSearch?currentPage="+page+"&searchString="+jQuery('#searchType').val()+"&searchAddress="+jQuery('#searchAddress').val();
+			var urlA="<%=request.getContextPath()%>/countries?currentPage="+page+"&searchString="+jQuery('#searchType').val();
 			window.location.href=urlA;
 		}
 
 	}
-	function findJobs(){
+	function findCodes(){
 		
-		var urlA="<%=request.getContextPath()%>/JobSearch?currentPage=1&searchString="+jQuery('#searchType').val()+"&searchAddress="+jQuery('#searchAddress').val();
-		window.location.href=urlA;
-		
-	}
-	
-	function viewAllApplication(){
-		
-		var urlA="<%=request.getContextPath()%>/viewAllApplication?currentPage=1";
+		var urlA="<%=request.getContextPath()%>/countries?currentPage=1&searchString="+jQuery('#searchType').val();
 		window.location.href=urlA;
 		
 	}
@@ -68,7 +60,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value="/index.jsp"/>">JobPortal</a>
+				<a class="navbar-brand" href="<c:url value="/index.jsp"/>">MUMTel</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<form class="navbar-form navbar-right" role="form" method="POST"  action="<c:url value='j_spring_security_check'/>">
@@ -91,33 +83,18 @@
 	<div class="jumbotron">
 		<div class="container">
 			<div class="row">
-				<h3>
-				<sec:authorize access="hasRole('ROLE_JOB_SEEKER')">
-					Welcome
-					<sec:authentication property="principal.username" />
-					as Job Seeker
-				</sec:authorize>
-				</h3>
-				<div class="form-group form-group-lg" style='margin-left: 85%'>
-					<a class="btn btn-default" role="button" onclick="viewAllApplication()">
-				<span class="glyphicon glyphicon-search"></span>View All Applications</a>
-				</div>
-				<p>Search from Millions of Jobs</p>
+				<p>Search Countries Calling Code</p>
 			</div>
 			<div class="row">
 				<form class="form-horizontal" role="form" method="POST" id="searchFrom">
 					<div class="form-group form-group-lg">
 						<input type="text" name="searchType" id="searchType" value="${searchString}"
-							placeholder="Job Title, Keywords or Company Name"
+							placeholder="Country Name"
 							class="form-control">
 					</div>
 					<div class="form-group form-group-lg">
-						<input name="searchAddress" type="text" id="searchAddress" value="${searchAddress}"
-							placeholder="City and State or Zip Code" class="form-control">
-					</div>
-					<div class="form-group form-group-lg">
-						<a class="btn btn-default" role="button" onclick="findJobs();"><span
-							class="glyphicon glyphicon-search"></span>&nbsp;Find Jobs</a>
+						<a class="btn btn-default" role="button" onclick="findCodes();"><span
+							class="glyphicon glyphicon-search"></span>&nbsp;Find Codes</a>
 					
 					</div>
 				</form>
@@ -131,9 +108,6 @@
 					<th>Sr #</th>
 					<th>Calling Code</th>
 					<th>Country Name</th>
-					<sec:authorize access="hasRole('ROLE_JOB_SEEKER')">
-						<th></th>
-					</sec:authorize>
 				</tr>
 			<thead>
 			<tbody>
@@ -142,10 +116,6 @@
 					<td>${loop.index}</td>
 					<td>${country.callingCode}</td>
 					<td>${country.countryName}</td>
-					<sec:authorize access="hasRole('ROLE_JOB_SEEKER')">
-						<td><a href="<c:url value="/apply/${vaccancy.id}"/>">apply</a></td>
-					</sec:authorize>
-					
 				</tr>
 			</c:forEach>
 			</tbody>
