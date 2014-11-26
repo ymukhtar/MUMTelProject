@@ -59,10 +59,7 @@
 	
 	 <sec:http >
 	 		<sec:intercept-url pattern="/index.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-	 		<sec:intercept-url pattern="/registerEmployer" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 			<sec:intercept-url pattern="/loginfailed" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-			<sec:intercept-url pattern="/index.html" access="ROLE_USER"/>
-			<sec:intercept-url pattern="/jobSeekerHome" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 			<sec:form-login login-page="/index.jsp" authentication-failure-url="/index.jsp?error=Login Failed" default-target-url="/home"/>
 			<sec:logout logout-success-url="/index.jsp" delete-cookies="JSESSIONID"/>
 		</sec:http> 
@@ -74,7 +71,7 @@
 		<sec:authentication-provider>
 			<sec:jdbc-user-service data-source-ref="dataSource"
 			  users-by-username-query=
-			    "select username,password, enabled from user where username=?"
+			    "select username,password, enabled from users where username=?"
 			  authorities-by-username-query=
 			    "select username, role from authorities where username =?  " />
 		</sec:authentication-provider>
