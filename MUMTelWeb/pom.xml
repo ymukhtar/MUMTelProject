@@ -97,7 +97,13 @@
     		<groupId>commons-fileupload</groupId>
 	   	 	<artifactId>commons-fileupload</artifactId>
 	   		 <version>1.3.1</version>
-		</dependency>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml</artifactId>
+		<version>3.10-FINAL</version>
+	</dependency>
+	
 	<dependency>
 		<groupId>MUMTel</groupId>
 		<artifactId>MUMTelService</artifactId>
