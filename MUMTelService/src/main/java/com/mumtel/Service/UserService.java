@@ -20,6 +20,7 @@ import com.mumtel.model.Users;
  *
  */
 @Service
+@Transactional(propagation=Propagation.REQUIRES_NEW)
 public class UserService implements IUserService{
 
 	@Autowired
@@ -28,7 +29,6 @@ public class UserService implements IUserService{
 	private IAuthoritiesDAO authoritiesDAO;
 	
 
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public void createUser(Users user) {
 		
 		userDAO.create(user);
@@ -41,17 +41,14 @@ public class UserService implements IUserService{
 		// TODO Auto-generated method stub
 		userDAO.delete(user);
 	}
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public Users getUser(String userName) {
 		
 		return userDAO.get(userName);
 	}
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public List<Users> getAllUser() {
 		
 		return userDAO.getAll();
 	}
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public void createAuthorities(Authorities authorities) {
 		
 		authoritiesDAO.create(authorities);

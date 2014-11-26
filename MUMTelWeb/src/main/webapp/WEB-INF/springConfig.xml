@@ -60,6 +60,7 @@
 	 <sec:http >
 	 		<sec:intercept-url pattern="/index.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 			<sec:intercept-url pattern="/loginfailed" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+			<sec:intercept-url pattern="/countries" access="ROLE_ADMIN"/>
 
 			<sec:form-login login-page="/index.jsp" authentication-failure-url="/index.jsp?error=Login Failed" default-target-url="/home"/>
 			<sec:logout logout-success-url="/index.jsp" delete-cookies="JSESSIONID"/>

@@ -6,19 +6,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mumtel.IService.ICountryService;
 import com.mumtel.model.Country;
 import com.mumtel.util.FileuploadForm;
+import com.mumtel.utils.CommonUtility;
+import com.mumtel.utils.MumTelAuthorities;
 /**
  * 
  * @author ymukhtar
@@ -27,9 +37,14 @@ import com.mumtel.util.FileuploadForm;
 @Controller
 public class UploadCallingCountriesController {
 	private static Logger logger=Logger.getLogger(UploadCallingCountriesController.class);
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public String displayForm() {
-		return "file_upload_form";
+	
+	@Autowired
+	private ICountryService countryService;
+	
+	@RequestMapping(value = "/showCountriesUploadForm", method = RequestMethod.GET)
+	public String displayForm(Model model) {
+		model.addAttribute("fileuploadForm",new FileuploadForm());
+		return "uploadCallingCountryCodes";
 	}
 
 	@RequestMapping(value="/uploadCallingCountries",method = RequestMethod.POST)
@@ -52,8 +67,19 @@ public class UploadCallingCountriesController {
                if (row.getRowNum() == 0 || row.getRowNum()==1) {
                  continue;
                }
-              countriesList.add(new Country(Integer.parseInt(row.getCell(1).getStringCellValue()), row.getCell(0).getStringCellValue()));
+               
+               
+               Cell countryCodeCell=row.getCell(1);
+               int code=0;
+               if(Cell.CELL_TYPE_NUMERIC==countryCodeCell.getCellType()){
+            	   code=Integer.parseInt(String.valueOf((int)countryCodeCell.getNumericCellValue()));
+               }else{
+            	   code=Integer.parseInt(countryCodeCell.getStringCellValue());
+               }
+               
+              countriesList.add(new Country(code, row.getCell(0).getStringCellValue()));
             }
+            countryService.createAll(countriesList);
             if(logger.isDebugEnabled()){
             	logger.debug(Arrays.toString(countriesList.toArray()));
             }
@@ -62,6 +88,32 @@ public class UploadCallingCountriesController {
             e.printStackTrace();
         }
 
-        return "import/importDone";
+//        return "import/importDone";
+        return "jobSeekerHome";
     }
+	
+	@Secured(MumTelAuthorities.ROLE_ADMIN)
+	@RequestMapping(value="/countries",method=RequestMethod.GET)
+	public String getJobSeekerHome(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
+		
+		long count=countryService.getPagedCountryListCount(searchString);
+		int totalPages=(int)Math.ceil(1.0*count/CommonUtility.FETCH_SIZE);
+		model.addAttribute("searchString", searchString);
+		if(count==0){
+			model.addAttribute("message", "No jobs found matching your criteria!");
+		}else{
+			model.addAttribute("count", count);
+			int startIndex=(currentPage-1)*CommonUtility.FETCH_SIZE;
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("fetchSize", CommonUtility.FETCH_SIZE);
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("message", "Total jobs found matching your criteria "+count);
+			int fetchSize=(int)( (startIndex+CommonUtility.FETCH_SIZE)<count?CommonUtility.FETCH_SIZE:(count-startIndex));
+			
+			List<Country> countryList=countryService.getPagedCountryList(startIndex, fetchSize,searchString);
+			model.addAttribute("countryList", countryList);
+		}
+		
+		return "jobSeekerHome";
+	}
 }
