@@ -26,7 +26,7 @@
     </form:form>
     
     <div class="container">
-    <a class="btn btn-default" href='<c:url value="/callDetails?currentPage=1&searchString="/>' role="button">View Countries with Codes</a>
+    <a class="btn btn-default" href='<c:url value="/callDetails?currentPage=1&searchString="/>' role="button">View Call Details</a>
     </div>
 </body>
 </html>

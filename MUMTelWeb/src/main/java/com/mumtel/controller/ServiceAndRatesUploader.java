@@ -45,7 +45,7 @@ public class ServiceAndRatesUploader {
 	@RequestMapping(value = "/showServiceAndRateUploader", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		model.addAttribute("fileuploadForm", new FileuploadForm());
-		return "uploadCallDetails";
+		return "uploadServicesAndRates";
 	}
 
 	@RequestMapping(value = "/uploadServicesAndRates", method = RequestMethod.POST)
@@ -84,13 +84,14 @@ public class ServiceAndRatesUploader {
 			Set<String> allServices=new HashSet<String>();
 			
 			for(int i=0;i<totalServices;i++ ){
-				allServices.add(workbook.getSheetName(i).split("_")[1]);
+				allServices.add(workbook.getSheetName(i).split("_")[0]);
 			}
 			
 			//create all services first
 			if(logger.isDebugEnabled()){
 				logger.debug(Arrays.toString(allServices.toArray()));
 			}
+			//save in database all services if it doesnt exist in db
 			
 			//create Service Country Object
 			
@@ -103,7 +104,7 @@ public class ServiceAndRatesUploader {
 				String[] country_service=workbook.getSheetName(i).split("_");
 				
 				Service service=null;//fetch from service 
-				ServiceCountry serviceCountry=new ServiceCountry(countryService.getCountry(country_service[0]), service, new Date());
+				ServiceCountry serviceCountry=new ServiceCountry(countryService.getCountry(country_service[1]), service, new Date());
 				
 				List<CallRates> callRateList = new ArrayList<CallRates>();
 				for (Row row : sheet) {
@@ -125,6 +126,7 @@ public class ServiceAndRatesUploader {
 			if (logger.isDebugEnabled()) {
 				logger.debug(new PrettyPrintingMap<ServiceCountry, List<CallRates>>(serviceCallRates).toString());
 			}
+			//save servicecountry if it doesnt exist save all rates
 
 		} catch (IOException e) {
 			e.printStackTrace();
