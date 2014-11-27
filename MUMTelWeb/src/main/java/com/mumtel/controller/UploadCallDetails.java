@@ -81,14 +81,14 @@ public class UploadCallDetails {
    							
 							countryService.getCountry(ExcelUtil.getIntValueFromCell(row.getCell(0))),
 							countryService.getCountry(ExcelUtil.getIntValueFromCell(row.getCell(1))),
-							ExcelUtil.getIntValueFromCell(row.getCell(4)), 
+							ExcelUtil.getIntValueFromCell(row.getCell(4)),String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(6))),
 							ExcelUtil.getDateValueFromCell(row.getCell(5)));
                callDetailList.add(detail);
                
             }
            // countryService.createAll(countriesList);
             if(logger.isDebugEnabled()){
-            	logger.debug(Arrays.toString(callDetailList.toArray()));
+//            	logger.debug(Arrays.toString(callDetailList.toArray()))/;
             }
             callDetailService.createAll(callDetailList);
             

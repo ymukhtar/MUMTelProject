@@ -89,7 +89,7 @@
 				<form class="form-horizontal" role="form" method="POST" id="searchFrom">
 					<div class="form-group form-group-lg">
 						<input type="text" name="searchType" id="searchType" value="${searchString}"
-							placeholder="Country Name"
+							placeholder="Phone Number"
 							class="form-control">
 					</div>
 					<div class="form-group form-group-lg">
@@ -111,15 +111,15 @@
 					<th>From Phone</th>
 					<th>To Phone</th>
 					<th>Call Date</th>
-					<th>Duration</th>
+					<th>Duration(sec)</th>
 				</tr>
 			<thead>
 			<tbody>
-			<c:forEach var="call" items="${callDetailList}" varStatus="loop">
+			<c:forEach var="call" items="${callDetailsList}" varStatus="loop">
 				<tr>
 					<td>${loop.index+1}</td>
-					<td>${call.fromCallingCode}</td>
-					<td>${call.toCallingCode}</td>
+					<td>${call.fromCallingCode.callingCode}</td>
+					<td>${call.toCallingCode.callingCode}</td>
 					<td>${call.fromTel}</td>
 					<td>${call.toTel}</td>
 					<td>${call.callDateandTime}</td>
