@@ -1,7 +1,5 @@
 package com.mumtel.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -31,7 +29,7 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+		System.out.print("redirecting to home");
 		return "adminHome";
 	}
 	

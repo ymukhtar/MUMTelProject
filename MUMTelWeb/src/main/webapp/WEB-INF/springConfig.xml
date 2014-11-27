@@ -51,7 +51,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
 		<property name="url"
-			value="jdbc:sqlserver://10.10.13.221;databaseName=mumtel" />
+			value="jdbc:sqlserver://localhost;databaseName=mumtel" />
 		<property name="username" value="sa" />
 		<property name="password" value="mumsql" />
 

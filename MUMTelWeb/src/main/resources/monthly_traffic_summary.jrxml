@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="montly_traffic_summary" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f46c6ce7-b339-4a9d-8a4a-9a6abdb13ac7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="12"/>
+	<subDataset name="Table Dataset 1" uuid="002887a9-cd33-472c-83d9-603f3d11dd42"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="20" width="236" height="59" uuid="ad79d89a-2f95-4777-8fb9-14d1de6a1129"/>
+				<imageExpression><![CDATA["C:\\Users\\sheye\\Downloads\\project files\\final_logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="179" y="15" width="208" height="20" uuid="f9bf252a-acc7-4ade-a904-a111cdbbc498"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUMTel Monthly Traffic  Summary]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="e6b0f054-8e92-49a9-a4a3-e494ad522efe"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="2" width="100" height="20" uuid="f878841f-f5fa-439e-a1a9-4b91e56965a6"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="2" width="100" height="20" uuid="74c94cf5-6a46-449b-92e1-d871fba482f8"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="2" width="130" height="20" uuid="924f2d30-73f4-4587-a46f-40ef6233a009"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Minutes of Calls]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-22" y="-1" width="600" height="1" uuid="8fadf68e-81d3-477e-adb8-ebad67cae369"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

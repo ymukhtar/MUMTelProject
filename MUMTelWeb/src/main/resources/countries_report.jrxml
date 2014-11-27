@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="countries_report" language="groovy" columnCount="3" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c1fc2df7-3065-4081-a2c7-1dff670e99f5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="callingCode" class="java.lang.Integer"/>
+	<field name="countryName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="111" y="0" width="444" height="61" backcolor="#FFFFFF" uuid="106e460f-8716-4bd5-afba-1db348c7302f"/>
+				<staticText>
+					<reportElement mode="Transparent" x="15" y="10" width="409" height="49" forecolor="#000000" backcolor="#FFFFFF" uuid="76f0f2c6-b6f1-4155-9d88-f9112255534d"/>
+					<textElement>
+						<font fontName="Times New Roman" size="36" isBold="true"/>
+					</textElement>
+					<text><![CDATA[MUMTEL Billing System]]></text>
+				</staticText>
+			</frame>
+			<image scaleImage="FillFrame">
+				<reportElement x="2" y="1" width="111" height="59" uuid="cea063d8-c7ab-4a8c-9ba3-97a21dec1149"/>
+				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="-21" y="60" width="593" height="1" uuid="9c899468-fa00-457a-92c2-38e874c3fd08"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="60" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="7" width="100" height="20" uuid="6f5e370e-15f4-459a-97cd-eeb8757bd0e7"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="27" width="555" height="33" backcolor="#808080" uuid="78a5e066-055d-448b-878c-3cb3f8b2d184"/>
+				<staticText>
+					<reportElement x="228" y="8" width="121" height="20" forecolor="#FFFFFF" uuid="405016b9-fc03-4622-b169-00cd5211eace"/>
+					<textElement>
+						<font fontName="Arial Black" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Countries List]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="86" y="0" width="89" height="20" uuid="87a55199-d118-4505-8639-50e780a077d2"/>
+				<text><![CDATA[Country Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="0" width="84" height="20" uuid="a667df7a-6bd5-47d9-ad7e-874acf7e96b8"/>
+				<text><![CDATA[Country Code]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="86" y="0" width="89" height="20" uuid="22154a83-121c-4170-9ed6-c16b0b21025b"/>
+				<textFieldExpression><![CDATA[$F{countryName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="86" height="20" isRemoveLineWhenBlank="true" uuid="5be8d4bb-bd99-487b-a830-fad2271814f3"/>
+				<textFieldExpression><![CDATA[$F{callingCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="10" width="80" height="20" uuid="22044a06-102a-4b4d-9d66-59cf22032734"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="86" y="10" width="40" height="20" uuid="75b84902-94c3-492a-9b2d-62374d6532c8"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

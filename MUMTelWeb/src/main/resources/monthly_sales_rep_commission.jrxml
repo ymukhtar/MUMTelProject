@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_sales_rep_commission" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c44a8d5a-d53f-4645-855d-8bb5eeb3d00e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="-1" y="17" width="201" height="62" uuid="a773af30-b44d-4009-b9b9-ccef600009d4"/>
+				<imageExpression><![CDATA["C:\\Users\\sheye\\Downloads\\project files\\final_logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="33" width="100" height="20" uuid="7cd526e8-9630-4786-bb88-2d12528c84b7"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="33" width="100" height="20" uuid="637cf9e2-32d7-45d3-a781-62b7150864b8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pohone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="33" width="100" height="20" uuid="428c7113-0bc7-40f8-82a8-c673f3a107bc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="33" width="100" height="20" uuid="e02468e1-9922-4eb5-b439-0eef6cb40b5a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="33" width="100" height="20" uuid="128d8965-bab0-4745-88e1-8ea4b39c43af"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destination]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="33" width="100" height="20" uuid="499c5048-e93e-45cf-8ab9-331392a94811"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duration]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="33" width="100" height="20" uuid="eecba9e5-6a0e-4cd6-8f97-9b430751c40a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cost]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="481" y="33" width="100" height="20" uuid="78061d20-914c-4a6a-8a43-500a5e08612a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comission]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="d452772f-5e38-44df-82bb-565440e40a04"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="154" y="0" width="100" height="20" uuid="74600d6a-db22-47c9-a56f-63f8eb3458af"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="20" uuid="a919ebc8-2f31-420b-b78e-aff53448c9ff"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sales Rep Name:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="15" width="100" height="20" uuid="57c6e380-139f-4f22-8afa-d57c214c7c19"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Comission:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
