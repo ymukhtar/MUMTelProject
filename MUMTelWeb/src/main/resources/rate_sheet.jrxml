@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rate_sheet" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="87d89a04-62a1-4dd9-bdc4-56bc26d5971e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="12" width="132" height="67" uuid="05c0ff08-3755-48ea-8b44-11170e5991c2"/>
+				<imageExpression><![CDATA["C:\\Users\\sheye\\Downloads\\project files\\final_logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="207" y="15" width="129" height="20" uuid="e070df78-2971-4ebf-ab9f-03aa0ec91620"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUMTel Rate Sheet]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="33" width="77" height="20" uuid="f69f5048-a15d-4840-83d0-5b64c2d6a03f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destination]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="33" width="64" height="20" uuid="4e01e45f-075d-42e4-96a3-3056aaa4d40b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peak Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="33" width="82" height="20" uuid="8ad159a1-5b93-4887-905a-410e79946a6b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Off_Peak Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="33" width="100" height="20" uuid="906cf2ac-c78a-467a-996d-40c56b4be762"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destination]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="33" width="100" height="20" uuid="767d0da9-3a22-4402-ba3f-c668ea9f4e59"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peak Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="33" width="100" height="20" uuid="fc03612c-0576-45b3-bd51-6b10fd48e907"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Off_Peak Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="4" width="100" height="20" uuid="f0218e42-558b-42f5-af1c-1471ee9fdcaa"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="4" width="100" height="20" uuid="78fbbb95-8c28-489f-8f31-48c93fd97be5"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Source:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
