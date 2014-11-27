@@ -16,6 +16,9 @@
 			<table style="width:100%;text-align: center">
 				<tr>
 					<td>
+						<img alt="" src="<c:url value="/resources/images/final_logo.png"/>">
+					</td>
+					<td>
 						<a class="navbar-brand" href="<c:url value="/home"/>">MUMTel Home</a>
 					</td>
 					<td style="text-align: left">
