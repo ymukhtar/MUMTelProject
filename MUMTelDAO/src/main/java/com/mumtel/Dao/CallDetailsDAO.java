@@ -51,14 +51,16 @@ public class CallDetailsDAO extends AbstractMumTelDAO implements ICallDetailsDAO
 	public long getPagedCallDetailListCount(String criteriaString) {
 		// TODO Auto-generated method stub
 		String q="select count(c.id) From CallDetail c where 1=1 ";
-//		if(criteriaString!=null && criteriaString.length()>0)
-//		{
-//			q+=" AND c.countryName like :countryN";
-//		}
+		if(criteriaString!=null && criteriaString.length()>0)
+		{
+			q+=" AND c.fromTel like :fromt or c.toTel like :tot";
+		}
 		Query query=sessionFactory.getCurrentSession().createQuery(q);
-//		if(criteriaString!=null && criteriaString.length()>0){
-//			query.setParameter("countryN", "%"+criteriaString+"%");
-//		}
+		
+		if(criteriaString!=null && criteriaString.length()>0){
+			query.setParameter("fromt", "%"+criteriaString+"%");
+			query.setParameter("tot", "%"+criteriaString+"%");
+		}
 		return (Long) query.uniqueResult();
 	}
 
@@ -66,15 +68,16 @@ public class CallDetailsDAO extends AbstractMumTelDAO implements ICallDetailsDAO
 			String criteriaString) {
 		// TODO Auto-generated method stub
 		String q="From CallDetail c where 1=1";
-//		if(criteriaString!=null && criteriaString.length()>0)
-//		{
-//			q+=" AND c.countryName like :countryN";
-//		}
+		if(criteriaString!=null && criteriaString.length()>0)
+		{
+			q+=" AND c.fromTel like :fromt or c.toTel like :tot";
+		}
 		Query query=sessionFactory.getCurrentSession().createQuery(q);
 		
-//		if(criteriaString!=null && criteriaString.length()>0){
-//			query.setParameter("countryN", "%"+criteriaString+"%");
-//		}
+		if(criteriaString!=null && criteriaString.length()>0){
+			query.setParameter("fromt", "%"+criteriaString+"%");
+			query.setParameter("tot", "%"+criteriaString+"%");
+		}
 		
 		query.setFirstResult(start);
 		query.setMaxResults(fetchSize);
