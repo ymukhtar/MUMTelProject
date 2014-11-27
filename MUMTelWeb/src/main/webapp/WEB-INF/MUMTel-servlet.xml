@@ -31,6 +31,12 @@
 		<property name="maxUploadSize" value="500000" />
 	</bean>
 	
+	  <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location" value="/WEB-INF/jasper-views.xml"/>
+        <property name="order" value="0"/>
+    </bean> 
+    
+    <import resource="jasper-views.xml"/> 
 	<sec:global-method-security secured-annotations="enabled"></sec:global-method-security>
 	<!-- Lets us find resources (.html etc) through the default servlet -->
 	<mvc:default-servlet-handler/> 

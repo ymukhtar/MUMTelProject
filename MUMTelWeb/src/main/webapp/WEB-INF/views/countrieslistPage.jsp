@@ -97,6 +97,9 @@
 							class="glyphicon glyphicon-search"></span>&nbsp;Find Codes</a>
 					
 					</div>
+					<div class="form-group form-group-lg">
+					    	<a class="btn btn-default" href='<c:url value="/report/country_list_report/pdf"/>' role="button">Generate Countries Report</a>
+					</div>
 				</form>
 			</div>
 		</div>

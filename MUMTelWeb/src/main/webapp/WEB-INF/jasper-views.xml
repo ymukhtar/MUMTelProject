@@ -17,7 +17,7 @@
           p:reportDataKey="datasource" />
           
      <bean id="countryListXlsReport"
-          class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+          class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
           p:url="classpath:countries_report.jrxml"
           p:reportDataKey="datasource" />
      
