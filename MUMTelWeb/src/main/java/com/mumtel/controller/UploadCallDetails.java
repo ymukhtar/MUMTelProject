@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,32 +26,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICountryService;
+import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
 import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
-/**
- * 
- * @author ymukhtar
- *
- */
+
 @Controller
-public class UploadCallingCountriesController {
-	private static Logger logger=Logger.getLogger(UploadCallingCountriesController.class);
+public class UploadCallDetails {
 	
+	private static Logger logger=Logger.getLogger(UploadCallDetails.class);
+	
+	
+	@Autowired
+	private ICallDetailsService callDetailService;
 	@Autowired
 	private ICountryService countryService;
 	
-	@RequestMapping(value = "/showCountriesUploadForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/showUploadCallDetails", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		model.addAttribute("fileuploadForm",new FileuploadForm());
-		return "uploadCallingCountryCodes";
+		return "uploadCallDetails";
 	}
 	
 	@Secured(MumTelAuthorities.ROLE_ADMIN)
-	@RequestMapping(value="/uploadCallingCountries",method = RequestMethod.POST)
+	@RequestMapping(value="/uploadCallDetails",method = RequestMethod.POST)
     public String upload(FileuploadForm fileuploadForm, BindingResult result,Model model) {
 		
 		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
@@ -64,19 +67,30 @@ public class UploadCallingCountriesController {
                 throw new IllegalArgumentException("Received file does not have a standard excel extension.");
             }
            Sheet sheet= workbook.getSheetAt(0);
-           List<Country> countriesList=new ArrayList<Country>();
+           
+           
+           List<CallDetail> callDetailList=new ArrayList<CallDetail>();
             for (Row row : sheet) {
             	//skip the first row
                if (row.getRowNum() == 0) {
                  continue;
                }
-
-              countriesList.add(new Country(ExcelUtil.getIntValueFromCell(row.getCell(1)), row.getCell(0).getStringCellValue()));
+               
+               CallDetail detail=new CallDetail(String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(2))),
+							String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(3))), 
+   							
+							countryService.getCountry(ExcelUtil.getIntValueFromCell(row.getCell(0))),
+							countryService.getCountry(ExcelUtil.getIntValueFromCell(row.getCell(1))),
+							ExcelUtil.getIntValueFromCell(row.getCell(4)),String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(6))),
+							ExcelUtil.getDateValueFromCell(row.getCell(5)));
+               callDetailList.add(detail);
+               
             }
-            countryService.createAll(countriesList);
+           // countryService.createAll(countriesList);
             if(logger.isDebugEnabled()){
-            	logger.debug(Arrays.toString(countriesList.toArray()));
+//            	logger.debug(Arrays.toString(callDetailList.toArray()))/;
             }
+            callDetailService.createAll(callDetailList);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,31 +98,31 @@ public class UploadCallingCountriesController {
 
 		model.addAttribute("currentPage",1);
 		model.addAttribute("searchString","");
-		return "redirect:/countries";
+		return "redirect:/callDetails";
     }
 	
 	@Secured(MumTelAuthorities.ROLE_ADMIN)
-	@RequestMapping(value="/countries",method=RequestMethod.GET)
-	public String getCountries(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
+	@RequestMapping(value="/callDetails",method=RequestMethod.GET)
+	public String getCallDetails(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
 		
-		long count=countryService.getPagedCountryListCount(searchString);
+		long count=callDetailService.getPagedCallDetailListCount(searchString);
 		int totalPages=(int)Math.ceil(1.0*count/CommonUtility.FETCH_SIZE);
 		model.addAttribute("searchString", searchString);
 		if(count==0){
-			model.addAttribute("message", "No Country found matching your criteria!");
+			model.addAttribute("message", "No Call Details found matching your criteria!");
 		}else{
 			model.addAttribute("count", count);
 			int startIndex=(currentPage-1)*CommonUtility.FETCH_SIZE;
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("fetchSize", CommonUtility.FETCH_SIZE);
 			model.addAttribute("totalPages", totalPages);
-			model.addAttribute("message", "Total Countries found matching your criteria "+count);
+			model.addAttribute("message", "Total Call Details found matching your criteria "+count);
 			int fetchSize=(int)( (startIndex+CommonUtility.FETCH_SIZE)<count?CommonUtility.FETCH_SIZE:(count-startIndex));
 			
-			List<Country> countryList=countryService.getPagedCountryList(startIndex, fetchSize,searchString);
-			model.addAttribute("countryList", countryList);
+			List<CallDetail> callDetailList=callDetailService.getPagedCallDetailList(startIndex, fetchSize,searchString);
+			model.addAttribute("callDetailsList", callDetailList);
 		}
 		
-		return "countrieslistPage";
+		return "callDetailslistPage";
 	}
 }

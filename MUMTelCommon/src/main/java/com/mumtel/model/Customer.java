@@ -22,6 +22,7 @@ public class Customer extends Person implements Serializable{
 	private SalesRepCustomerRef salesRepAssigned;
 	@OneToMany(mappedBy="customer")
 	private List<Bill> bills;
+	
 	public Customer(String telephone) {
 		super();
 		this.telephone = telephone;

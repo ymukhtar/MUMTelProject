@@ -30,14 +30,14 @@
 		{}
 		else
 		{
-			var urlA="<%=request.getContextPath()%>/countries?currentPage="+page+"&searchString="+jQuery('#searchType').val();
+			var urlA="<%=request.getContextPath()%>/callDetails?currentPage="+page+"&searchString="+jQuery('#searchType').val();
 			window.location.href=urlA;
 		}
 
 	}
-	function findCodes(){
+	function findCallDetails(){
 		
-		var urlA="<%=request.getContextPath()%>/countries?currentPage=1&searchString="+jQuery('#searchType').val();
+		var urlA="<%=request.getContextPath()%>/callDetails?currentPage=1&searchString="+jQuery('#searchType').val();
 		window.location.href=urlA;
 		
 	}
@@ -83,18 +83,18 @@
 	<div class="jumbotron">
 		<div class="container">
 			<div class="row">
-				<p>Search Countries Calling Code</p>
+				<p>Search Call Details by Entering phone number</p>
 			</div>
 			<div class="row">
 				<form class="form-horizontal" role="form" method="POST" id="searchFrom">
 					<div class="form-group form-group-lg">
 						<input type="text" name="searchType" id="searchType" value="${searchString}"
-							placeholder="Country Name"
+							placeholder="Phone Number"
 							class="form-control">
 					</div>
 					<div class="form-group form-group-lg">
-						<a class="btn btn-default" role="button" onclick="findCodes();"><span
-							class="glyphicon glyphicon-search"></span>&nbsp;Find Codes</a>
+						<a class="btn btn-default" role="button" onclick="findCallDetails();"><span
+							class="glyphicon glyphicon-search"></span>&nbsp;Find Call Details</a>
 					
 					</div>
 				</form>
@@ -106,16 +106,24 @@
 			<thead>
 				<tr>
 					<th>Sr #</th>
-					<th>Calling Code</th>
-					<th>Country Name</th>
+					<th>From Country Code</th>
+					<th>To Country Code</th>
+					<th>From Phone</th>
+					<th>To Phone</th>
+					<th>Call Date</th>
+					<th>Duration(sec)</th>
 				</tr>
 			<thead>
 			<tbody>
-			<c:forEach var="country" items="${countryList}" varStatus="loop">
+			<c:forEach var="call" items="${callDetailsList}" varStatus="loop">
 				<tr>
 					<td>${loop.index+1}</td>
-					<td>${country.callingCode}</td>
-					<td>${country.countryName}</td>
+					<td>${call.fromCallingCode.callingCode}</td>
+					<td>${call.toCallingCode.callingCode}</td>
+					<td>${call.fromTel}</td>
+					<td>${call.toTel}</td>
+					<td>${call.callDateandTime}</td>
+					<td>${call.duration}</td>
 				</tr>
 			</c:forEach>
 			</tbody>

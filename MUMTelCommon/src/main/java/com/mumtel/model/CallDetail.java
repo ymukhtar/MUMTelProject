@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class CallDetail implements Serializable{
@@ -27,8 +28,15 @@ public class CallDetail implements Serializable{
 	private Country toCallingCode;
 	private int duration;
 	private Date callDateandTime;
+	@Transient
+	private String callTime;
+	
+	public CallDetail() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public CallDetail(String fromTel, String toTel,
-			Country fromCallingCode, Country toCallingCode, int duration,
+			Country fromCallingCode, Country toCallingCode, int duration,String callTime,
 			Date callDateandTime) {
 		super();
 		this.fromTel = fromTel;
@@ -36,7 +44,8 @@ public class CallDetail implements Serializable{
 		this.fromCallingCode = fromCallingCode;
 		this.toCallingCode = toCallingCode;
 		this.duration = duration;
-		this.callDateandTime = callDateandTime;
+		this.callTime=callTime;
+		setCallDateandTime(callDateandTime);
 	}
 	public String getFromTel() {
 		return fromTel;
@@ -72,7 +81,18 @@ public class CallDetail implements Serializable{
 		return callDateandTime;
 	}
 	public void setCallDateandTime(Date callDateandTime) {
+		if(callTime.length()==3)
+			callTime="0"+callTime;
+		callDateandTime.setHours(Integer.valueOf(callTime.substring(0, 2)));
+		callDateandTime.setMinutes(Integer.valueOf(callTime.substring(2, 4)));
 		this.callDateandTime = callDateandTime;
+	}
+	@Override
+	public String toString() {
+		return "CallDetail [callID=" + callID + ", fromTel=" + fromTel
+				+ ", toTel=" + toTel + ", fromCallingCode=" + fromCallingCode
+				+ ", toCallingCode=" + toCallingCode + ", duration=" + duration
+				+ ", callDateandTime=" + callDateandTime + "]";
 	}
 	
 }
