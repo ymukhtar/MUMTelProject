@@ -28,6 +28,10 @@ public class CallDetail implements Serializable{
 	private int duration;
 	private Date callDateandTime;
 	
+	public CallDetail() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public CallDetail(String fromTel, String toTel,
 			Country fromCallingCode, Country toCallingCode, int duration,
 			Date callDateandTime) {
@@ -74,6 +78,13 @@ public class CallDetail implements Serializable{
 	}
 	public void setCallDateandTime(Date callDateandTime) {
 		this.callDateandTime = callDateandTime;
+	}
+	@Override
+	public String toString() {
+		return "CallDetail [callID=" + callID + ", fromTel=" + fromTel
+				+ ", toTel=" + toTel + ", fromCallingCode=" + fromCallingCode
+				+ ", toCallingCode=" + toCallingCode + ", duration=" + duration
+				+ ", callDateandTime=" + callDateandTime + "]";
 	}
 	
 }

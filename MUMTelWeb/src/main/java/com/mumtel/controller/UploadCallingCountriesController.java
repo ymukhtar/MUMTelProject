@@ -50,14 +50,8 @@ public class UploadCallingCountriesController {
 	}
 	
 	@Secured(MumTelAuthorities.ROLE_ADMIN)
-	@RequestMapping(value = "/searchCountries", method = RequestMethod.GET)
-	public String searchCountries(Locale locale, Model model) {
-		model.addAttribute("currentPage",1);
-		return "countrieslistPage";
-	}
-
 	@RequestMapping(value="/uploadCallingCountries",method = RequestMethod.POST)
-    public String upload(FileuploadForm fileuploadForm, BindingResult result) {
+    public String upload(FileuploadForm fileuploadForm, BindingResult result,Model model) {
 		
 		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
         Workbook workbook;
@@ -72,10 +66,11 @@ public class UploadCallingCountriesController {
            Sheet sheet= workbook.getSheetAt(0);
            List<Country> countriesList=new ArrayList<Country>();
             for (Row row : sheet) {
-            	//skip the first two rows
-               if (row.getRowNum() == 0 || row.getRowNum()==1) {
+            	//skip the first row
+               if (row.getRowNum() == 0) {
                  continue;
                }
+
               countriesList.add(new Country(ExcelUtil.getIntValueFromCell(row.getCell(1)), row.getCell(0).getStringCellValue()));
             }
             countryService.createAll(countriesList);
@@ -87,12 +82,14 @@ public class UploadCallingCountriesController {
             e.printStackTrace();
         }
 
-        return "countrieslistPage";
+		model.addAttribute("currentPage",1);
+		model.addAttribute("searchString","");
+		return "redirect:/countries";
     }
 	
 	@Secured(MumTelAuthorities.ROLE_ADMIN)
 	@RequestMapping(value="/countries",method=RequestMethod.GET)
-	public String getJobSeekerHome(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
+	public String getCountries(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
 		
 		long count=countryService.getPagedCountryListCount(searchString);
 		int totalPages=(int)Math.ceil(1.0*count/CommonUtility.FETCH_SIZE);

@@ -16,9 +16,15 @@ public class Service implements Serializable{
 	@Id
 	private int serviceCode;
 	private String description;
-	public Service(int serviceCode, String description) {
+	private int countryCode;
+	
+	public Service() {
 		super();
-		this.serviceCode = serviceCode;
+		// TODO Auto-generated constructor stub
+	}
+	public Service(int countryCode, String description) {
+		super();
+		this.countryCode = countryCode;
 		this.description = description;
 	}
 	public int getServiceCode() {
@@ -33,5 +39,12 @@ public class Service implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public int getCountryCode() {
+		return countryCode;
+	}
+	public void setCountryCode(int countryCode) {
+		this.countryCode = countryCode;
+	}
+	
 	
 }
