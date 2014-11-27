@@ -13,8 +13,8 @@
 </head>
 <body>
 	<h1>Welcome home <sec:authentication property="principal.username" /></h1>
-	
 	<a class="btn btn-default" href="<c:url value="/showCountriesUploadForm"/>" role="button">Upload Countries Codes</a>
 	<a class="btn btn-default" href="<c:url value="/showUploadCallDetails"/>" role="button">Upload Call Data</a>
+	<a class="btn btn-default" href="<c:url value="/showServiceAndRateUploader"/>" role="button">Upload Services And Rates</a>
 </body>
 </html>
