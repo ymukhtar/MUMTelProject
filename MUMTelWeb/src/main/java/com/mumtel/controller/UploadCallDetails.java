@@ -49,7 +49,7 @@ public class UploadCallDetails {
 	@RequestMapping(value = "/showUploadCallDetails", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		model.addAttribute("fileuploadForm",new FileuploadForm());
-		return "uploadCallDetails";
+		return "uploadCallDetailsPage";
 	}
 	
 	@Secured(MumTelAuthorities.ROLE_ADMIN)
