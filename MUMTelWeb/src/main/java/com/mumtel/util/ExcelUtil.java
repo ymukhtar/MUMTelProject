@@ -21,6 +21,17 @@ public class ExcelUtil {
 		 return value;
 	}
 	
+	public static double getDoubleValueFromCell(Cell cell){
+		double value;
+		 if(Cell.CELL_TYPE_NUMERIC==cell.getCellType()){
+			 value=cell.getNumericCellValue();
+         }
+		 else{
+        	 value=Double.parseDouble(cell.getStringCellValue());
+         }
+		 return value;
+	}
+	
 	public static Date getDateValueFromCell(Cell cell){
 		if(HSSFDateUtil.isCellDateFormatted(cell)){
 			return HSSFDateUtil.getJavaDate(cell.getNumericCellValue());

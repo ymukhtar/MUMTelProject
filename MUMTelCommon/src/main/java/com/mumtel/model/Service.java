@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,17 +24,12 @@ public class Service implements Serializable{
 	@Id
 	private int serviceCode;
 	private String description;
-	@ManyToMany(mappedBy="servicesList")
-	private Set<Country> countryList=new HashSet<Country>();
+	@OneToMany(cascade =CascadeType.ALL ,mappedBy="service")
+	private Set<ServiceCountry> servicesCountryList=new HashSet<ServiceCountry>();
 	
 	public Service() {
 		super();
 	}
-	
-	public void addCountry(Country country){
-		this.countryList.add(country);
-	}
-	
 	
 	@Override
 	public int hashCode() {
@@ -57,11 +53,11 @@ public class Service implements Serializable{
 		return true;
 	}
 
-	public Service(Country country, String description) {
+	public Service( String description) {
 		super();
-		addCountry(country);
 		this.description = description;
 	}
+	
 	public int getServiceCode() {
 		return serviceCode;
 	}
@@ -74,5 +70,7 @@ public class Service implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+	public void addServiceCountry(ServiceCountry serviceCountry){
+		this.servicesCountryList.add(serviceCountry);
+	}
 }

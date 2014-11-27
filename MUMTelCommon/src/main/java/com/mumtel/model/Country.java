@@ -6,12 +6,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Country implements Serializable{
@@ -23,9 +25,8 @@ public class Country implements Serializable{
 	@Id
 	private int callingCode;
 	private String countryName;
-	@ManyToMany
-	@JoinTable(name = "SERVICE_COUNTRY", joinColumns = { @JoinColumn(name = "callingCode") }, inverseJoinColumns = { @JoinColumn(name = "serviceCode") })
-	private Set<Service> servicesList=new HashSet<Service>();
+	@OneToMany(cascade =CascadeType.ALL,mappedBy="country")
+	private Set<ServiceCountry> servicesCountryList=new HashSet<ServiceCountry>();
 	
 	
 	public Country() {
@@ -76,8 +77,8 @@ public class Country implements Serializable{
 		return "Country [callingCode=" + callingCode + ", countryName="
 				+ countryName + "]";
 	}
-	public void addService(Service service){
-		this.servicesList.add(service);
+	public void addService(ServiceCountry serviceCountry){
+		this.servicesCountryList.add(serviceCountry);
 	}
 	
 }
