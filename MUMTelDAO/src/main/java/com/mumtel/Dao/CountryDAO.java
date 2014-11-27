@@ -42,8 +42,8 @@ public class CountryDAO extends AbstractMumTelDAO implements ICountryDAO{
 	}
 
 	public Country get(String countryName) {
-		Query query=sessionFactory.getCurrentSession().createQuery("FROM Country c where c.name=:countryName");
-		query.setString(countryName, countryName);
+		Query query=sessionFactory.getCurrentSession().createQuery("FROM Country c where c.countryName=:countryName");
+		query.setString("countryName", countryName);
 		query.setMaxResults(1);
 		return (Country)query.uniqueResult();	
 	}

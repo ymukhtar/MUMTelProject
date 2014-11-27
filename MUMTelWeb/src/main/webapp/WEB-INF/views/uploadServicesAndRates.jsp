@@ -13,6 +13,7 @@
 </head>
 <body>
 <br>
+	<h1>Upload Services and Rates</h1>
     <form:form modelAttribute="fileuploadForm" method="post" enctype="multipart/form-data" action="uploadServicesAndRates">
     	<div class="container">
         <form:label class="lbl lbl-default" for="fileData" path="fileData">Select file</form:label><br/><br/>
