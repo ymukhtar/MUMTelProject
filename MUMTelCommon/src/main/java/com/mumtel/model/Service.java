@@ -1,10 +1,17 @@
 package com.mumtel.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Service implements Serializable{
@@ -16,15 +23,43 @@ public class Service implements Serializable{
 	@Id
 	private int serviceCode;
 	private String description;
-	private int countryCode;
+	@ManyToMany(mappedBy="servicesList")
+	private Set<Country> countryList=new HashSet<Country>();
 	
 	public Service() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public Service(int countryCode, String description) {
+	
+	public void addCountry(Country country){
+		this.countryList.add(country);
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + serviceCode;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Service other = (Service) obj;
+		if (serviceCode != other.serviceCode)
+			return false;
+		return true;
+	}
+
+	public Service(Country country, String description) {
 		super();
-		this.countryCode = countryCode;
+		addCountry(country);
 		this.description = description;
 	}
 	public int getServiceCode() {
@@ -39,12 +74,5 @@ public class Service implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getCountryCode() {
-		return countryCode;
-	}
-	public void setCountryCode(int countryCode) {
-		this.countryCode = countryCode;
-	}
-	
 	
 }

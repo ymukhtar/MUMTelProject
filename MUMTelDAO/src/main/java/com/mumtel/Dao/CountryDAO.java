@@ -41,6 +41,14 @@ public class CountryDAO extends AbstractMumTelDAO implements ICountryDAO{
 		return (Country)sessionFactory.getCurrentSession().load(Country.class, code);
 	}
 
+	public Country get(String countryName) {
+		Query query=sessionFactory.getCurrentSession().createQuery("FROM Country c where c.name=:countryName");
+		query.setString(countryName, countryName);
+		query.setMaxResults(1);
+		return (Country)query.uniqueResult();	
+	}
+
+
 	public List<Country> getAll() {
 		// TODO Auto-generated method stub
 		return sessionFactory.getCurrentSession().createQuery("From Country").list();

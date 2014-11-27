@@ -42,7 +42,11 @@ public class CountryService implements ICountryService{
 		// TODO Auto-generated method stub
 		return countryDAO.get(code);
 	}
-
+	
+	public Country getCountry(String countryName) {
+		return countryDAO.get(countryName);
+	}
+	
 	public List<Country> getAllCountry() {
 		// TODO Auto-generated method stub
 		return countryDAO.getAll();
