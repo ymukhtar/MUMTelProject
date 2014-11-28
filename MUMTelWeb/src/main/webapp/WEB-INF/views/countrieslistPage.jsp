@@ -42,7 +42,7 @@
 
 	<!-- Main jumbotron for a primary marketing message or call to action -->
 
-    <div id="page-wrapper" style="margin-left: 17%">
+    <div id="page-wrapper">
         <form:form modelAttribute="fileuploadForm" method="post" enctype="multipart/form-data" action="uploadCallingCountries">
     	<div class="container">
         <form:label class="lbl lbl-default" for="fileData" path="fileData">Select file</form:label><br/><br/>

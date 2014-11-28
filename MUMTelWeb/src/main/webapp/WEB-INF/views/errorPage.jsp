@@ -19,8 +19,9 @@
 
 <body>
 
-	<div id="page-wrapper" style="margin-left: 17%">
-		<h4>${errorMessage}</h4>
+	<div id="page-wrapper">
+	
+		<h4 class="error">${errorMessage}</h4>
 		<a class="btn btn-default" role="button" onclick="window.history.back();"><span
 			class="glyphicon glyphicon-search"></span>&nbsp;Go Back</a>
 	</div>

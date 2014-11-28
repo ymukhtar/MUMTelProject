@@ -29,7 +29,7 @@
 
 	<!-- Main jumbotron for a primary marketing message or call to action -->
 
-	<div id="page-wrapper" style="margin-left: 17%">
+	<div id="page-wrapper">
 		<form:form modelAttribute="fileuploadForm" method="post"
 			enctype="multipart/form-data" action="uploadServicesAndRates">
 			<div class="container">
@@ -84,7 +84,6 @@
 						<td>${loop.index+1}</td>
 						<td>${CountryService.service.description}</td>
 						<td>${CountryService.dateCreated}</td>
-						<td><a target="_blank" href="<c:url value="/report/rate_sheet/pdf?countryCode=${CountryService.country.callingCode}&serviceCode=${CountryService.service.serviceCode}"/>">Rate List</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

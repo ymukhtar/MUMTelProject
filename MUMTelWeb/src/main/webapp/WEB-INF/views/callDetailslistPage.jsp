@@ -41,7 +41,7 @@
 <body>
 
 	<!-- Main jumbotron for a primary marketing message or call to action -->
-	<div id="page-wrapper" style="margin-left: 17%">
+	<div id="page-wrapper">
 		<form:form modelAttribute="fileuploadForm" method="post"
 			enctype="multipart/form-data" action="uploadCallDetails">
 			<div class="container">
