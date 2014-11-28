@@ -110,6 +110,8 @@ public class ServiceAndRatesUploader {
 				logger.debug("All Services already exist");
 			}
 			
+			
+			
 			// create Service Country Object
 			Map<ServiceCountry, List<CallRates>> serviceCallRates = new HashMap<ServiceCountry, List<CallRates>>(
 					totalServices);

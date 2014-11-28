@@ -4,24 +4,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.IServiceCountryService;
 import com.mumtel.Idao.ICallRatesDAO;
-import com.mumtel.Idao.ICountryDAO;
 import com.mumtel.Idao.IServiceCountryDAO;
 import com.mumtel.model.CallRates;
-import com.mumtel.model.Country;
 import com.mumtel.model.ServiceCountry;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
 public class ServiceCountryService implements IServiceCountryService{
 
+	private static Logger logger = Logger.getLogger(ServiceCountryService.class);
 	@Autowired
 	private IServiceCountryDAO serviceCountryDAO;
 	
@@ -68,11 +67,18 @@ public class ServiceCountryService implements IServiceCountryService{
 		return serviceCountryDAO.getPagedServiceCountryList(start, fetchSize, criteriaString);
 	}
 
-	public void createAllServiceCountryAndCallRates(
-			Map<ServiceCountry, List<CallRates>> map) {
+	public void createAllServiceCountryAndCallRates(Map<ServiceCountry, List<CallRates>> map) {
+		
+		List<ServiceCountry> serviceCountryList=serviceCountryDAO.getAll();
 		//create all ServiceCountries
-		serviceCountryDAO.createAll(map.keySet());
+		//serviceCountryDAO.createAll(map.keySet());
+		ServiceCountry sc=null;
 		for(Map.Entry<ServiceCountry,List<CallRates>> entry:map.entrySet()){
+			sc=entry.getKey();
+			if(!serviceCountryList.contains(sc)){
+				logger.debug("creating** service country"+sc);
+				serviceCountryDAO.create(sc);
+			}
 			callRatesDAO.createAll(entry.getValue());
 		}
 		
