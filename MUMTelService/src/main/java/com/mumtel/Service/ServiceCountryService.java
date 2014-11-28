@@ -79,7 +79,7 @@ public class ServiceCountryService implements IServiceCountryService{
 				logger.debug("creating** service country"+sc);
 				serviceCountryDAO.create(sc);
 			}
-			callRatesDAO.createAll(entry.getValue());
+			callRatesDAO.createAll(entry.getValue(),sc);
 		}
 		
 	}

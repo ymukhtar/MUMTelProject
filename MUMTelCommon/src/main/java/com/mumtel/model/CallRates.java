@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,6 +25,8 @@ public class CallRates implements Serializable{
 	private float offPeakPeriodRate;
 	private Date dateFrom;
 	private Date dateTo;
+	@ManyToOne
+	private ServiceCountry serviceCountry;
 	
 	public CallRates(){
 		
@@ -38,6 +41,16 @@ public class CallRates implements Serializable{
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 	}
+	
+	
+	public ServiceCountry getServiceCountry() {
+		return serviceCountry;
+	}
+
+	public void setServiceCountry(ServiceCountry serviceCountry) {
+		this.serviceCountry = serviceCountry;
+	}
+
 	public Country getTocallingCode() {
 		return tocallingCode;
 	}

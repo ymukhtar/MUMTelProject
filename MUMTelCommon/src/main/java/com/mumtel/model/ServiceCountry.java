@@ -1,12 +1,15 @@
 package com.mumtel.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,6 +27,10 @@ public class ServiceCountry {
 	private Service service;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
+	
+	@OneToMany(mappedBy="serviceCountry")
+	private List<CallRates> callRateList=new ArrayList<CallRates>();
+	
 	
 	
 	
