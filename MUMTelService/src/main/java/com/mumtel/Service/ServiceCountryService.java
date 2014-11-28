@@ -78,6 +78,8 @@ public class ServiceCountryService implements IServiceCountryService{
 			if(!serviceCountryList.contains(sc)){
 				logger.debug("creating** service country"+sc);
 				serviceCountryDAO.create(sc);
+			}else{
+				sc=serviceCountryList.get(serviceCountryList.indexOf(sc));
 			}
 			callRatesDAO.createAll(entry.getValue(),sc);
 		}
