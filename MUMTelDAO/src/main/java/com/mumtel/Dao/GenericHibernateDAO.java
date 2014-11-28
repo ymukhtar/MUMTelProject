@@ -22,7 +22,6 @@ import com.mumtel.model.Country;
 public abstract class GenericHibernateDAO<T, ID extends Serializable>
 		implements IGenericDAO<T, ID> {
 	
-//	private static final Logger logger = LoggerFactory.getLogger(GenericHibernateDAO.class);
 
 	@Autowired
 	protected SessionFactory sessionFactory;
