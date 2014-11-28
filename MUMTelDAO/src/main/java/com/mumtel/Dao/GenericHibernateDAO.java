@@ -2,6 +2,7 @@ package com.mumtel.Dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -66,17 +67,11 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable>
 
 	public void create(T entity) {
 		sessionFactory.getCurrentSession().saveOrUpdate(entity);
-//		if (logger.isDebugEnabled()) {
-//			logger.debug(entityName + " saved successfully," + entityName
-//					+ " Details=" + entity);
-//		}
-		sessionFactory.getCurrentSession().flush();
-
 	}
 
 	public void update(T entity) {
 		sessionFactory.getCurrentSession().update(entity);
-		sessionFactory.getCurrentSession().flush();
+		//sessionFactory.getCurrentSession().flush();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -112,16 +107,10 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable>
 		return sessionFactory;
 	}
 
-	public void createAll(List<T> entity) {
-		// TODO Auto-generated method stub
-		for(T c:entity)
-			sessionFactory.getCurrentSession().persist(c);
-	}
 	
-	public void createAll(Set<T> entity) {
-		// TODO Auto-generated method stub
+	public void createAll(Collection<T> entity) {
 		for(T c:entity)
-			sessionFactory.getCurrentSession().persist(c);
+			sessionFactory.getCurrentSession().saveOrUpdate(c);
 	}
 
 }

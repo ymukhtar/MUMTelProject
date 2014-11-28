@@ -18,44 +18,48 @@ public class CallServicesService implements ICallServicesService{
 	@Autowired
 	private IServiceDAO serviceDAO;
 	public void createService(Service service) {
-		// TODO Auto-generated method stub
+		
 		serviceDAO.create(service);
 	}
 
 	public void createAll(Set<Service> service) {
-		// TODO Auto-generated method stub
+		
 		serviceDAO.createAll(service);
 	}
 
 	public void updateService(Service service) {
-		// TODO Auto-generated method stub
+		
 		serviceDAO.update(service);
 	}
 
 	public void deleteService(Service service) {
-		// TODO Auto-generated method stub
+		
 		serviceDAO.delete(service);
 	}
 
 	public Service getService(int code) {
-		// TODO Auto-generated method stub
+		
 		return serviceDAO.get(code);
 	}
 
 	public List<Service> getAllServices() {
-		// TODO Auto-generated method stub
+		
 		return serviceDAO.getAll();
 	}
 
 	public long getPagedServiceListCount(String searchCriteria) {
-		// TODO Auto-generated method stub
+		
 		return serviceDAO.getPagedServiceListCount(searchCriteria);
 	}
 
 	public List<Service> getPagedServiceList(int start,
 			int fetchSize, String criteriaString) {
-		// TODO Auto-generated method stub
+		
 		return serviceDAO.getPagedServiceList(start, fetchSize, criteriaString);
+	}
+
+	public Service getServiceByName(String desc) {
+		return serviceDAO.getByServiceName(desc);
 	}
 
 

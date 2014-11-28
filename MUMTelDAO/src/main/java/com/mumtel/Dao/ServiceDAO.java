@@ -36,9 +36,8 @@ public class ServiceDAO extends GenericHibernateDAO<Service, Integer> implements
 		return (Long) query.uniqueResult();
 	}
 
-	public List<Service> getPagedServiceList(int start, int fetchSize,
-			String criteriaString) {
-		// TODO Auto-generated method stub
+	public List<Service> getPagedServiceList(int start, int fetchSize, String criteriaString) {
+		
 		String q="From Service c where 1=1";
 		if(criteriaString!=null && criteriaString.length()>0)
 		{
@@ -50,9 +49,14 @@ public class ServiceDAO extends GenericHibernateDAO<Service, Integer> implements
 			query.setParameter("fromt", "%"+criteriaString+"%");
 			query.setParameter("tot", "%"+criteriaString+"%");
 		}
-		
 		query.setFirstResult(start);
 		query.setMaxResults(fetchSize);
 		return query.list();
+	}
+
+	public Service getByServiceName(String name) {
+		Query query=sessionFactory.getCurrentSession().createQuery("From Service s where s.description=:description");
+		query.setString("description", name);
+		return (Service)query.uniqueResult();
 	}
 }

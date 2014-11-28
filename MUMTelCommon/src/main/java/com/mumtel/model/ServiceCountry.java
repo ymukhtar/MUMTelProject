@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class ServiceCountry {
@@ -20,6 +22,7 @@ public class ServiceCountry {
 	@ManyToOne
 	@JoinColumn(name="service_code")
 	private Service service;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
 	
 	

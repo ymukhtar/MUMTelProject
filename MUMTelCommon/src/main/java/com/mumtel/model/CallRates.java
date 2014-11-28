@@ -24,6 +24,11 @@ public class CallRates implements Serializable{
 	private float offPeakPeriodRate;
 	private Date dateFrom;
 	private Date dateTo;
+	
+	public CallRates(){
+		
+	}
+	
 	public CallRates(Country tocallingCode, float peakPeriodRate,
 			float offPeakPeriodRate, Date dateFrom, Date dateTo) {
 		super();

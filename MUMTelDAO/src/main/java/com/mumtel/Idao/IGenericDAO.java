@@ -1,10 +1,8 @@
 package com.mumtel.Idao;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-
-import com.mumtel.model.Country;
 
 public interface IGenericDAO<T, ID extends Serializable> {
 
@@ -16,9 +14,7 @@ public interface IGenericDAO<T, ID extends Serializable> {
 
 		public void create(T entity);
 		
-		public void createAll(List<T> entity);
-		
-		public void createAll(Set<T> entity);
+		public void createAll(Collection<T> entity);
 		
 		public void update(T entity);
 		
