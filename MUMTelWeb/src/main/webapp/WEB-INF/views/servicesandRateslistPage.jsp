@@ -84,6 +84,7 @@
 						<td>${loop.index+1}</td>
 						<td>${CountryService.service.description}</td>
 						<td>${CountryService.dateCreated}</td>
+						<td><a target="_blank" href="<c:url value="/report/rate_sheet/pdf?countryCode=${CountryService.country.callingCode}&serviceCode=${CountryService.service.serviceCode}"/>">Rate List</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

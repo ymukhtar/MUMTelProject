@@ -64,4 +64,17 @@ public class CallRatesDAO extends GenericHibernateDAO<CallRates, Integer> implem
 		}
 	}
 
+	public List<CallRates> getAllcallRates(int countryCode, int serviceCode) {
+		
+		StringBuilder query=new StringBuilder("SELECT cr.*")
+							.append(" FROM CallRates cr ")
+							.append(" Inner JOIN ServiceCountry sc on cr.serviceCountry_serviceCountryID=sc.serviceCountryID ")
+							.append(" WHERE sc.serviceCode=:serviceCode AND sc.callingCode=:countryCode ");
+		
+		Query queryH=sessionFactory.getCurrentSession().createQuery(query.toString());
+		queryH.setInteger("serviceCode", serviceCode);
+		queryH.setInteger("countryCode", countryCode);
+		return (List<CallRates>)queryH.list();
+	}
+
 }

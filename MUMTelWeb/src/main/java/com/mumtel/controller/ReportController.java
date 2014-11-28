@@ -1,6 +1,7 @@
 package com.mumtel.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -15,9 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mumtel.IService.ICallRatesService;
 import com.mumtel.IService.ICountryService;
+import com.mumtel.model.CallRates;
 import com.mumtel.model.Country;
 
 @Controller
@@ -29,6 +33,9 @@ public class ReportController {
 
 	@Autowired
 	private ICountryService countryService;
+	@Autowired
+	private ICallRatesService callRateService;
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "country_list_report/pdf")
 	public ModelAndView generateCountryListPdfReport(ModelAndView modelAndView) {
@@ -100,15 +107,15 @@ public class ReportController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "rate_sheet/pdf")
-	public ModelAndView generateRateSheetPdfReport(ModelAndView modelAndView) {
+	public ModelAndView generateRateSheetPdfReport(ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode) {
 		System.out.println("Printing Report");
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		ArrayList<String> usersList = new ArrayList();
-		usersList.add("test1");
+		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode);
 
-		JRDataSource JRdataSource = new JRBeanCollectionDataSource(usersList);
+		logger.debug(Arrays.toString(callRateList.toArray()));
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);
 
 		parameterMap.put("datasource", JRdataSource);
 		modelAndView = new ModelAndView("RateSheetPdfReport", parameterMap);

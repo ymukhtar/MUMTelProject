@@ -64,5 +64,10 @@ public class CallRatesService implements ICallRatesService{
 		return callRatesDAO.getPagedCallRatesList(start, fetchSize, criteriaString);
 	}
 
+	public List<CallRates> getAllcallRates(int countryCode, int serviceCode) {
+		// TODO Auto-generated method stub
+		return callRatesDAO.getAllcallRates(countryCode, serviceCode);
+	}
+
 
 }
