@@ -49,11 +49,9 @@ public class Service implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Service other = (Service) obj;
-		if (this.description == other.description)
+		if (this.description.equals(other.description) && serviceCode == other.serviceCode)
 			return true;
-		if (serviceCode != other.serviceCode)
-			return false;
-		return true;
+		return false;
 	}
 
 	public Service(String description) {
