@@ -3,6 +3,7 @@ package com.mumtel.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,6 +41,7 @@ import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
+import com.mumtel.utils.PrettyPrintingMap;
 
 @Controller
 public class ServiceAndRatesUploader {
@@ -64,7 +66,8 @@ public class ServiceAndRatesUploader {
 	public String upload(FileuploadForm fileuploadForm, BindingResult result,
 			Model model) {
 
-		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
+		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm
+				.getFileData().getBytes());
 		Workbook workbook;
 		String fileName = fileuploadForm.getFileData().getOriginalFilename();
 		try {
@@ -90,28 +93,14 @@ public class ServiceAndRatesUploader {
 			calendar.set(Calendar.DAY_OF_MONTH, day);
 			Date fromDate = calendar.getTime();
 			int totalServices = workbook.getNumberOfSheets();
-			
-			//Create only those Services which dont Exist
-			List<Service> allServicesList=callServicesService.getAllServices();
-			
 			Set<Service> allServices = new HashSet<Service>();
 			for (int i = 0; i < totalServices; i++) {
-				Service s=new Service(
-						workbook.getSheetName(i).split("_")[0]);
-				if(!allServicesList.contains(s))
-					allServices.add(s);
+				allServices.add(new Service(
+						workbook.getSheetName(i).split("_")[0]));
 			}
 			// save in database all services if it doesnt exist in db
-			if(allServices.size()>0){
-				callServicesService.createAll(allServices);
-				allServicesList=callServicesService.getAllServices();
-			}
-			else{
-				logger.debug("All Services already exist");
-			}
-			
-			
-			
+			callServicesService.createAll(allServices);
+			List<Service> allServicesList=callServicesService.getAllServices();
 			// create Service Country Object
 			Map<ServiceCountry, List<CallRates>> serviceCallRates = new HashMap<ServiceCountry, List<CallRates>>(
 					totalServices);
@@ -140,6 +129,11 @@ public class ServiceAndRatesUploader {
 				}
 				serviceCallRates.put(serviceCountry, callRateList);
 			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug(new PrettyPrintingMap<ServiceCountry, List<CallRates>>(
+//						serviceCallRates).toString());
+//			}
+			// save servicecountry if it doesnt exist save all rates
 			serviceCountryService.createAllServiceCountryAndCallRates(serviceCallRates);
 
 		} catch (IOException e) {
@@ -148,7 +142,7 @@ public class ServiceAndRatesUploader {
 
 		model.addAttribute("currentPage", 1);
 		model.addAttribute("searchString", "");
-		return "redirect:/callDetails";
+		return "redirect:/serviceAndRatesDetails";
 	}
 
 	private Service getServiceFromSet(List<Service> all, String desc) {
@@ -189,6 +183,7 @@ public class ServiceAndRatesUploader {
 			model.addAttribute("countryServiceList", countryServiceList);
 		}
 
+		model.addAttribute("fileuploadForm",new FileuploadForm());
 		return "servicesandRateslistPage";
 	}
 }
