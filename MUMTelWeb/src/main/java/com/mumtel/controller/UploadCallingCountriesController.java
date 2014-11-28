@@ -78,9 +78,11 @@ public class UploadCallingCountriesController {
             	logger.debug(Arrays.toString(countriesList.toArray()));
             }
             
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			model.addAttribute("errorMessage", "Invalid File or format Please Upload Calling countries XLS file");
+			return "errorPage";
+		}
 
 		model.addAttribute("currentPage",1);
 		model.addAttribute("searchString","");

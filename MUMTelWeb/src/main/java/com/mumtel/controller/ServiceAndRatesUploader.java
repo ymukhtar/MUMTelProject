@@ -131,7 +131,7 @@ public class ServiceAndRatesUploader {
 			serviceCountryService.createAllServiceCountryAndCallRates(serviceCallRates);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			model.addAttribute("errorMessage", "Invalid File or format");
+			model.addAttribute("errorMessage", "Invalid File or format please upload Rate List XLS File");
 			return "errorPage";
 		}
 		model.addAttribute("currentPage", 1);
