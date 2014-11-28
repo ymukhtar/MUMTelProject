@@ -7,7 +7,7 @@ import com.mumtel.model.Users;
 
 public interface ICountryService {
 
-	public void createCountry(Country country);
+	public void createCountryService(Country country);
 	public void createAll(List<Country> country);
 	public void updateCountry(Country country);
 	public void deleteCountry(Country country);

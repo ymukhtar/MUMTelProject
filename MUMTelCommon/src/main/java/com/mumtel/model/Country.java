@@ -80,5 +80,13 @@ public class Country implements Serializable{
 	public void addService(ServiceCountry serviceCountry){
 		this.servicesCountryList.add(serviceCountry);
 	}
+	public Set<ServiceCountry> getServicesCountryList() {
+		return servicesCountryList;
+	}
+	public void setServicesCountryList(Set<ServiceCountry> servicesCountryList) {
+		this.servicesCountryList = servicesCountryList;
+	}
+	
+	
 	
 }

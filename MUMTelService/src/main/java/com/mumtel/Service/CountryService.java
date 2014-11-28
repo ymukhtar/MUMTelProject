@@ -18,7 +18,7 @@ public class CountryService implements ICountryService{
 	@Autowired
 	private ICountryDAO countryDAO;
 	
-	public void createCountry(Country country) {
+	public void createCountryService(Country country) {
 		// TODO Auto-generated method stub
 		countryDAO.create(country);
 	}

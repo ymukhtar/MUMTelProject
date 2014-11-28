@@ -21,6 +21,6 @@ public interface IUserService {
 	public void createAuthorities(Authorities authorities);
 	public void updateUserAuthorities(Authorities authorities);
 	public void deleteUserAuthorities(Authorities authorities);
-	public Authorities getAuthorities(long id);
+	public Authorities getAuthorities(int id);
 	public List<Authorities> getAllAuthorities();
 }

@@ -61,7 +61,7 @@ public class UserService implements IUserService{
 		// TODO Auto-generated method stub
 		authoritiesDAO.delete(authorities);
 	}
-	public Authorities getAuthorities(long id) {
+	public Authorities getAuthorities(int id) {
 		// TODO Auto-generated method stub
 		return authoritiesDAO.get(id);
 	}

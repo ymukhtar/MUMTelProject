@@ -48,7 +48,6 @@
 					<button type="submit" class="btn btn-success">Sign in</button>
 				</form>
 			</div>
-			<a href="<c:url value="/showPDF"/>">Show PDF</a>
 			<!--/.navbar-collapse -->
 		</div>
 	</div>

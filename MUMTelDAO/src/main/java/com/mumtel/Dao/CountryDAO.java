@@ -13,47 +13,13 @@ import com.mumtel.model.Users;
 
 @Repository
 @Transactional(propagation=Propagation.MANDATORY)
-public class CountryDAO extends AbstractMumTelDAO implements ICountryDAO{
-
-	public void create(Country country) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().persist(country);
-	}
-	
-	public void createAll(List<Country> country) {
-		// TODO Auto-generated method stub
-		for(Country c:country)
-			sessionFactory.getCurrentSession().persist(c);
-	}
-
-	public void update(Country country) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().update(country);
-	}
-
-	public void delete(Country country) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().delete(country);
-	}
-
-	public Country get(int code) {
-		// TODO Auto-generated method stub
-		return (Country)sessionFactory.getCurrentSession().load(Country.class, code);
-	}
-
+public class CountryDAO extends GenericHibernateDAO<Country, Integer> implements ICountryDAO{
 	public Country get(String countryName) {
 		Query query=sessionFactory.getCurrentSession().createQuery("FROM Country c where c.countryName=:countryName");
 		query.setString("countryName", countryName);
 		query.setMaxResults(1);
 		return (Country)query.uniqueResult();	
 	}
-
-
-	public List<Country> getAll() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("From Country").list();
-	}
-
 	public long getPagedCountryListCount(String criteriaString) {
 		// TODO Auto-generated method stub
 		String q="select count(c.id) From Country c where 1=1 ";
