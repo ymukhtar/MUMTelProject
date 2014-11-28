@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -14,8 +15,10 @@ public class ServiceCountry {
 	@GeneratedValue
 	private int serviceCountryID;
 	@ManyToOne
+	@JoinColumn(name="country_code")
 	private Country country;
 	@ManyToOne
+	@JoinColumn(name="service_code")
 	private Service service;
 	private Date dateCreated;
 	

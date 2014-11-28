@@ -21,6 +21,7 @@ public class Service implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 8647028150067313610L;
+	
 	@Id
 	private int serviceCode;
 	private String description;
@@ -48,22 +49,18 @@ public class Service implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Service other = (Service) obj;
+		if (this.description == other.description)
+			return true;
 		if (serviceCode != other.serviceCode)
 			return false;
 		return true;
 	}
 
-	public Service( String description) {
+	public Service(String description) {
 		super();
 		this.description = description;
 	}
 	
-	public int getServiceCode() {
-		return serviceCode;
-	}
-	public void setServiceCode(int serviceCode) {
-		this.serviceCode = serviceCode;
-	}
 	public String getDescription() {
 		return description;
 	}
@@ -73,4 +70,13 @@ public class Service implements Serializable{
 	public void addServiceCountry(ServiceCountry serviceCountry){
 		this.servicesCountryList.add(serviceCountry);
 	}
+
+	public Set<ServiceCountry> getServicesCountryList() {
+		return servicesCountryList;
+	}
+
+	public void setServicesCountryList(Set<ServiceCountry> servicesCountryList) {
+		this.servicesCountryList = servicesCountryList;
+	}
+	
 }

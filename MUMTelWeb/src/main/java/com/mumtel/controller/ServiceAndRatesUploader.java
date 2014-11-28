@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,13 +21,19 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mumtel.IService.ICallRatesService;
+import com.mumtel.IService.ICallServicesService;
 import com.mumtel.IService.ICountryService;
+import com.mumtel.IService.IServiceCountryService;
+import com.mumtel.Service.CountryService;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.CallRates;
 import com.mumtel.model.Country;
@@ -33,6 +41,8 @@ import com.mumtel.model.Service;
 import com.mumtel.model.ServiceCountry;
 import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
+import com.mumtel.utils.CommonUtility;
+import com.mumtel.utils.MumTelAuthorities;
 import com.mumtel.utils.PrettyPrintingMap;
 
 @Controller
@@ -40,7 +50,13 @@ public class ServiceAndRatesUploader {
 	private static Logger logger = Logger.getLogger(UploadCallDetails.class);
 
 	@Autowired
+	ICallServicesService callServicesService;
+	@Autowired
+	ICallRatesService callRatesService;
+	@Autowired
 	ICountryService countryService;
+	@Autowired
+	IServiceCountryService serviceCountryService;
 
 	@RequestMapping(value = "/showServiceAndRateUploader", method = RequestMethod.GET)
 	public String displayForm(Model model) {
@@ -49,7 +65,7 @@ public class ServiceAndRatesUploader {
 	}
 
 	@RequestMapping(value = "/uploadServicesAndRates", method = RequestMethod.POST)
-	public String upload(FileuploadForm fileuploadForm, BindingResult result) {
+	public String upload(FileuploadForm fileuploadForm, BindingResult result,Model model) {
 
 		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm
 				.getFileData().getBytes());
@@ -81,10 +97,10 @@ public class ServiceAndRatesUploader {
 			
 			int totalServices = workbook.getNumberOfSheets();
 			
-			Set<String> allServices=new HashSet<String>();
+			Set<Service> allServices=new HashSet<Service>();
 			
 			for(int i=0;i<totalServices;i++ ){
-				allServices.add(workbook.getSheetName(i).split("_")[0]);
+				allServices.add(new Service(workbook.getSheetName(i).split("_")[0]));
 			}
 			
 			//create all services first
@@ -92,6 +108,9 @@ public class ServiceAndRatesUploader {
 				logger.debug(Arrays.toString(allServices.toArray()));
 			}
 			//save in database all services if it doesnt exist in db
+			
+			callServicesService.createAll(allServices);
+			
 			
 			//create Service Country Object
 			
@@ -117,21 +136,52 @@ public class ServiceAndRatesUploader {
 									countryService.getCountry(ExcelUtil.getIntValueFromCell(row.getCell(0))),
 									(float)ExcelUtil.getDoubleValueFromCell(row.getCell(1)), 
 									(float)ExcelUtil.getDoubleValueFromCell(row.getCell(2)),fromDate,null));
-					
 				}
 				
 				serviceCallRates.put(serviceCountry, callRateList);
+				
+				callRatesService.createAll(callRateList);
 			}
 			
 			if (logger.isDebugEnabled()) {
 				logger.debug(new PrettyPrintingMap<ServiceCountry, List<CallRates>>(serviceCallRates).toString());
 			}
 			//save servicecountry if it doesnt exist save all rates
+			serviceCountryService.createAll(serviceCallRates.keySet());
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return "countrieslistPage";
+		model.addAttribute("currentPage",1);
+		model.addAttribute("searchString","");
+		return "redirect:/callDetails";
+	}
+	
+	@Secured(MumTelAuthorities.ROLE_ADMIN)
+	@RequestMapping(value="/serviceAndRatesDetails",method=RequestMethod.GET)
+	public String getserviceAndRatesDetails(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
+		Country countryUSA=countryService.getCountry("United States of America");
+		Set<ServiceCountry> countryServiceList=countryUSA.getServicesCountryList();
+		long count=countryServiceList.size();
+		int totalPages=(int)Math.ceil(1.0*count/CommonUtility.FETCH_SIZE);
+		model.addAttribute("searchString", searchString);
+		if(count==0){
+			model.addAttribute("message", "No Calling Services found matching your criteria!");
+		}else{
+			model.addAttribute("count", count);
+			int startIndex=(currentPage-1)*CommonUtility.FETCH_SIZE;
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("fetchSize", CommonUtility.FETCH_SIZE);
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("message", "Total Call Details found matching your criteria "+count);
+			int fetchSize=(int)( (startIndex+CommonUtility.FETCH_SIZE)<count?CommonUtility.FETCH_SIZE:(count-startIndex));
+			
+//			List<CallDetail> callDetailList=callDetailService.getPagedCallDetailList(startIndex, fetchSize,searchString);
+			model.addAttribute("countryServiceList", countryServiceList);
+		}
+		
+		return "servicesandRateslistPage";
 	}
 }

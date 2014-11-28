@@ -2,11 +2,13 @@ package com.mumtel.Dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mumtel.Idao.IUserDAO;
+import com.mumtel.model.Country;
 import com.mumtel.model.Users;
 
 /**
@@ -17,23 +19,14 @@ import com.mumtel.model.Users;
 
 @Repository
 @Transactional(propagation=Propagation.MANDATORY)
-public class UserDAO extends AbstractMumTelDAO implements IUserDAO{
-	
-	
-	public void create(Users user) {
-		sessionFactory.getCurrentSession().persist(user);
-	}
-	public void update(Users user) {
-		sessionFactory.getCurrentSession().update(user);
-	}
-	public void delete(Users user) {
-		sessionFactory.getCurrentSession().delete(user);
-	}
+public class UserDAO extends GenericHibernateDAO<Users, Integer> implements IUserDAO{
+
 	public Users get(String userName) {
-		return (Users)sessionFactory.getCurrentSession().get(Users.class, userName);
+		// TODO Auto-generated method stub
+		Query query=sessionFactory.getCurrentSession().createQuery("FROM Users c where c.userName=:userName");
+		query.setString("userName", userName);
+		query.setMaxResults(1);
+		return (Users)query.uniqueResult();	
 	}
-	@SuppressWarnings("unchecked")
-	public List<Users> getAll() {
-		return sessionFactory.getCurrentSession().createQuery("From user").list();
-	}
+	
 }

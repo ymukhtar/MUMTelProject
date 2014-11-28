@@ -15,38 +15,7 @@ import com.mumtel.model.Users;
 
 @Repository
 @Transactional(propagation=Propagation.MANDATORY)
-public class CallDetailsDAO extends AbstractMumTelDAO implements ICallDetailsDAO{
-
-	public void create(CallDetail callDetail) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().persist(callDetail);
-	}
-	
-	public void createAll(List<CallDetail> callDetails) {
-		// TODO Auto-generated method stub
-		for(CallDetail c:callDetails)
-			sessionFactory.getCurrentSession().persist(c);
-	}
-
-	public void update(CallDetail callDetail) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().update(callDetail);
-	}
-
-	public void delete(CallDetail callDetail) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().delete(callDetail);
-	}
-
-	public CallDetail get(int code) {
-		// TODO Auto-generated method stub
-		return (CallDetail)sessionFactory.getCurrentSession().load(Country.class, code);
-	}
-
-	public List<CallDetail> getAll() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("From CallDetail").list();
-	}
+public class CallDetailsDAO extends GenericHibernateDAO<CallDetail, Integer> implements ICallDetailsDAO{
 
 	public long getPagedCallDetailListCount(String criteriaString) {
 		// TODO Auto-generated method stub

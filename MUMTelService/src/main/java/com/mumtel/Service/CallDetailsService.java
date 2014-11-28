@@ -16,7 +16,7 @@ import com.mumtel.model.Country;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
-public class CallDtailsService implements ICallDetailsService{
+public class CallDetailsService implements ICallDetailsService{
 
 	@Autowired
 	private ICallDetailsDAO callDetailsDAO;
