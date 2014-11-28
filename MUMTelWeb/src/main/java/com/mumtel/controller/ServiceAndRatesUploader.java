@@ -64,6 +64,7 @@ public class ServiceAndRatesUploader {
 		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
 		Workbook workbook;
 		String fileName = fileuploadForm.getFileData().getOriginalFilename();
+		List<Country> allCountries = countryService.getAllCountry();
 		try {
 			if (fileName.endsWith("xls")) {
 				workbook = new HSSFWorkbook(bis);
@@ -99,7 +100,7 @@ public class ServiceAndRatesUploader {
 				callServicesService.createAll(allServices);
 				allServicesList = callServicesService.getAllServices();
 			}
-			List<Country> allCountries = countryService.getAllCountry();
+			
 			// create Service Country Object
 			Map<ServiceCountry, List<CallRates>> serviceCallRates = new HashMap<ServiceCountry, List<CallRates>>(totalServices);
 			for (int i = 0; i < totalServices; i++) {
@@ -136,6 +137,7 @@ public class ServiceAndRatesUploader {
 		}
 		model.addAttribute("currentPage", 1);
 		model.addAttribute("searchString", "");
+		model.addAttribute("allCountries",allCountries);
 		return "redirect:/serviceAndRatesDetails";
 	}
 
@@ -171,14 +173,15 @@ public class ServiceAndRatesUploader {
 			HttpServletRequest request,
 			@RequestParam("currentPage") int currentPage,
 			@RequestParam("searchString") String searchString) {
-
-		Country countryUSA = countryService
-				.getCountry("United States of America");
-		Set<ServiceCountry> countryServiceList = countryUSA
-				.getServicesCountryList();
+		
+		List<Country> allCountries=countryService.getAllCountry();
+		if(searchString==null||searchString.isEmpty()){
+			searchString="1";
+		}
+		Country firstCountry = getCountryFromCode(Integer.parseInt(searchString), allCountries);
+		Set<ServiceCountry> countryServiceList = firstCountry.getServicesCountryList();
 		long count = countryServiceList.size();
-		int totalPages = (int) Math
-				.ceil(1.0 * count / CommonUtility.FETCH_SIZE);
+		int totalPages = (int) Math.ceil(1.0 * count / CommonUtility.FETCH_SIZE);
 		model.addAttribute("searchString", searchString);
 		if (count == 0) {
 			model.addAttribute("message",
@@ -191,12 +194,13 @@ public class ServiceAndRatesUploader {
 			model.addAttribute("totalPages", totalPages);
 			model.addAttribute("message",
 					"Total Call Details found matching your criteria " + count);
-			int fetchSize = (int) ((startIndex + CommonUtility.FETCH_SIZE) < count ? CommonUtility.FETCH_SIZE
-					: (count - startIndex));
+			int fetchSize = (int) ((startIndex + CommonUtility.FETCH_SIZE) < count ? CommonUtility.FETCH_SIZE: (count - startIndex));
 			model.addAttribute("countryServiceList", countryServiceList);
 		}
 
 		model.addAttribute("fileuploadForm", new FileuploadForm());
+		model.addAttribute("allCountries", allCountries);
+		model.addAttribute("selectedCountryCode",firstCountry.getCallingCode());
 		return "servicesandRateslistPage";
 	}
 }

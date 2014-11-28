@@ -21,12 +21,10 @@
 
 	<div id="page-wrapper" style="margin-left: 17%">
 		<h4>${errorMessage}</h4>
-	</div>
-
-	<div class="form-group form-group-lg">
 		<a class="btn btn-default" role="button" onclick="window.history.back();"><span
 			class="glyphicon glyphicon-search"></span>&nbsp;Go Back</a>
 	</div>
+
 
 </body>
 

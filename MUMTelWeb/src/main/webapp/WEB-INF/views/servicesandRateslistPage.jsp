@@ -14,28 +14,14 @@
 
 <title>MUMTel</title>
 <script type="text/javascript">
-	function nextPage(page){
-		if(page<1 || page>parseInt("${totalPages}",10))
-		{}
-		else
-		{
-			var urlA="<%=request.getContextPath()%>/serviceAndRatesDetails?currentPage="+page+"&searchString="+jQuery('#searchType').val();
-			window.location.href=urlA;
-		}
-
-	}
+	
 	function findCodes(){
-		
-		var urlA="<%=request.getContextPath()%>
-	/serviceAndRatesDetails?currentPage=1&searchString="
-				+ jQuery('#searchType').val();
+		var urlA="<%=request.getContextPath()%>/serviceAndRatesDetails?currentPage=1&searchString="+ jQuery('#searchType').val();
 		window.location.href = urlA;
-
 	}
 
 	jQuery(document).ready(function() {
-		jQuery('#pageSelection').val('${currentPage}');
-
+		jQuery('#searchType').val('${selectedCountryCode}');
 	});
 </script>
 </head>
@@ -65,15 +51,13 @@
 				<form class="form-horizontal" role="form" method="POST"
 					id="searchFrom">
 					<div class="form-group form-group-lg">
-						<input type="text" name="searchType" id="searchType"
-							value="${searchString}" placeholder="Country Name"
-							class="form-control">
+						<select name="searchType" id="searchType" class="form-control" onchange="findCodes();">
+							<c:forEach var="country" items="${allCountries}">
+						   		 <option value="${country.callingCode}">${country.countryName}</option>
+						   	 </c:forEach>
+						</select>
 					</div>
-					<div class="form-group form-group-lg">
-						<a class="btn btn-default" role="button" onclick="findCodes();"><span
-							class="glyphicon glyphicon-search"></span>&nbsp;Find Codes</a>
-
-					</div>
+					
 					<div class="form-group form-group-lg">
 						<a class="btn btn-default"
 							href='<c:url value="/report/country_list_report/pdf"/>'
@@ -85,8 +69,7 @@
 
 		<h3>${message}</h3>
 		<hr></hr>
-		<table id="example" class="table table-striped table-bordered"
-			cellspacing="20" width="100%">
+		<table id="example" class="table table-striped table-bordered" cellspacing="20" width="100%">
 			<thead>
 				<tr>
 					<th>Sr #</th>
@@ -105,28 +88,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<%--For displaying Page numbers. 
-    The when condition does not display a link for the current page--%>
-
-		<ul class="pager">
-			<li class="previous"><a onclick="nextPage('${currentPage-1}');">&larr;
-					Previous</a></li>
-			<li><select id="pageSelection" onchange="nextPage(this.value);">
-					<c:forEach begin="1" end="${totalPages}" varStatus="loop">
-						<option value="${loop.index}">${loop.index}</option>
-					</c:forEach>
-			</select></li>
-			<li class="next"><a onclick="nextPage('${currentPage+1}');">Next
-					&rarr;</a></li>
-		</ul>
-		<br>
-
-
-	</div>
-
-	<footer>
-		<p>&copy; Company 2014 Developed By Yasir Mukhtar & Awais Tariq</p>
-	</footer>
-	</div>
+		</div>
 </body>
 </html>
