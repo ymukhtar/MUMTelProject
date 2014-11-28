@@ -1,5 +1,6 @@
 package com.mumtel.Dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -13,6 +14,7 @@ import com.mumtel.Idao.ICountryDAO;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.CallRates;
 import com.mumtel.model.Country;
+import com.mumtel.model.ServiceCountry;
 import com.mumtel.model.Users;
 
 @Repository
@@ -53,6 +55,13 @@ public class CallRatesDAO extends GenericHibernateDAO<CallRates, Integer> implem
 		query.setFirstResult(start);
 		query.setMaxResults(fetchSize);
 		return query.list();
+	}
+	
+	public void createAll(Collection<CallRates> entityList,ServiceCountry sc){
+		for(CallRates cr:entityList){
+			cr.setServiceCountry(sc);
+			create(cr);
+		}
 	}
 
 }
