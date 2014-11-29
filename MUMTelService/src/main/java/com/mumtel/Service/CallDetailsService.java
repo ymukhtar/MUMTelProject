@@ -11,45 +11,21 @@ import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICountryService;
 import com.mumtel.Idao.ICallDetailsDAO;
 import com.mumtel.Idao.ICountryDAO;
+import com.mumtel.Idao.IGenericDAO;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
-public class CallDetailsService implements ICallDetailsService{
+public class CallDetailsService extends GenericService<CallDetail, Integer> implements ICallDetailsService{
 
 	@Autowired
 	private ICallDetailsDAO callDetailsDAO;
 	
-	public void createCallDetail(CallDetail callDetail) {
-		// TODO Auto-generated method stub
-		callDetailsDAO.create(callDetail);
+	public CallDetailsService()
+	{
 	}
 
-	public void createAll(List<CallDetail> callDetail) {
-		// TODO Auto-generated method stub
-		callDetailsDAO.createAll(callDetail);
-	}
-
-	public void updateCallDetail(CallDetail callDetail) {
-		// TODO Auto-generated method stub
-		callDetailsDAO.update(callDetail);
-	}
-
-	public void deleteCallDetail(CallDetail callDetail) {
-		// TODO Auto-generated method stub
-		callDetailsDAO.delete(callDetail);
-	}
-
-	public CallDetail getCallDetail(int code) {
-		// TODO Auto-generated method stub
-		return callDetailsDAO.get(code);
-	}
-	
-	public List<CallDetail> getAllCallDetail() {
-		// TODO Auto-generated method stub
-		return callDetailsDAO.getAll();
-	}
 	public long getPagedCallDetailListCount(String searchCriteria) {
 		// TODO Auto-generated method stub
 		return callDetailsDAO.getPagedCallDetailListCount(searchCriteria);
@@ -59,6 +35,12 @@ public class CallDetailsService implements ICallDetailsService{
 			 String criteriaString) {
 		// TODO Auto-generated method stub
 		return callDetailsDAO.getPagedCallDetailList(start, fetchSize, criteriaString);
+	}
+
+	@Override
+	public void setGenericDAO() {
+		genericDAO=callDetailsDAO;
+		
 	}
 
 }

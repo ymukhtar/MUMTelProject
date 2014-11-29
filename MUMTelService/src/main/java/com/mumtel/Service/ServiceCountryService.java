@@ -10,15 +10,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.IServiceCountryService;
 import com.mumtel.Idao.ICallRatesDAO;
 import com.mumtel.Idao.IServiceCountryDAO;
+import com.mumtel.model.CallDetail;
 import com.mumtel.model.CallRates;
 import com.mumtel.model.ServiceCountry;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
-public class ServiceCountryService implements IServiceCountryService{
+public class ServiceCountryService extends GenericService<ServiceCountry, Integer> implements IServiceCountryService{
 
 	private static Logger logger = Logger.getLogger(ServiceCountryService.class);
 	@Autowired
@@ -27,35 +29,7 @@ public class ServiceCountryService implements IServiceCountryService{
 	@Autowired
 	private ICallRatesDAO callRatesDAO;
 	
-	public void createCountryService(ServiceCountry country) {
-		// TODO Auto-generated method stub
-		serviceCountryDAO.create(country);
-	}
-
-	public void createAll(Set<ServiceCountry> country) {
-		// TODO Auto-generated method stub
-		serviceCountryDAO.createAll(country);
-	}
-
-	public void updateCountryService(ServiceCountry country) {
-		// TODO Auto-generated method stub
-		serviceCountryDAO.update(country);
-	}
-
-	public void deleteCountryService(ServiceCountry country) {
-		// TODO Auto-generated method stub
-		serviceCountryDAO.delete(country);
-	}
-
-	public ServiceCountry getCountryService(int code) {
-		// TODO Auto-generated method stub
-		return serviceCountryDAO.get(code);
-	}
 	
-	public List<ServiceCountry> getAllCountry() {
-		// TODO Auto-generated method stub
-		return serviceCountryDAO.getAll();
-	}
 	public long getPagedServiceCountryListCount(String searchCriteria) {
 		// TODO Auto-generated method stub
 		return serviceCountryDAO.getPagedServiceCountryListCount(searchCriteria);
@@ -84,5 +58,11 @@ public class ServiceCountryService implements IServiceCountryService{
 			callRatesDAO.createAll(entry.getValue(),sc);
 		}
 		
+	}
+
+	@Override
+	public void setGenericDAO() {
+		// TODO Auto-generated method stub
+		genericDAO=callRatesDAO;
 	}
 }

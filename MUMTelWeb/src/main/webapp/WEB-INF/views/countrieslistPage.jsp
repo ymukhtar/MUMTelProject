@@ -43,6 +43,7 @@
 	<!-- Main jumbotron for a primary marketing message or call to action -->
 
     <div id="page-wrapper">
+    	<center><h2>Upload Countries Calling Code</h2></center>
         <form:form modelAttribute="fileuploadForm" method="post" enctype="multipart/form-data" action="uploadCallingCountries">
     	<div class="container">
         <form:label class="lbl lbl-default" for="fileData" path="fileData">Select file</form:label><br/><br/>
@@ -56,7 +57,7 @@
     	</form:form>
 		<div class="container">
 			<div class="row">
-				<h2>Search Countries Calling Code</h2>
+				<h4>Search Countries Calling Code</h4>
 			</div>
 			<div class="row">
 				<form role="form" method="POST" id="searchFrom">
@@ -68,7 +69,8 @@
 					<div class="form-group form-group-lg">
 						<a class="btn btn-default" role="button" onclick="findCodes();"><span
 							class="glyphicon glyphicon-search"></span>&nbsp;Find Codes</a>
-					    <a class="btn btn-default" href='<c:url value="/report/country_list_report/pdf"/>' role="button">Generate Countries Report</a>
+					    <a class="btn btn-default" href='<c:url value="/report/country_list_report/pdf"/>' role="button">Generate Countries Report PDF</a>
+					    <a class="btn btn-default" href='<c:url value="/report/country_list_report/xls"/>' role="button">Generate Countries Report Excel</a>
 					
 					</div>
 					<div class="form-group form-group-lg">

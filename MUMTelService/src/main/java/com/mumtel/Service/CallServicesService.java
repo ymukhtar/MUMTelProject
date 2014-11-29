@@ -7,46 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICallServicesService;
+import com.mumtel.Idao.IGenericDAO;
 import com.mumtel.Idao.IServiceDAO;
+import com.mumtel.model.CallDetail;
 import com.mumtel.model.Service;
 
 @org.springframework.stereotype.Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
-public class CallServicesService implements ICallServicesService{
+public class CallServicesService extends GenericService<Service, Integer> implements ICallServicesService{
 
 	@Autowired
 	private IServiceDAO serviceDAO;
-	public void createService(Service service) {
-		
-		serviceDAO.create(service);
-	}
-
-	public void createAll(Set<Service> service) {
-		
-		serviceDAO.createAll(service);
-	}
-
-	public void updateService(Service service) {
-		
-		serviceDAO.update(service);
-	}
-
-	public void deleteService(Service service) {
-		
-		serviceDAO.delete(service);
-	}
-
-	public Service getService(int code) {
-		
-		return serviceDAO.get(code);
-	}
-
-	public List<Service> getAllServices() {
-		
-		return serviceDAO.getAll();
-	}
-
+	
 	public long getPagedServiceListCount(String searchCriteria) {
 		
 		return serviceDAO.getPagedServiceListCount(searchCriteria);
@@ -60,6 +34,12 @@ public class CallServicesService implements ICallServicesService{
 
 	public Service getServiceByName(String desc) {
 		return serviceDAO.getByServiceName(desc);
+	}
+
+
+	@Override
+	public void setGenericDAO() {
+		genericDAO=serviceDAO;
 	}
 
 

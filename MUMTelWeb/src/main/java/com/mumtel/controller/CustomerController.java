@@ -28,82 +28,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICountryService;
+import com.mumtel.IService.ICustomerService;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
+import com.mumtel.model.Customer;
 import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
 
 @Controller
-public class UploadCallDetails {
+@Secured(MumTelAuthorities.ROLE_ADMIN)
+public class CustomerController {
 	
-	private static Logger logger=Logger.getLogger(UploadCallDetails.class);
-	
+	private static Logger logger=Logger.getLogger(CustomerController.class);
 	
 	@Autowired
 	private ICallDetailsService callDetailService;
-	@Autowired
-	private ICountryService countryService;
 	
-	@RequestMapping(value = "/showUploadCallDetails", method = RequestMethod.GET)
+	@Autowired
+	private ICustomerService customerService;
+
+	
+	@RequestMapping(value = "/registerCustomer", method = RequestMethod.GET)
 	public String displayForm(Model model) {
-		model.addAttribute("fileuploadForm",new FileuploadForm());
-		return "uploadCallDetailsPage";
+		model.addAttribute("customer",new Customer());
+		return "registerCustomerPage";
 	}
 	
-	@Secured(MumTelAuthorities.ROLE_ADMIN)
-	@RequestMapping(value="/uploadCallDetails",method = RequestMethod.POST)
-    public String upload(FileuploadForm fileuploadForm, BindingResult result,Model model) {
-		
-		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
-        Workbook workbook;
-        try {
-            if (fileuploadForm.getFileData().getOriginalFilename().endsWith("xls")) {
-                workbook = new HSSFWorkbook(bis);
-            } else if (fileuploadForm.getFileData().getOriginalFilename().endsWith("xlsx")) {
-                workbook = new XSSFWorkbook(bis);
-            } else {
-                throw new IllegalArgumentException("Received file does not have a standard excel extension.");
-            }
-           Sheet sheet= workbook.getSheetAt(0);
-           
-           
-           List<CallDetail> callDetailList=new ArrayList<CallDetail>();
-            for (Row row : sheet) {
-            	//skip the first row
-               if (row.getRowNum() == 0) {
-                 continue;
-               }
-               
-               CallDetail detail=new CallDetail(String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(2))),
-							String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(3))), 
-   							
-							countryService.get(ExcelUtil.getIntValueFromCell(row.getCell(0))),
-							countryService.get(ExcelUtil.getIntValueFromCell(row.getCell(1))),
-							ExcelUtil.getIntValueFromCell(row.getCell(4)),String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(6))),
-							ExcelUtil.getDateValueFromCell(row.getCell(5)));
-               callDetailList.add(detail);
-               
-            }
-           // countryService.createAll(countriesList);
-            if(logger.isDebugEnabled()){
-//            	logger.debug(Arrays.toString(callDetailList.toArray()))/;
-            }
-            callDetailService.createAll(callDetailList);
-            
-        } catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			model.addAttribute("errorMessage", "Invalid File or format please upload Call Log File");
-			return "errorPage";
-		}
-		model.addAttribute("currentPage",1);
-		model.addAttribute("searchString","");
-		return "redirect:/callDetails";
-    }
+	@RequestMapping(value = "/saveCustomer", method = RequestMethod.GET)
+	public String save(Customer customer, BindingResult result,Model model) {
+		customerService.create(customer);
+		return "registerCustomerPage";
+	}
 	
-	@Secured(MumTelAuthorities.ROLE_ADMIN)
-	@RequestMapping(value="/callDetails",method=RequestMethod.GET)
+	@RequestMapping(value="/customerDetails",method=RequestMethod.GET)
 	public String getCallDetails(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
 		
 		long count=callDetailService.getPagedCallDetailListCount(searchString);

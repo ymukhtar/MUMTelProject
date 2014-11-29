@@ -42,6 +42,7 @@
 
 	<!-- Main jumbotron for a primary marketing message or call to action -->
 	<div id="page-wrapper">
+	<center><h2>Upload Call Details</h2></center>
 		<form:form modelAttribute="fileuploadForm" method="post"
 			enctype="multipart/form-data" action="uploadCallDetails">
 			<div class="container">
@@ -57,7 +58,7 @@
 		</form:form>
 		<div class="container">
 			<div class="row">
-				<h2>Search Call Details by Entering phone number</h2>
+				<h4>Search Call Details by Entering phone number</h4>
 			</div>
 			<div class="row">
 				<form class="form-horizontal" role="form" method="POST"

@@ -78,7 +78,7 @@
                         <a href="<c:url value="/callDetails?currentPage=1&searchString="/>"><i class="fa fa-fw fa-bar-chart-o"></i> Upload Call Details</a>
                     </li>
                     <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Register Customer</a>
+                        <a href="<c:url value="/registerCustomer?currentPage=1&searchString="/>"><i class="fa fa-fw fa-desktop"></i> Register Customer</a>
                     </li>
                 </ul>
             </div>
