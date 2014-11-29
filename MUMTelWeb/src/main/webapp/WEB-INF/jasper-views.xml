@@ -29,7 +29,8 @@
         <bean id="customerBillsPdfReport"
           class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
           p:url="classpath:customer_bills.jrxml"
-          p:reportDataKey="datasource" />
+          p:reportDataKey="datasource"         
+          />
           
           
               <bean id="RateSheetPdfReport"
