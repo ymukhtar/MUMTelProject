@@ -79,8 +79,8 @@ public class UploadCallDetails {
                CallDetail detail=new CallDetail(String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(2))),
 							String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(3))), 
    							
-							countryService.getCountry(ExcelUtil.getIntValueFromCell(row.getCell(0))),
-							countryService.getCountry(ExcelUtil.getIntValueFromCell(row.getCell(1))),
+							countryService.get(ExcelUtil.getIntValueFromCell(row.getCell(0))),
+							countryService.get(ExcelUtil.getIntValueFromCell(row.getCell(1))),
 							ExcelUtil.getIntValueFromCell(row.getCell(4)),String.valueOf(ExcelUtil.getIntValueFromCell(row.getCell(6))),
 							ExcelUtil.getDateValueFromCell(row.getCell(5)));
                callDetailList.add(detail);
@@ -122,6 +122,7 @@ public class UploadCallDetails {
 			
 			List<CallDetail> callDetailList=callDetailService.getPagedCallDetailList(startIndex, fetchSize,searchString);
 			model.addAttribute("callDetailsList", callDetailList);
+			model.addAttribute("startIndex", startIndex);
 		}
 		model.addAttribute("fileuploadForm",new FileuploadForm());
 		return "callDetailslistPage";

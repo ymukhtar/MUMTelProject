@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="com.mumtel.utils.CommonUtility"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -33,7 +33,14 @@
 	
 	jQuery(document).ready(function(){
 		jQuery('#pageSelection').val('${currentPage}');
-		
+		$('#searchType').keypress(function(event){
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(keycode == '13'){
+				findCallDetails();
+				return false;
+			}
+		 
+		});
 	});
 	
 </script>
@@ -42,6 +49,7 @@
 
 	<!-- Main jumbotron for a primary marketing message or call to action -->
 	<div id="page-wrapper">
+	<center><h2>Upload Call Details</h2></center>
 		<form:form modelAttribute="fileuploadForm" method="post"
 			enctype="multipart/form-data" action="uploadCallDetails">
 			<div class="container">
@@ -57,7 +65,7 @@
 		</form:form>
 		<div class="container">
 			<div class="row">
-				<h2>Search Call Details by Entering phone number</h2>
+				<h4>Search Call Details by Entering phone number</h4>
 			</div>
 			<div class="row">
 				<form class="form-horizontal" role="form" method="POST"
@@ -93,15 +101,16 @@
 				</tr>
 			<thead>
 			<tbody>
+				
 				<c:forEach var="call" items="${callDetailsList}" varStatus="loop">
 					<tr>
-						<td>${loop.index+1}</td>
-						<td>${call.fromCallingCode.callingCode}</td>
-						<td>${call.toCallingCode.callingCode}</td>
+						<td>${startIndex+loop.index+1}</td>
+						<td>${call.fromCallingCode.countryName}(${call.fromCallingCode.callingCode})</td>
+						<td>${call.toCallingCode.countryName}(${call.toCallingCode.callingCode})</td>
 						<td>${call.fromTel}</td>
 						<td>${call.toTel}</td>
 						<td>${call.callDateandTime}</td>
-						<td>${call.duration}</td>
+						<td>${call.duration}-(${call.duration/60} MINS)</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -111,15 +120,14 @@
     The when condition does not display a link for the current page--%>
 
 		<ul class="pager">
-			<li class="previous"><a onclick="nextPage('${currentPage-1}');">&larr;
+			<li class="previous"><a onclick="nextPage('${currentPage-1}');" title="Previous">&larr;
 					Previous</a></li>
 			<li><select id="pageSelection" onchange="nextPage(this.value);">
 					<c:forEach begin="1" end="${totalPages}" varStatus="loop">
 						<option value="${loop.index}">${loop.index}</option>
 					</c:forEach>
 			</select></li>
-			<li class="next"><a onclick="nextPage('${currentPage+1}');">Next
-					&rarr;</a></li>
+			<li class="next"><a onclick="nextPage('${currentPage+1}');" title="Next">Next&rarr;</a></li>
 		</ul>
 		<br>
 	</div>

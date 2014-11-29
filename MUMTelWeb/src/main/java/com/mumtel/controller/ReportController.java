@@ -46,7 +46,7 @@ public class ReportController {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List<Country> countriesList = countryService.getAllCountry();
+		List<Country> countriesList = countryService.getAll();
 
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(
 				countriesList);
@@ -63,7 +63,7 @@ public class ReportController {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List<Country> countriesList = countryService.getAllCountry();
+		List<Country> countriesList = countryService.getAll();
 
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(
 				countriesList);
@@ -125,8 +125,8 @@ public class ReportController {
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);
 		
 		parameterMap.put("datasource", JRdataSource);
-		parameterMap.put("service", callServicesService.getService(serviceCode).getDescription());
-		parameterMap.put("sourceCountry", countryService.getCountry(countryCode).getCountryName());
+		parameterMap.put("service", callServicesService.get(serviceCode).getDescription());
+		parameterMap.put("sourceCountry", countryService.get(countryCode).getCountryName());
 		modelAndView = new ModelAndView("RateSheetPdfReport", parameterMap);
 
 		return modelAndView;

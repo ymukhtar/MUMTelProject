@@ -45,13 +45,13 @@ public class ServiceAndRatesUploader {
 	private static Logger logger = Logger.getLogger(UploadCallDetails.class);
 
 	@Autowired
-	ICallServicesService callServicesService;
+	private ICallServicesService callServicesService;
 	@Autowired
-	ICallRatesService callRatesService;
+	private ICallRatesService callRatesService;
 	@Autowired
-	ICountryService countryService;
+	private ICountryService countryService;
 	@Autowired
-	IServiceCountryService serviceCountryService;
+	private IServiceCountryService serviceCountryService;
 
 	@RequestMapping(value = "/showServiceAndRateUploader", method = RequestMethod.GET)
 	public String displayForm(Model model) {
@@ -64,7 +64,7 @@ public class ServiceAndRatesUploader {
 		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
 		Workbook workbook;
 		String fileName = fileuploadForm.getFileData().getOriginalFilename();
-		List<Country> allCountries = countryService.getAllCountry();
+		List<Country> allCountries = countryService.getAll();
 		try {
 			if (fileName.endsWith("xls")) {
 				workbook = new HSSFWorkbook(bis);
@@ -86,7 +86,7 @@ public class ServiceAndRatesUploader {
 			Date fromDate = calendar.getTime();
 			int totalServices = workbook.getNumberOfSheets();
 			//Get All Services in db
-			List<Service> allServicesList = callServicesService.getAllServices();
+			List<Service> allServicesList = callServicesService.getAll();
 			Service service=null;
 			Set<Service> allServices = new HashSet<Service>();
 			for (int i = 0; i < totalServices; i++) {
@@ -98,7 +98,7 @@ public class ServiceAndRatesUploader {
 			// save in database all services if it doesnt exist in db
 			if (allServices.size() > 0) {
 				callServicesService.createAll(allServices);
-				allServicesList = callServicesService.getAllServices();
+				allServicesList = callServicesService.getAll();
 			}
 			
 			// create Service Country Object
@@ -174,33 +174,23 @@ public class ServiceAndRatesUploader {
 			@RequestParam("currentPage") int currentPage,
 			@RequestParam("searchString") String searchString) {
 		
-		List<Country> allCountries=countryService.getAllCountry();
+		List<Country> allCountries=countryService.getAll();
 		if(searchString==null||searchString.isEmpty()){
 			searchString="1";
 		}
 		Country firstCountry = getCountryFromCode(Integer.parseInt(searchString), allCountries);
 		Set<ServiceCountry> countryServiceList = firstCountry.getServicesCountryList();
 		long count = countryServiceList.size();
-		int totalPages = (int) Math.ceil(1.0 * count / CommonUtility.FETCH_SIZE);
 		model.addAttribute("searchString", searchString);
 		if (count == 0) {
 			model.addAttribute("message",
 					"No Calling Services found matching your criteria!");
-		} else {
-			model.addAttribute("count", count);
-			int startIndex = (currentPage - 1) * CommonUtility.FETCH_SIZE;
-			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("fetchSize", CommonUtility.FETCH_SIZE);
-			model.addAttribute("totalPages", totalPages);
-			model.addAttribute("message",
-					"Total Call Details found matching your criteria " + count);
-			int fetchSize = (int) ((startIndex + CommonUtility.FETCH_SIZE) < count ? CommonUtility.FETCH_SIZE: (count - startIndex));
-			model.addAttribute("countryServiceList", countryServiceList);
-		}
+		} 
 
 		model.addAttribute("fileuploadForm", new FileuploadForm());
 		model.addAttribute("allCountries", allCountries);
 		model.addAttribute("selectedCountryCode",firstCountry.getCallingCode());
+		model.addAttribute("countryServiceList",countryServiceList);
 		return "servicesandRateslistPage";
 	}
 }
