@@ -9,36 +9,58 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="61" splitType="Stretch">
+		<band height="81" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="111" y="0" width="444" height="61" backcolor="#FFFFFF" uuid="106e460f-8716-4bd5-afba-1db348c7302f"/>
+				<reportElement uuid="69e0be48-cfb9-443d-a1ad-e5b331759ff3" mode="Opaque" x="111" y="13" width="444" height="67" backcolor="#FFFFFF"/>
 				<staticText>
-					<reportElement mode="Transparent" x="15" y="10" width="409" height="49" forecolor="#000000" backcolor="#FFFFFF" uuid="76f0f2c6-b6f1-4155-9d88-f9112255534d"/>
+					<reportElement uuid="41797d52-912e-4996-b9c5-6e76f0051229" mode="Transparent" x="15" y="0" width="199" height="27" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
-						<font fontName="Times New Roman" size="36" isBold="true"/>
+						<font fontName="Arial Black" size="18" isBold="true" isItalic="false"/>
 					</textElement>
-					<text><![CDATA[MUMTEL Billing System]]></text>
+					<text><![CDATA[MUMTEL]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement uuid="87e8851b-20a5-4e11-911d-be85d7631a70" x="370" y="52" width="73" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="94cb002f-1229-48fe-bf42-b30349e664e9" x="340" y="52" width="30" height="15"/>
+					<textElement/>
+					<text><![CDATA[Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="322" y="17" width="122" height="20" backcolor="#F0F0F0"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[MUMTel Rates]]></text>
 				</staticText>
 			</frame>
 			<image scaleImage="FillFrame">
-				<reportElement x="2" y="1" width="111" height="59" uuid="cea063d8-c7ab-4a8c-9ba3-97a21dec1149"/>
+				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="2" y="14" width="111" height="59"/>
 				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
 			</image>
 			<line>
-				<reportElement x="-21" y="60" width="593" height="1" uuid="9c899468-fa00-457a-92c2-38e874c3fd08"/>
+				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="80" width="595" height="1"/>
 			</line>
+			<staticText>
+				<reportElement uuid="c716edef-f439-4052-9f34-128e5d3981cc" x="126" y="40" width="199" height="41"/>
+				<textElement>
+					<font size="10" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1000 N 4TH ST
+Fairfield IA 52557 USA
+Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="60" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="455" y="7" width="100" height="20" uuid="6f5e370e-15f4-459a-97cd-eeb8757bd0e7"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
+		<band height="47" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="27" width="555" height="33" backcolor="#808080" uuid="78a5e066-055d-448b-878c-3cb3f8b2d184"/>
+				<reportElement uuid="78a5e066-055d-448b-878c-3cb3f8b2d184" mode="Opaque" x="0" y="14" width="555" height="33" backcolor="#808080"/>
 				<staticText>
-					<reportElement x="228" y="8" width="121" height="20" forecolor="#FFFFFF" uuid="405016b9-fc03-4622-b169-00cd5211eace"/>
+					<reportElement uuid="405016b9-fc03-4622-b169-00cd5211eace" x="228" y="8" width="121" height="20" forecolor="#FFFFFF"/>
 					<textElement>
 						<font fontName="Arial Black" size="12" isBold="true"/>
 					</textElement>
@@ -48,13 +70,15 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="20" splitType="Stretch">
+		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement x="86" y="0" width="89" height="20" uuid="87a55199-d118-4505-8639-50e780a077d2"/>
+				<reportElement uuid="87a55199-d118-4505-8639-50e780a077d2" mode="Opaque" x="86" y="0" width="100" height="17" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<textElement/>
 				<text><![CDATA[Country Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="0" width="84" height="20" uuid="a667df7a-6bd5-47d9-ad7e-874acf7e96b8"/>
+				<reportElement uuid="a667df7a-6bd5-47d9-ad7e-874acf7e96b8" mode="Opaque" x="2" y="0" width="84" height="17" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<textElement/>
 				<text><![CDATA[Country Code]]></text>
 			</staticText>
 		</band>
@@ -62,11 +86,13 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="86" y="0" width="89" height="20" uuid="22154a83-121c-4170-9ed6-c16b0b21025b"/>
+				<reportElement uuid="22154a83-121c-4170-9ed6-c16b0b21025b" x="86" y="0" width="100" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{countryName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="0" width="86" height="20" isRemoveLineWhenBlank="true" uuid="5be8d4bb-bd99-487b-a830-fad2271814f3"/>
+				<reportElement uuid="5be8d4bb-bd99-487b-a830-fad2271814f3" x="2" y="0" width="84" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{callingCode}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -77,12 +103,13 @@
 	<pageFooter>
 		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="1" y="10" width="80" height="20" uuid="22044a06-102a-4b4d-9d66-59cf22032734"/>
+				<reportElement uuid="22044a06-102a-4b4d-9d66-59cf22032734" x="1" y="10" width="80" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="86" y="10" width="40" height="20" uuid="75b84902-94c3-492a-9b2d-62374d6532c8"/>
+				<reportElement uuid="75b84902-94c3-492a-9b2d-62374d6532c8" x="86" y="10" width="40" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>

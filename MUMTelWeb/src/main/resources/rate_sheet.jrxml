@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rate_sheet" language="groovy" columnCount="2" pageWidth="595" pageHeight="842" columnWidth="277" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="87d89a04-62a1-4dd9-bdc4-56bc26d5971e">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rate_sheet" language="groovy" columnCount="2" pageWidth="595" pageHeight="842" columnWidth="277" columnSpacing="1" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="87d89a04-62a1-4dd9-bdc4-56bc26d5971e">
+	<property name="ireport.zoom" value="1.331000000000004"/>
+	<property name="ireport.x" value="5"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="service" class="java.lang.String"/>
 	<parameter name="sourceCountry" class="java.lang.String"/>
@@ -12,15 +12,32 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="63" splitType="Stretch">
+		<band height="80" splitType="Stretch">
 			<frame>
-				<reportElement uuid="69e0be48-cfb9-443d-a1ad-e5b331759ff3" mode="Opaque" x="111" y="2" width="444" height="61" backcolor="#FFFFFF"/>
+				<reportElement uuid="69e0be48-cfb9-443d-a1ad-e5b331759ff3" mode="Opaque" x="111" y="2" width="444" height="67" backcolor="#FFFFFF"/>
 				<staticText>
-					<reportElement uuid="41797d52-912e-4996-b9c5-6e76f0051229" mode="Transparent" x="15" y="10" width="409" height="49" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="41797d52-912e-4996-b9c5-6e76f0051229" mode="Transparent" x="15" y="0" width="199" height="27" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
-						<font fontName="Times New Roman" size="36" isBold="true"/>
+						<font fontName="Arial Black" size="18" isBold="true" isItalic="false"/>
 					</textElement>
-					<text><![CDATA[MUMTEL Billing System]]></text>
+					<text><![CDATA[MUMTEL]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement uuid="87e8851b-20a5-4e11-911d-be85d7631a70" x="370" y="52" width="73" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="94cb002f-1229-48fe-bf42-b30349e664e9" x="340" y="52" width="30" height="15"/>
+					<textElement/>
+					<text><![CDATA[Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="322" y="17" width="122" height="20" backcolor="#F0F0F0"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[MUMTel Rates]]></text>
 				</staticText>
 			</frame>
 			<image scaleImage="FillFrame">
@@ -28,96 +45,107 @@
 				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
 			</image>
 			<line>
-				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-21" y="62" width="593" height="1"/>
+				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="69" width="595" height="1"/>
 			</line>
+			<staticText>
+				<reportElement uuid="c716edef-f439-4052-9f34-128e5d3981cc" x="126" y="29" width="199" height="41"/>
+				<textElement>
+					<font size="10" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1000 N 4TH ST
+Fairfield IA 52557 USA
+Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="82" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="bd09b6f6-5bde-47ac-a8ad-b02d19e01dc1" x="455" y="15" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
+		<band height="18" splitType="Stretch">
 			<frame>
-				<reportElement uuid="2167e530-ef74-4aa3-990e-f8db4094bc6f" mode="Opaque" x="1" y="36" width="554" height="46" forecolor="#808080" backcolor="#808080"/>
+				<reportElement uuid="2167e530-ef74-4aa3-990e-f8db4094bc6f" mode="Opaque" x="-1" y="0" width="555" height="18" forecolor="#808080" backcolor="#808080"/>
 				<staticText>
-					<reportElement uuid="1904325e-56a6-44a5-9448-82fcda5493ab" x="244" y="26" width="52" height="20" forecolor="#FFFFFF"/>
+					<reportElement uuid="1904325e-56a6-44a5-9448-82fcda5493ab" x="123" y="2" width="43" height="14" forecolor="#FFFFFF"/>
 					<textElement>
-						<font size="12" isBold="true"/>
+						<font size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Source:]]></text>
 				</staticText>
 				<textField>
-					<reportElement uuid="dd1a2c22-9125-40be-a7c3-5e10c8a6ef26" x="51" y="26" width="144" height="20" forecolor="#FFFFFF"/>
+					<reportElement uuid="dd1a2c22-9125-40be-a7c3-5e10c8a6ef26" x="47" y="2" width="79" height="14" forecolor="#FFFFFF"/>
 					<textElement>
-						<font size="12" isBold="true"/>
+						<font size="10" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{service}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="0f764b28-a777-46c6-86b9-5032741c3719" x="296" y="26" width="193" height="20" forecolor="#FFFFFF"/>
+					<reportElement uuid="0f764b28-a777-46c6-86b9-5032741c3719" x="166" y="2" width="193" height="14" forecolor="#FFFFFF"/>
 					<textElement>
-						<font size="12" isBold="true"/>
+						<font size="10" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{sourceCountry}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="22973e3d-d731-47dc-af38-7e08a670f114" x="195" y="0" width="122" height="20" forecolor="#FFFFFF"/>
+					<reportElement uuid="cd00d55a-f1ea-48e2-92ae-f0dae08ee5f8" x="2" y="2" width="45" height="14" forecolor="#FFFFFF"/>
 					<textElement>
-						<font fontName="Arial Black" size="12" isBold="true"/>
+						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[MUMTel Rates]]></text>
+					<text><![CDATA[Service:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="fcc40373-4199-42ee-8291-ee98ae05c6cc" x="360" y="2" width="70" height="14" forecolor="#FFFFFF"/>
+					<textElement/>
+					<text><![CDATA[Effective Date:]]></text>
 				</staticText>
 			</frame>
-			<staticText>
-				<reportElement uuid="9d059625-92ee-4097-b9cc-8cea3383bade" x="0" y="62" width="52" height="20" forecolor="#FFFFFF"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Service:]]></text>
-			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="23" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="f69f5048-a15d-4840-83d0-5b64c2d6a03f" x="0" y="3" width="113" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Destination]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="4e01e45f-075d-42e4-96a3-3056aaa4d40b" x="113" y="3" width="83" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Peak Rate]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="8ad159a1-5b93-4887-905a-410e79946a6b" x="196" y="3" width="82" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Off_Peak Rate]]></text>
-			</staticText>
+		<band height="16" splitType="Stretch">
+			<frame>
+				<reportElement uuid="a2531198-9cd4-4fd3-a4fe-f6ef0c12fd30" mode="Opaque" x="-1" y="0" width="156" height="16" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<staticText>
+					<reportElement uuid="f69f5048-a15d-4840-83d0-5b64c2d6a03f" mode="Transparent" x="6" y="1" width="56" height="15" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Destination]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="47337512-4bf9-4f06-83d0-57833fc81bc4" mode="Opaque" x="153" y="0" width="55" height="16" backcolor="#99B4D1"/>
+				<staticText>
+					<reportElement uuid="4e01e45f-075d-42e4-96a3-3056aaa4d40b" x="1" y="0" width="54" height="15" forecolor="#FFFFFF"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Peak Rate]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="b4386d5b-a414-4f70-bcf9-d6e69e0f1711" mode="Opaque" x="208" y="0" width="68" height="16" backcolor="#99B4D1"/>
+				<staticText>
+					<reportElement uuid="8ad159a1-5b93-4887-905a-410e79946a6b" x="0" y="0" width="68" height="15" forecolor="#FFFFFF"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Off Peak Rate]]></text>
+				</staticText>
+			</frame>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement uuid="26e9f01b-3970-49c0-bc54-498d6d117e66" x="1" y="0" width="100" height="20"/>
+				<reportElement uuid="26e9f01b-3970-49c0-bc54-498d6d117e66" x="1" y="0" width="153" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tocallingCode}.getCountryName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2e21ae33-0f0f-42eb-8cdf-e6915280b529" x="117" y="0" width="79" height="20"/>
+				<reportElement uuid="2e21ae33-0f0f-42eb-8cdf-e6915280b529" x="153" y="0" width="55" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{peakPeriodRate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="f243e5f5-26aa-4606-8e33-6491bff0f960" x="198" y="0" width="80" height="20"/>
+				<reportElement uuid="f243e5f5-26aa-4606-8e33-6491bff0f960" x="208" y="0" width="68" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{offPeakPeriodRate}]]></textFieldExpression>
 			</textField>
@@ -127,17 +155,30 @@
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="42" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<textField>
-				<reportElement uuid="80ba2de9-5a71-4adf-b255-b3cf8e20fde9" x="2" y="22" width="80" height="20"/>
+				<reportElement uuid="80ba2de9-5a71-4adf-b255-b3cf8e20fde9" x="1" y="17" width="60" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="62f2da97-c214-4b37-b3df-3ac6c884e3fd" x="94" y="22" width="40" height="20"/>
+				<reportElement uuid="62f2da97-c214-4b37-b3df-3ac6c884e3fd" x="61" y="17" width="40" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
+			<frame>
+				<reportElement uuid="d19d558f-58c0-4139-a35e-b75dc81f6b64" mode="Opaque" x="0" y="0" width="555" height="18" backcolor="#808080"/>
+				<staticText>
+					<reportElement uuid="ebbb315b-150b-43da-8af1-e56e9a7f9f15" x="111" y="4" width="120" height="14" forecolor="#FFFFFF"/>
+					<textElement/>
+					<text><![CDATA[Peak Period Start Time :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e7f70427-36eb-453b-9fff-2d2c3527fc6c" x="298" y="4" width="136" height="14" forecolor="#FFFFFF"/>
+					<textElement/>
+					<text><![CDATA[Off Peak Period Start Time :]]></text>
+				</staticText>
+			</frame>
 		</band>
 	</pageFooter>
 	<summary>
