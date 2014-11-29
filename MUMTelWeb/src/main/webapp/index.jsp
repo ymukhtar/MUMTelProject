@@ -8,7 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>Welcome to JobPortal</title>
+		<title>Welcome to MUMTel</title>
 		<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 		<link href="<c:url value="/resources/css/jumbotron.css"/>" rel="stylesheet">
 		<script src="<c:url value="/resources/js/jQuery.min.js"/>"></script>

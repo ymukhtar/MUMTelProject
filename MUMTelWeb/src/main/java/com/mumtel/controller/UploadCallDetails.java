@@ -122,6 +122,7 @@ public class UploadCallDetails {
 			
 			List<CallDetail> callDetailList=callDetailService.getPagedCallDetailList(startIndex, fetchSize,searchString);
 			model.addAttribute("callDetailsList", callDetailList);
+			model.addAttribute("startIndex", startIndex);
 		}
 		model.addAttribute("fileuploadForm",new FileuploadForm());
 		return "callDetailslistPage";
