@@ -76,6 +76,7 @@
 					<th>Sr #</th>
 					<th>Service Name</th>
 					<th>Date Created</th>
+					<th>Rate Sheet</th>
 				</tr>
 			<thead>
 			<tbody>
@@ -85,6 +86,17 @@
 						<td>${loop.index+1}</td>
 						<td>${CountryService.service.description}</td>
 						<td>${CountryService.dateCreated}</td>
+						<td>	
+						
+							<a class="btn btn-default"
+								href='<c:url value="/report/rate_sheet/pdf?serviceCode=${CountryService.service.serviceCode}&countryCode=${CountryService.country.callingCode}"/>'
+								role="button">PDF</a>
+							&nbsp;&nbsp;
+							<a class="btn btn-default"
+								href='<c:url value="/report/rate_sheet/xls?serviceCode=${CountryService.service.serviceCode}&countryCode=${CountryService.country.callingCode}"/>'
+								role="button">XLS</a>
+							
+							</td>
 					</tr>
 				</c:forEach>
 			</tbody>
