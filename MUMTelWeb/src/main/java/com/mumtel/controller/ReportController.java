@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mumtel.IService.ICallRatesService;
+import com.mumtel.IService.ICallServicesService;
 import com.mumtel.IService.ICountryService;
 import com.mumtel.model.CallRates;
 import com.mumtel.model.Country;
@@ -33,6 +34,8 @@ public class ReportController {
 
 	@Autowired
 	private ICountryService countryService;
+	@Autowired
+	private ICallServicesService callServicesService;
 	@Autowired
 	private ICallRatesService callRateService;
 	
@@ -113,11 +116,17 @@ public class ReportController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
 		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode);
-
-		logger.debug(Arrays.toString(callRateList.toArray()));
+		if(logger.isDebugEnabled()){
+			for(CallRates r:callRateList){
+				logger.debug(r);
+			}
+		}
+	
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);
-
+		
 		parameterMap.put("datasource", JRdataSource);
+		parameterMap.put("service", callServicesService.getService(serviceCode).getDescription());
+		parameterMap.put("sourceCountry", countryService.getCountry(countryCode).getCountryName());
 		modelAndView = new ModelAndView("RateSheetPdfReport", parameterMap);
 
 		return modelAndView;
