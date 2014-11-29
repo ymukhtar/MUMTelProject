@@ -13,14 +13,15 @@
 </jsp:include>
 
 <title>MUMTel</title>
-<script type="text/javascript">
+
+<script language="javascript" type="text/javascript">
 	
 	function findCodes(){
 		var urlA="<%=request.getContextPath()%>/serviceAndRatesDetails?currentPage=1&searchString="+ jQuery('#searchType').val();
 		window.location.href = urlA;
 	}
 
-	jQuery(document).ready(function() {
+	$(document).ready(function() {
 		jQuery('#searchType').val('${selectedCountryCode}');
 	});
 </script>
@@ -30,10 +31,11 @@
 	<!-- Main jumbotron for a primary marketing message or call to action -->
 
 	<div id="page-wrapper">
+		<h1>Rate Sheet Uploader</h1>
 		<form:form modelAttribute="fileuploadForm" method="post"
 			enctype="multipart/form-data" action="uploadServicesAndRates">
 			<div class="container">
-				<form:label class="lbl lbl-default" for="fileData" path="fileData">Select file</form:label>
+				<form:label class="lbl lbl-default" for="fileData" path="fileData">Upload File</form:label>
 				<br /> <br />
 			</div>
 			<div class="container">
@@ -75,6 +77,7 @@
 					<th>Sr #</th>
 					<th>Service Name</th>
 					<th>Date Created</th>
+					<th>View Current Rate Sheet</th>
 				</tr>
 			<thead>
 			<tbody>
@@ -84,6 +87,9 @@
 						<td>${loop.index+1}</td>
 						<td>${CountryService.service.description}</td>
 						<td>${CountryService.dateCreated}</td>
+						<td><a class="btn btn-default"
+							   href='<c:url value="/report/rate_sheet/pdf?countryCode=${CountryService.country.callingCode}&serviceCode=${CountryService.service.serviceCode}"/>' role="button">Rate Sheet</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
