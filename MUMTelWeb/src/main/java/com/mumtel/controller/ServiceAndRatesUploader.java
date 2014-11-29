@@ -190,6 +190,7 @@ public class ServiceAndRatesUploader {
 		model.addAttribute("fileuploadForm", new FileuploadForm());
 		model.addAttribute("allCountries", allCountries);
 		model.addAttribute("selectedCountryCode",firstCountry.getCallingCode());
+		model.addAttribute("countryServiceList",countryServiceList);
 		return "servicesandRateslistPage";
 	}
 }
