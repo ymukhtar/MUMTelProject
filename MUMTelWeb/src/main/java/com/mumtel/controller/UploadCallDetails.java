@@ -92,10 +92,11 @@ public class UploadCallDetails {
             }
             callDetailService.createAll(callDetailList);
             
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        } catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			model.addAttribute("errorMessage", "Invalid File or format please upload Call Log File");
+			return "errorPage";
+		}
 		model.addAttribute("currentPage",1);
 		model.addAttribute("searchString","");
 		return "redirect:/callDetails";

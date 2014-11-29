@@ -33,6 +33,18 @@ public class Service implements Serializable{
 	
 	
 
+	public int getServiceCode() {
+		return serviceCode;
+	}
+
+
+
+	public void setServiceCode(int serviceCode) {
+		this.serviceCode = serviceCode;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

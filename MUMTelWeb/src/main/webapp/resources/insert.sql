@@ -1,12 +1,11 @@
-INSERT INTO `jobportal`.`User` (`userName`, `enabled`, `password`) VALUES ('yasir', true, 'yasir');
-INSERT INTO `jobportal`.`User` (`userName`, `enabled`, `password`) VALUES ('awais', true, 'awais');
-INSERT INTO `jobportal`.`User` (`userName`, `enabled`, `password`) VALUES ('admin', true, 'admin');
-
-INSERT INTO `jobportal`.`Authorities` (`user_role_id`, `role`, `username`) VALUES ('1', 'ROLE_USER', 'yasir');
-INSERT INTO `jobportal`.`Authorities` (`user_role_id`, `role`) VALUES ('2', 'ROLE_USER');
-INSERT INTO `jobportal`.`Authorities` (`user_role_id`, `role`, `username`) VALUES ('3', 'ROLE_USER', 'admin');
-INSERT INTO `jobportal`.`Authorities` (`user_role_id`, `role`, `username`) VALUES ('4', 'ROLE_ADMIN', 'admin');
-
-INSERT INTO `jobportal`.`Category` (`categoryId`, `description`, `title`) VALUES ('1', 'JAVA', 'JAVA Details');
-INSERT INTO `jobportal`.`Category` (`categoryId`, `description`, `title`) VALUES ('2', '.NET', 'Dot Net');
-INSERT INTO `jobportal`.`Category` (`categoryId`, `description`,`title`) VALUES ('3', 'Python','Python Details');
+CREATE PROCEDURE getCallRatesByServiceAndSourceCountry 
+  @cname varchar(255),
+  @country varchar(255) 
+AS 
+select cr.tocallingCode_callingCode,cr.peakPeriodRate,cr.offPeakPeriodRate from Country c,ServiceCountry s,CallRates cr,Service ser
+where c.callingCode=s.country_code
+and cr.serviceCountry_serviceCountryID=s.country_code
+and ser.serviceCode=s.service_code
+and c.countryName=@country
+and ser.description=@cname
+GO 
