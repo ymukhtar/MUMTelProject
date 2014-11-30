@@ -23,6 +23,6 @@ import com.mumtel.model.Users;
 
 @Repository
 @Transactional(propagation=Propagation.MANDATORY)
-public class SalesRepDAO extends GenericHibernateDAO<SalesRep, Integer> implements ISalesRepDAO{
+public class SalesRepDAO extends GenericHibernateDAO<SalesRep, Long> implements ISalesRepDAO{
 	
 }

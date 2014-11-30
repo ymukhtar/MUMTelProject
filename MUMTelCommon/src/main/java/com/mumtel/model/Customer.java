@@ -3,6 +3,7 @@ package com.mumtel.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -18,7 +19,7 @@ public class Customer extends Person implements Serializable{
 	private static final long serialVersionUID = 2855329774581173051L;
 	@NotEmpty(message="Telophone should not be empty.")
 	private String telephone;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private SalesRepCustomerRef salesRepAssigned;
 	@OneToMany(mappedBy="customer")
 	private List<Bill> bills;

@@ -22,7 +22,7 @@ import com.mumtel.model.SalesRep;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
-public class SalesRepService extends GenericService<SalesRep, Integer> implements ISalesRepService{
+public class SalesRepService extends GenericService<SalesRep, Long> implements ISalesRepService{
 
 	@Autowired
 	private ISalesRepDAO salesRepDAO;
