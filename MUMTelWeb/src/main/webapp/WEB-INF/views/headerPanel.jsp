@@ -97,6 +97,9 @@ $(document).ready(function() {
 						href="<c:url value="/registerCustomer"/>"><i
 							class="fa fa-edit fa-fw"></i> Register Customer</a></li>
 					<li><a
+						href="<c:url value="/createService"/>"><i
+							class="fa fa-edit fa-fw"></i>Create New Service</a></li>
+					<li><a
 						href="<c:url value="/registerSalesRep"/>"><i
 							class="fa fa-sitemap fa-fw"></i> Register Sales Rep</a></li>
 					<li><a

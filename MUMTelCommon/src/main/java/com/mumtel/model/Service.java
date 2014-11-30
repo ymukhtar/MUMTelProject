@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Service implements Serializable{
 
@@ -23,6 +25,7 @@ public class Service implements Serializable{
 	@GeneratedValue
 	private int serviceCode;
 	@Column(unique=true)
+	@NotEmpty(message="Service Name cant be Empty")
 	private String description;
 	@OneToMany(cascade =CascadeType.ALL ,mappedBy="service")
 	private Set<ServiceCountry> servicesCountryList=new HashSet<ServiceCountry>();
