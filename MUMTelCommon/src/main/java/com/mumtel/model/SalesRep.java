@@ -54,12 +54,7 @@ public class SalesRep extends Person implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "SalesRep [businesssPhone=" + businesssPhone
-				+ ", businesssAddress=" + businesssAddress + ", getPersonID()="
-				+ getPersonID() + ", getFirstName()=" + getFirstName()
-				+ ", getLastName()=" + getLastName() + ", getAddress()="
-				+ getAddress() + ""
-				+ "]";
+		return getFirstName()+" "+getLastName();
 	}
 	
 	

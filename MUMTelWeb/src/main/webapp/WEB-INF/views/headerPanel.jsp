@@ -94,10 +94,10 @@ $(document).ready(function() {
 						href="<c:url value="/callDetails?currentPage=1&searchString="/>"><i
 							class="fa fa-fw fa-bar-chart-o"></i> Upload Call Details</a></li>
 					<li><a
-						href="<c:url value="/registerCustomer?currentPage=1&searchString="/>"><i
+						href="<c:url value="/registerCustomer"/>"><i
 							class="fa fa-edit fa-fw"></i> Register Customer</a></li>
 					<li><a
-						href="<c:url value="/registerSalesRep?currentPage=1&searchString="/>"><i
+						href="<c:url value="/registerSalesRep"/>"><i
 							class="fa fa-sitemap fa-fw"></i> Register Sales Rep</a></li>
 					<li><a
 						href="<c:url value="/enterPeakTime?currentPage=1&searchString="/>"><i

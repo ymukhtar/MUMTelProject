@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mumtel.Idao.ICustomerDAO;
+import com.mumtel.Idao.ISalesRepDAO;
 import com.mumtel.Idao.IUserDAO;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
+import com.mumtel.model.SalesRep;
 import com.mumtel.model.Users;
 
 /**
@@ -21,6 +23,6 @@ import com.mumtel.model.Users;
 
 @Repository
 @Transactional(propagation=Propagation.MANDATORY)
-public class CustomerDAO extends GenericHibernateDAO<Customer, Integer> implements ICustomerDAO{
+public class SalesRepDAO extends GenericHibernateDAO<SalesRep, Integer> implements ISalesRepDAO{
 	
 }
