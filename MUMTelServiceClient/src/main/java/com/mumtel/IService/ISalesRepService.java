@@ -13,6 +13,6 @@ import com.mumtel.model.Users;
  *
  */
 
-public interface ISalesRepService extends IGenericService<SalesRep, Integer>{
+public interface ISalesRepService extends IGenericService<SalesRep, Long>{
 
 }

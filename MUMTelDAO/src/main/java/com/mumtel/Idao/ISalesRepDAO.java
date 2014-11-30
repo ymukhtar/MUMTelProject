@@ -6,5 +6,5 @@ import com.mumtel.model.SalesRep;
 import com.mumtel.model.Users;
 
 
-public interface ISalesRepDAO extends IGenericDAO<SalesRep, Integer>{
+public interface ISalesRepDAO extends IGenericDAO<SalesRep, Long>{
 }

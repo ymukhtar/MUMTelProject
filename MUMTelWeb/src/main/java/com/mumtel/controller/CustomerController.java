@@ -81,8 +81,9 @@ public class CustomerController {
 		binder.registerCustomEditor(SalesRepCustomerRef.class, new PropertyEditorSupport(){
 			@Override
 			public void setAsText(String val){
-				SalesRepCustomerRef countryService= isalesRepCustomerRefService.get(Integer.parseInt(val));
-				setValue(countryService);
+				SalesRep salesRep= salesRepService.get(Long.parseLong(val));
+				SalesRepCustomerRef ref=new SalesRepCustomerRef(salesRep, null, new Date(), 0.10f);
+				setValue(ref);
 			}
 		});
 	}
@@ -91,8 +92,10 @@ public class CustomerController {
 	@RequestMapping(value = "/saveCustomer", method = RequestMethod.POST)
 	public String save(@Valid Customer customer, BindingResult result,Model model) {
 		if(result.hasFieldErrors()){
+			model.addAttribute("allSalesRep",salesRepService.getAll());
 			return "registerCustomerPage";
 		}else{
+			customer.getSalesRepAssigned().setCustomer(customer);
 			customerService.create(customer);
 		}
 		model.addAttribute("message","Customer registered successfully!");
