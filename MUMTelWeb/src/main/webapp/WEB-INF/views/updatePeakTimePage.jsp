@@ -4,6 +4,7 @@
 	prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +52,11 @@
 				<div class="form-group">
 					<label for="peakPeriodStart" class="col-sm-2 control-label">Peak Time Start:</label>
 					<div class="col-sm-7">
-						<form:input type="text" cssClass="form-control" path="peakPeriodStart" />	 
+						<form:select path="peakPeriodStart" cssClass="form-control">
+							<c:forEach var="i" begin="0" end="23">
+								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" minFractionDigits="2"></fmt:formatNumber></form:option>
+							</c:forEach>
+						</form:select>	 
 					</div>
 					<div class="col-sm-3">
 						<form:errors path="peakPeriodStart" cssClass="error" />
@@ -60,7 +65,11 @@
 				<div class="form-group">
 					<label for="offPeakPeriodStart" class="col-sm-2 control-label">Peak Time End:</label>
 					<div class="col-sm-7">
-						<form:input type="text" cssClass="form-control" path="offPeakPeriodStart" />
+						<form:select path="offPeakPeriodStart" cssClass="form-control">
+							<c:forEach var="i" begin="0" end="23">
+								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" minFractionDigits="2"></fmt:formatNumber></form:option>
+							</c:forEach>
+						</form:select>	 
 					</div>
 					<div class="col-sm-3">
 						<form:errors path="offPeakPeriodStart" cssClass="error" />
