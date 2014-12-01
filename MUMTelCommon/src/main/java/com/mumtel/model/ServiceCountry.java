@@ -38,7 +38,10 @@ public class ServiceCountry {
 	@OneToOne(mappedBy="serviceCountry")
 	private PeakTimes	peakTime;
 	
+	@OneToMany(mappedBy="serviceCountry")
+	private List<Customer> customerList=new ArrayList<Customer>();
 		
+
 	public PeakTimes getPeakTime() {
 		return peakTime;
 	}
@@ -131,6 +134,21 @@ public class ServiceCountry {
 				+ ", dateCreated=" + dateCreated + "]";
 	}
 	
-	
+
+	public List<CallRates> getCallRateList() {
+		return callRateList;
+	}
+
+	public void setCallRateList(List<CallRates> callRateList) {
+		this.callRateList = callRateList;
+	}
+
+	public List<Customer> getCustomerList() {
+		return customerList;
+	}
+
+	public void setCustomerList(List<Customer> customerList) {
+		this.customerList = customerList;
+	}
 	
 }

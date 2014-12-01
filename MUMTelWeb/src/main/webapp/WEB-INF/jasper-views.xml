@@ -23,10 +23,10 @@
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:monthly_traffic_summary.jrxml" p:reportDataKey="datasource" />
 
-	<bean id="customerBillsPdfReport"
+	<!-- <bean id="customerBillsPdfReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:customer_bills.jrxml" p:reportDataKey="datasource" />
-
+ -->
 
 	<bean id="RateSheetPdfReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"

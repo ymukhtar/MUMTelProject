@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -24,6 +26,9 @@ public class Customer extends Person implements Serializable{
 	@OneToMany(mappedBy="customer")
 	private List<Bill> bills;
 	
+	@ManyToOne
+	private ServiceCountry serviceCountry;
+	
 	public Customer(String telephone) {
 		super();
 		this.telephone = telephone;
@@ -32,6 +37,14 @@ public class Customer extends Person implements Serializable{
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public ServiceCountry getServiceCountry() {
+		return serviceCountry;
+	}
+
+	public void setServiceCountry(ServiceCountry serviceCountry) {
+		this.serviceCountry = serviceCountry;
 	}
 
 	public Customer(String firstName, String lastName, String emailAddress,String tel) {
