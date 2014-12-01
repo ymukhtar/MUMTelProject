@@ -33,11 +33,11 @@ import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.IServiceCountryService;
 import com.mumtel.model.CallRates;
 import com.mumtel.model.Country;
+import com.mumtel.model.PeakTimes;
 import com.mumtel.model.Service;
 import com.mumtel.model.ServiceCountry;
 import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
-import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
 
 @Controller
@@ -58,7 +58,17 @@ public class ServiceAndRatesUploader {
 		model.addAttribute("fileuploadForm", new FileuploadForm());
 		return "uploadServicesAndRates";
 	}
-
+	
+	@RequestMapping(value = "/updatePeakTime", method = RequestMethod.GET)
+	public String displayForm(Model model,@RequestParam("serviceCode") int serviceCode,@RequestParam("countryCode") int countryCode) {
+		PeakTimes peakTime=serviceCountryService.getPeakTime(serviceCode,countryCode);
+		model.addAttribute("peakTime",peakTime==null?new PeakTimes():peakTime);
+		model.addAttribute("serviceCountry",serviceCountryService.getServiceCountry(countryCode, serviceCode));
+		return "createServicePage";
+	}
+	
+	//updatePeakTime
+	
 	@RequestMapping(value = "/uploadServicesAndRates", method = RequestMethod.POST)
 	public String upload(FileuploadForm fileuploadForm, BindingResult result,Model model) {
 		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());

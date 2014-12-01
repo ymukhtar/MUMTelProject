@@ -23,36 +23,49 @@
 
 	<div id="page-wrapper">
 		<center>
-			<h2>Create New Service</h2>
+			<h2>Update Peak Time</h2>
 		</center>
-		<form:form class="form-horizontal" modelAttribute="serviceCountry"
-			method="post" action="saveServiceCountry">
+		<form:form class="form-horizontal" modelAttribute="peakTime" method="post" action="updatePeakTime">
 			<div class="container">
 				<div class="form-group">
-					<label for="country.callingCode" class="col-sm-2 control-label">Country:</label>
+					<label for="serviceCountry.country.countryName" class="col-sm-2 control-label">Country:</label>
 					<div class="col-sm-7">
-						<form:select path="country.callingCode" class="form-control">
-							<c:forEach var="country" items="${countryList}">
-						   		 <option value="${country.callingCode}">${country.countryName}</option>
-						   	 </c:forEach>
-						</form:select>
+						<form:input type="text" cssClass="form-control" path="serviceCountry.country.countryName"  disabled="true"/>	 
 					</div>
 					<div class="col-sm-3">
-						<form:errors path="country.callingCode" cssClass="error" />
+						<form:errors path="serviceCountry.country.countryName" cssClass="error" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="service.description" class="col-sm-2 control-label">Name:</label>
+					<label for="serviceCountry.service.description" class="col-sm-2 control-label">Service Name:</label>
 					<div class="col-sm-7">
-						<form:input type="text" cssClass="form-control" path="service.description" placeholder="Service Name" />
+						<form:input type="text" cssClass="form-control" path="serviceCountry.service.description" disabled="true"/>
 					</div>
 					<div class="col-sm-3">
-						<form:errors path="service.description" cssClass="error" />
+						<form:errors path="serviceCountry.service.description" cssClass="error" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="peakPeriodStart" class="col-sm-2 control-label">Peak Time Start:</label>
+					<div class="col-sm-7">
+						<form:input type="text" cssClass="form-control" path="peakPeriodStart" />	 
+					</div>
+					<div class="col-sm-3">
+						<form:errors path="peakPeriodStart" cssClass="error" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="offPeakPeriodStart" class="col-sm-2 control-label">Peak Time End:</label>
+					<div class="col-sm-7">
+						<form:input type="text" cssClass="form-control" path="offPeakPeriodStart" />
+					</div>
+					<div class="col-sm-3">
+						<form:errors path="offPeakPeriodStart" cssClass="error" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default">Save</button>
+						<button type="submit" class="btn btn-default">Update</button>
 					</div>
 				</div>
 			</div>

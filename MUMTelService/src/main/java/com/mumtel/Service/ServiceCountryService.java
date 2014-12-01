@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mumtel.IService.IServiceCountryService;
 import com.mumtel.Idao.ICallRatesDAO;
+import com.mumtel.Idao.IPeakTimeDAO;
 import com.mumtel.Idao.IServiceCountryDAO;
 import com.mumtel.Idao.IServiceDAO;
 import com.mumtel.model.CallRates;
+import com.mumtel.model.PeakTimes;
 import com.mumtel.model.ServiceCountry;
 
 @Service
@@ -31,6 +33,8 @@ public class ServiceCountryService extends
 	private IServiceDAO serviceDAO;
 	@Autowired
 	private ICallRatesDAO callRatesDAO;
+	@Autowired
+	private IPeakTimeDAO peakTimeDAO;
 
 	public long getPagedServiceCountryListCount(String searchCriteria) {
 		// TODO Auto-generated method stub
@@ -84,5 +88,13 @@ public class ServiceCountryService extends
 		serviceCountry.setDateCreated(new Date(System.currentTimeMillis()));
 		serviceCountryDAO.create(serviceCountry);
 		return false;
+	}
+
+	public ServiceCountry getServiceCountry(int countryCode, int serviceCode) {
+		return serviceCountryDAO.getServiceCountry(countryCode, serviceCode);
+	}
+
+	public PeakTimes getPeakTime(int serviceCode, int countryCode) {
+		return peakTimeDAO.getLatestPeakTime(serviceCode, countryCode);
 	}
 }

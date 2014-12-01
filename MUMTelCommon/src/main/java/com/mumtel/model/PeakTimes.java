@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -20,10 +18,7 @@ public class PeakTimes implements Serializable{
 	@Id
 	@GeneratedValue
 	private int peaktimeID;
-	@ManyToOne
-	private Service service;
-	@ManyToOne
-	private Country country;
+	
 	
 	private int peakPeriodStart;
 	
@@ -44,11 +39,10 @@ public class PeakTimes implements Serializable{
 	public void setServiceCountry(ServiceCountry serviceCountry) {
 		this.serviceCountry = serviceCountry;
 	}
-	public PeakTimes( Service service, Country country,
+	public PeakTimes(ServiceCountry serviceCountry,
 			int peakPeriodStart, int offPeakPeriodStart) {
 		super();
-		this.service = service;
-		this.country = country;
+		this.serviceCountry=serviceCountry;
 		this.peakPeriodStart = peakPeriodStart;
 		this.offPeakPeriodStart = offPeakPeriodStart;
 	}
@@ -58,18 +52,7 @@ public class PeakTimes implements Serializable{
 	public void setPeaktimeID(int peaktimeID) {
 		this.peaktimeID = peaktimeID;
 	}
-	public Service getService() {
-		return service;
-	}
-	public void setService(Service service) {
-		this.service = service;
-	}
-	public Country getCountry() {
-		return country;
-	}
-	public void setCountry(Country country) {
-		this.country = country;
-	}
+
 	public int getPeakPeriodStart() {
 		return peakPeriodStart;
 	}
@@ -84,8 +67,7 @@ public class PeakTimes implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "PeakTimes [peaktimeID=" + peaktimeID + ", service=" + service
-				+ ", country=" + country + ", peakPeriodStart="
+		return "PeakTimes [peaktimeID=" + peaktimeID + ", peakPeriodStart="
 				+ peakPeriodStart + ", offPeakPeriodStart="
 				+ offPeakPeriodStart + "]";
 	}
