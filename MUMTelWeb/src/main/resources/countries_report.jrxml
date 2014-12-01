@@ -34,13 +34,9 @@
 					<textElement>
 						<font size="14" isBold="true" isItalic="true"/>
 					</textElement>
-					<text><![CDATA[MUMTel Rates]]></text>
+					<text><![CDATA[Countries List]]></text>
 				</staticText>
 			</frame>
-			<image scaleImage="FillFrame">
-				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="2" y="14" width="111" height="59"/>
-				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
-			</image>
 			<line>
 				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="80" width="595" height="1"/>
 			</line>
@@ -56,18 +52,7 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="47" splitType="Stretch">
-			<frame>
-				<reportElement uuid="78a5e066-055d-448b-878c-3cb3f8b2d184" mode="Opaque" x="0" y="14" width="555" height="33" backcolor="#808080"/>
-				<staticText>
-					<reportElement uuid="405016b9-fc03-4622-b169-00cd5211eace" x="228" y="8" width="121" height="20" forecolor="#FFFFFF"/>
-					<textElement>
-						<font fontName="Arial Black" size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Countries List]]></text>
-				</staticText>
-			</frame>
-		</band>
+		<band height="10" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="18" splitType="Stretch">

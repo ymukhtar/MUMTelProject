@@ -131,6 +131,29 @@ public class ReportController {
 
 		return modelAndView;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rate_sheet/xls")
+	public ModelAndView generateRateSheetXlsReport(ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode) {
+		System.out.println("Printing Report");
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode);
+		if(logger.isDebugEnabled()){
+			for(CallRates r:callRateList){
+				logger.debug(r);
+			}
+		}
+	
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);
+		
+		parameterMap.put("datasource", JRdataSource);
+		parameterMap.put("service", callServicesService.get(serviceCode).getDescription());
+		parameterMap.put("sourceCountry", countryService.get(countryCode).getCountryName());
+		modelAndView = new ModelAndView("RateSheetXlsReport", parameterMap);
+
+		return modelAndView;
+	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "monthly_sales_rep_comission/pdf")
 	public ModelAndView generateMonthlySalesRepComissionPdfReport(

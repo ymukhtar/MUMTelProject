@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rate_sheet" language="groovy" columnCount="2" pageWidth="595" pageHeight="842" columnWidth="277" columnSpacing="1" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="87d89a04-62a1-4dd9-bdc4-56bc26d5971e">
 	<property name="ireport.zoom" value="1.331000000000004"/>
-	<property name="ireport.x" value="5"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="service" class="java.lang.String"/>
 	<parameter name="sourceCountry" class="java.lang.String"/>
@@ -142,12 +142,12 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 			<textField>
 				<reportElement uuid="2e21ae33-0f0f-42eb-8cdf-e6915280b529" x="153" y="0" width="55" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{peakPeriodRate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat('$ #,##0.00').format($F{peakPeriodRate} != null ? $F{peakPeriodRate} : 0)]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="f243e5f5-26aa-4606-8e33-6491bff0f960" x="208" y="0" width="68" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{offPeakPeriodRate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat('$ #,##0.00').format($F{offPeakPeriodRate} != null ? $F{offPeakPeriodRate} : 0)]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
