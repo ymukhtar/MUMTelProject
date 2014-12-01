@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -33,7 +34,19 @@ public class ServiceCountry {
 	
 	@OneToMany(mappedBy="serviceCountry")
 	private List<CallRates> callRateList=new ArrayList<CallRates>();
+	
+	@OneToOne(mappedBy="serviceCountry")
+	private PeakTimes	peakTime;
+	
 		
+	public PeakTimes getPeakTime() {
+		return peakTime;
+	}
+
+	public void setPeakTime(PeakTimes peakTime) {
+		this.peakTime = peakTime;
+	}
+
 	public ServiceCountry() {
 		super();
 	}

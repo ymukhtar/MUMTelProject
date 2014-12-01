@@ -5,8 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class PeakTimes implements Serializable{
@@ -22,8 +24,26 @@ public class PeakTimes implements Serializable{
 	private Service service;
 	@ManyToOne
 	private Country country;
+	
 	private int peakPeriodStart;
+	
 	private int offPeakPeriodStart;
+	
+	 public PeakTimes() {
+	
+	}
+	
+	@OneToOne
+	@JoinColumn(name = "SC_CODE")
+	private ServiceCountry serviceCountry;
+	
+	
+	public ServiceCountry getServiceCountry() {
+		return serviceCountry;
+	}
+	public void setServiceCountry(ServiceCountry serviceCountry) {
+		this.serviceCountry = serviceCountry;
+	}
 	public PeakTimes( Service service, Country country,
 			int peakPeriodStart, int offPeakPeriodStart) {
 		super();

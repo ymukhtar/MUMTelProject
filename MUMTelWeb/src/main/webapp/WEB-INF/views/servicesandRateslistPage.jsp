@@ -4,6 +4,7 @@
 	prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,6 +77,7 @@
 					<th>Sr #</th>
 					<th>Service Name</th>
 					<th>Date Created</th>
+					<th>Peak Times</th>
 					<th>Rate Sheet</th>
 				</tr>
 			<thead>
@@ -86,8 +88,11 @@
 						<td>${loop.index+1}</td>
 						<td>${CountryService.service.description}</td>
 						<td>${CountryService.dateCreated}</td>
+						<td>
+							<fmt:formatNumber pattern="##" value="${CountryService.peakTime.peakPeriodStart}" minFractionDigits="2"></fmt:formatNumber>
+							- <fmt:formatNumber pattern="##" value="${CountryService.peakTime.offPeakPeriodStart}"  minFractionDigits="2"></fmt:formatNumber>
+						</td>
 						<td>	
-						
 							<a class="btn btn-default"
 								href='<c:url value="/report/rate_sheet/pdf?serviceCode=${CountryService.service.serviceCode}&countryCode=${CountryService.country.callingCode}"/>'
 								role="button">PDF</a>
@@ -95,7 +100,6 @@
 							<a class="btn btn-default"
 								href='<c:url value="/report/rate_sheet/xls?serviceCode=${CountryService.service.serviceCode}&countryCode=${CountryService.country.callingCode}"/>'
 								role="button">XLS</a>
-							
 							</td>
 					</tr>
 				</c:forEach>
