@@ -1,22 +1,14 @@
 package com.mumtel.Dao;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mumtel.Idao.ICallDetailsDAO;
-import com.mumtel.Idao.ICountryDAO;
 import com.mumtel.Idao.IServiceCountryDAO;
-import com.mumtel.Idao.IServiceDAO;
-import com.mumtel.model.CallDetail;
-import com.mumtel.model.Country;
-import com.mumtel.model.Service;
 import com.mumtel.model.ServiceCountry;
-import com.mumtel.model.Users;
 
 @Repository
 @Transactional(propagation=Propagation.MANDATORY)
@@ -56,5 +48,12 @@ public class ServiceCountryDAO extends GenericHibernateDAO<ServiceCountry, Integ
 		query.setFirstResult(start);
 		query.setMaxResults(fetchSize);
 		return query.list();
+	}
+
+	public ServiceCountry getServiceCountry(int countryCode, String serviceName) {
+		Query query=sessionFactory.getCurrentSession().createQuery("FROM ServiceCountry sc where sc.country.callingCode=:countryCode AND sc.service.description=:serviceName");
+		query.setInteger("countryCode", countryCode);
+		query.setString("serviceName", serviceName);
+		return (ServiceCountry) query.uniqueResult();
 	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
@@ -36,6 +37,7 @@ public abstract class Person implements Serializable{
 	@Email
 	private String emailAddress;
 	@Embedded
+	@Valid
 	private Address address;
 	
 	public Person(){
@@ -76,6 +78,10 @@ public abstract class Person implements Serializable{
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 	@Override
 	public String toString() {

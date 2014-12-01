@@ -7,6 +7,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
 
 @Entity
 public class SalesRep extends Person implements Serializable{
@@ -18,6 +19,7 @@ public class SalesRep extends Person implements Serializable{
 	private static final long serialVersionUID = -7447607470769999958L;
 	private String businesssPhone;
 	@Embedded
+	@Valid
 	private Address businesssAddress;
 	@OneToMany(mappedBy="salesRep")
 	private List<SalesRepCustomerRef> customersReferred;
@@ -54,12 +56,7 @@ public class SalesRep extends Person implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "SalesRep [businesssPhone=" + businesssPhone
-				+ ", businesssAddress=" + businesssAddress + ", getPersonID()="
-				+ getPersonID() + ", getFirstName()=" + getFirstName()
-				+ ", getLastName()=" + getLastName() + ", getAddress()="
-				+ getAddress() + ""
-				+ "]";
+		return getFirstName()+" "+getLastName();
 	}
 	
 	

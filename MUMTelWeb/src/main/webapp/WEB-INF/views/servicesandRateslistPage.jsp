@@ -60,9 +60,9 @@
 					</div>
 					
 					<div class="form-group form-group-lg">
-						<a class="btn btn-default"
-							href='<c:url value="/report/country_list_report/pdf"/>'
-							role="button">Generate Countries Report</a>
+						<a class="btn btn-default" href='<c:url value="/createService"/>' role="button">
+							Create New Service
+						</a>
 					</div>
 				</form>
 			</div>

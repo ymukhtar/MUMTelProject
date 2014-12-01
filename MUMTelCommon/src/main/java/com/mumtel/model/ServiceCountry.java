@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 
 @Entity
 public class ServiceCountry {
@@ -21,19 +22,18 @@ public class ServiceCountry {
 	private int serviceCountryID;
 	@ManyToOne
 	@JoinColumn(name="country_code")
+	@Valid
 	private Country country;
 	@ManyToOne
 	@JoinColumn(name="service_code")
+	@Valid
 	private Service service;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
 	
 	@OneToMany(mappedBy="serviceCountry")
 	private List<CallRates> callRateList=new ArrayList<CallRates>();
-	
-	
-	
-	
+		
 	public ServiceCountry() {
 		super();
 	}

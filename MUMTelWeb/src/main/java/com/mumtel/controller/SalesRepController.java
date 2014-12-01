@@ -1,11 +1,5 @@
 package com.mumtel.controller;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyEditor;
-import java.beans.PropertyEditorSupport;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,8 +23,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,13 +30,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.ICustomerService;
-import com.mumtel.IService.ISalesRepCustomerRefService;
 import com.mumtel.IService.ISalesRepService;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
 import com.mumtel.model.SalesRep;
-import com.mumtel.model.SalesRepCustomerRef;
 import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
@@ -52,53 +42,28 @@ import com.mumtel.utils.MumTelAuthorities;
 
 @Controller
 @Secured(MumTelAuthorities.ROLE_ADMIN)
-public class CustomerController {
+public class SalesRepController {
 	
-	private static Logger logger=Logger.getLogger(CustomerController.class);
-	
-	@Autowired
-	private ICallDetailsService callDetailService;
-	
-	@Autowired
-	private ICustomerService customerService;
+	private static Logger logger=Logger.getLogger(SalesRepController.class);
 	
 	@Autowired
 	private ISalesRepService salesRepService;
-	
-	@Autowired
-	private ISalesRepCustomerRefService isalesRepCustomerRefService;
 
 	
-	@RequestMapping(value = "/registerCustomer", method = RequestMethod.GET)
+	@RequestMapping(value = "/registerSalesRep", method = RequestMethod.GET)
 	public String displayForm(Model model) {
-		model.addAttribute("customer",new Customer());
-		model.addAttribute("allSalesRep",salesRepService.getAll());
-		return "registerCustomerPage";
+		model.addAttribute("salesRep",new SalesRep());
+		return "registerSalesRep";
 	}
 	
-	@InitBinder
-	public void initBindet(WebDataBinder binder){
-		binder.registerCustomEditor(SalesRepCustomerRef.class, new PropertyEditorSupport(){
-			@Override
-			public void setAsText(String val){
-				SalesRep salesRep= salesRepService.get(Long.parseLong(val));
-				SalesRepCustomerRef ref=new SalesRepCustomerRef(salesRep, null, new Date(), 0.10f);
-				setValue(ref);
-			}
-		});
-	}
-
-
-	@RequestMapping(value = "/saveCustomer", method = RequestMethod.POST)
-	public String save(@Valid Customer customer, BindingResult result,Model model) {
+	@RequestMapping(value = "/saveSalesRep", method = RequestMethod.POST)
+	public String save(@Valid SalesRep salesRep, BindingResult result,Model model) {
 		if(result.hasFieldErrors()){
-			model.addAttribute("allSalesRep",salesRepService.getAll());
-			return "registerCustomerPage";
+			return "registerSalesRep";
 		}else{
-			customer.getSalesRepAssigned().setCustomer(customer);
-			customerService.create(customer);
+			salesRepService.create(salesRep);
 		}
-		model.addAttribute("message","Customer registered successfully!");
+		model.addAttribute("message","SalesRep registered successfully!");
 		return "successPage";
 	}
 }
