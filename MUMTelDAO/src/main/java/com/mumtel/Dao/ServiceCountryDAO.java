@@ -60,7 +60,7 @@ public class ServiceCountryDAO extends GenericHibernateDAO<ServiceCountry, Integ
 	public ServiceCountry getServiceCountry(int countryCode, int serviceCode) {
 		Query query=sessionFactory.getCurrentSession().createQuery("FROM ServiceCountry sc where sc.country.callingCode=:countryCode AND sc.service.serviceCode=:serviceCode");
 		query.setInteger("countryCode", countryCode);
-		query.setInteger("serviceName", serviceCode);
+		query.setInteger("serviceCode", serviceCode);
 		return (ServiceCountry) query.uniqueResult();
 	}
 }

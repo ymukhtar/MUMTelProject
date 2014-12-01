@@ -91,9 +91,13 @@
 						<td>
 							<fmt:formatNumber pattern="##" value="${CountryService.peakTime.peakPeriodStart}" minFractionDigits="2"></fmt:formatNumber>
 							- <fmt:formatNumber pattern="##" value="${CountryService.peakTime.offPeakPeriodStart}"  minFractionDigits="2"></fmt:formatNumber>
-							<a class="btn btn-default"
+							
+							<c:if test="${CountryService!=null }">
+								<a class="btn btn-default"
 								href='<c:url value="/updatePeakTime?serviceCode=${CountryService.service.serviceCode}&countryCode=${CountryService.country.callingCode}"/>'
 								role="button">Update</a>
+							</c:if>
+							
 						</td>
 						<td>	
 							<a class="btn btn-default"

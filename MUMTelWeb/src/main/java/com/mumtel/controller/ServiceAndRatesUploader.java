@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mumtel.IService.ICallRatesService;
 import com.mumtel.IService.ICallServicesService;
 import com.mumtel.IService.ICountryService;
+import com.mumtel.IService.IPeaktimeService;
 import com.mumtel.IService.IServiceCountryService;
 import com.mumtel.model.CallRates;
 import com.mumtel.model.Country;
@@ -52,6 +55,9 @@ public class ServiceAndRatesUploader {
 	private ICountryService countryService;
 	@Autowired
 	private IServiceCountryService serviceCountryService;
+	@Autowired
+	private IPeaktimeService peakTimeService;
+	
 
 	@RequestMapping(value = "/showServiceAndRateUploader", method = RequestMethod.GET)
 	public String displayForm(Model model) {
@@ -60,11 +66,37 @@ public class ServiceAndRatesUploader {
 	}
 	
 	@RequestMapping(value = "/updatePeakTime", method = RequestMethod.GET)
-	public String displayForm(Model model,@RequestParam("serviceCode") int serviceCode,@RequestParam("countryCode") int countryCode) {
+	public String displayForm(Model model,@RequestParam("serviceCode") int serviceCode,@RequestParam("countryCode") int countryCode,HttpSession session) {
 		PeakTimes peakTime=serviceCountryService.getPeakTime(serviceCode,countryCode);
-		model.addAttribute("peakTime",peakTime==null?new PeakTimes():peakTime);
+		
+		if(peakTime==null){
+			peakTime=new PeakTimes();
+			peakTime.setServiceCountry(serviceCountryService.getServiceCountry(countryCode, serviceCode));
+		}
+		session.setAttribute("peakTime", peakTime);
+		model.addAttribute("peakTime",peakTime);
 		model.addAttribute("serviceCountry",serviceCountryService.getServiceCountry(countryCode, serviceCode));
-		return "createServicePage";
+		return "updatePeakTimePage";
+	}
+	
+	@RequestMapping(value = "/updatePeakTime", method = RequestMethod.POST)
+	public String savePeakTimes(@Valid PeakTimes peakTime, BindingResult result,Model model,HttpSession session) {
+		if(result.hasFieldErrors()){
+			return "updatePeakTime";
+		}else{
+			logger.debug(peakTime);
+			ServiceCountry serviceCountry=peakTime.getServiceCountry();
+			if(session.getAttribute("peakTime")!=null){
+				PeakTimes pt=(PeakTimes)session.getAttribute("peakTime");
+				peakTime.setPeaktimeID(pt.getPeaktimeID());
+				serviceCountry=pt.getServiceCountry();
+			}
+			peakTimeService.create(peakTime);
+			model.addAttribute("currentPage", 1);
+			model.addAttribute("searchString",serviceCountry.getCountry().getCallingCode());
+			model.addAttribute("allCountries",countryService.getAll());
+			return "redirect:/serviceAndRatesDetails";
+		}
 	}
 	
 	//updatePeakTime

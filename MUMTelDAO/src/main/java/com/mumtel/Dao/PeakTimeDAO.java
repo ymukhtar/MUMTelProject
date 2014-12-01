@@ -12,7 +12,9 @@ import com.mumtel.model.PeakTimes;
 public class PeakTimeDAO extends GenericHibernateDAO<PeakTimes, Integer> implements IPeakTimeDAO{
 
 	public PeakTimes getLatestPeakTime(int serviceCode, int countryCode) {
-		Query query=sessionFactory.getCurrentSession().createQuery("FROM PeakTime p p.country.callingCode=:countryCode AND p.service.serviceCode=:serviceCode");
+		Query query=sessionFactory.getCurrentSession().createQuery("FROM PeakTimes p WHERE p.serviceCountry.country.callingCode=:countryCode AND p.serviceCountry.service.serviceCode=:serviceCode");
+			query.setInteger("countryCode", countryCode);
+			query.setInteger("serviceCode", serviceCode);
 		return (PeakTimes) query.uniqueResult();
 	}
 
