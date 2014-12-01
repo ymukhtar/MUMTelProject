@@ -84,7 +84,12 @@ public class ServiceCountryService extends
 
 	public boolean createNewService(ServiceCountry serviceCountry) {
 		com.mumtel.model.Service service = serviceCountry.getService();
-		serviceDAO.create(service);
+		com.mumtel.model.Service serviceDB=serviceDAO.getByServiceName(service.getDescription());
+		if(serviceDB==null)
+			serviceDAO.create(service);
+		else{
+			serviceCountry.setService(serviceDB);
+		}
 		serviceCountry.setDateCreated(new Date(System.currentTimeMillis()));
 		serviceCountryDAO.create(serviceCountry);
 		return false;

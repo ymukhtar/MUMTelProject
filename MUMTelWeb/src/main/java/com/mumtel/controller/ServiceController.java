@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mumtel.IService.ICallServicesService;
 import com.mumtel.IService.ICountryService;
@@ -34,6 +35,7 @@ public class ServiceController {
 	public String displayForm(Model model) {
 		model.addAttribute("countryList",countryService.getAll());
 		model.addAttribute("serviceCountry", new ServiceCountry());
+		//model.addAttribute("countryCode",countryCode);
 		return "createServicePage";
 	}
 	
@@ -50,7 +52,7 @@ public class ServiceController {
 			}else{
 				logger.debug(serviceCountry);
 				this.serviceCountry.createNewService(serviceCountry);
-				return "redirect:/serviceAndRatesDetails?currentPage=1&searchString=";
+				return "redirect:/serviceAndRatesDetails?currentPage=1&searchString="+serviceCountry.getCountry().getCallingCode();
 			}
 		}
 	}
