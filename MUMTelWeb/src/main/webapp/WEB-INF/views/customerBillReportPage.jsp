@@ -98,11 +98,8 @@
 						<td>${bill.toTelephone}</td>
 						<td>${bill.toCountryName}</td>
 						<td>
-							<fmt:formatNumber
-								pattern="##"
-								value="${bill.callDuration}"
-								minIntegerDigits="1"
-								maxFractionDigits="2"></fmt:formatNumber>
+							${bill.callDuration}
+								
 						</td>
 						<td>
 						<fmt:formatNumber
