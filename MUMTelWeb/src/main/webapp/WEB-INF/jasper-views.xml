@@ -17,32 +17,42 @@
 
 	<bean id="countryListXlsReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
-		p:url="classpath:countries_report.jrxml" p:reportDataKey="datasource" />
+		p:url="classpath:countries_report_excel.jrxml" p:reportDataKey="datasource" />
 
 	<bean id="monthlyTrafficPdfReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:monthly_traffic_summary.jrxml" p:reportDataKey="datasource" />
 
-	<!-- <bean id="customerBillsPdfReport"
+	<bean id="monthlyTrafficXlsReport"
+		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
+		p:url="classpath:monthly_traffic_summary_excel.jrxml" p:reportDataKey="datasource" />
+
+	<bean id="customerBillsPdfReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:customer_bills.jrxml" p:reportDataKey="datasource" />
- -->
+
+	<bean id="customerBillsXlsReport"
+		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
+		p:url="classpath:customer_bills_excel.jrxml" p:reportDataKey="datasource" />
+
 
 	<bean id="RateSheetPdfReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:rate_sheet.jrxml" p:reportDataKey="datasource">
-		<property name="headers">
-			<props>
-				<prop key="Content-Disposition">
-					attachment; filename=rate_sheet.pdf
-				</prop>
-			</props>
-		</property>
+<!-- 		<property name="headers"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="Content-Disposition"> -->
+<!-- 					inline; filename=rate_sheet.pdf -->
+<!-- 				</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
 	</bean>
 
 	<bean id="RateSheetXlsReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
-		p:url="classpath:rate_sheet.jrxml" p:reportDataKey="datasource" />
+		p:url="classpath:rate_sheet_excel.jrxml" p:reportDataKey="datasource">		
+	</bean>
+
 
 
 	<bean id="monthlySalesRepComissionPdfReport"

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Calling_Codes" language="groovy" pageWidth="300" pageHeight="842" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c1fc2df7-3065-4081-a2c7-1dff670e99f5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<field name="callingCode" class="java.lang.Integer"/>
+	<field name="countryName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="87a55199-d118-4505-8639-50e780a077d2" mode="Transparent" x="86" y="0" width="214" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Country Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a667df7a-6bd5-47d9-ad7e-874acf7e96b8" mode="Transparent" x="2" y="0" width="84" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Country Code]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="22154a83-121c-4170-9ed6-c16b0b21025b" x="86" y="0" width="214" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{countryName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5be8d4bb-bd99-487b-a830-fad2271814f3" x="2" y="0" width="84" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{callingCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -49,6 +49,10 @@
 Fairfield IA 52557 USA
 Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="10" y="11" width="111" height="59"/>
+				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

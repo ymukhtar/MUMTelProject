@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rate_sheet" language="groovy" columnCount="2" pageWidth="595" pageHeight="842" columnWidth="277" columnSpacing="1" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="87d89a04-62a1-4dd9-bdc4-56bc26d5971e">
 	<property name="ireport.zoom" value="1.331000000000004"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="68"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="service" class="java.lang.String"/>
 	<parameter name="sourceCountry" class="java.lang.String"/>
+	<parameter name="peakPeriodStartTime" class="java.lang.String"/>
+	<parameter name="offPeakPeriodStartTime" class="java.lang.String"/>
+	<parameter name="startDate" class="java.lang.String"/>
+	<parameter name="endDate" class="java.lang.String"/>
 	<field name="tocallingCode" class="com.mumtel.model.Country"/>
 	<field name="peakPeriodRate" class="java.lang.Float"/>
 	<field name="offPeakPeriodRate" class="java.lang.Float"/>
@@ -77,7 +81,7 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 					<textFieldExpression><![CDATA[$P{service}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="0f764b28-a777-46c6-86b9-5032741c3719" x="166" y="2" width="193" height="14" forecolor="#FFFFFF"/>
+					<reportElement uuid="0f764b28-a777-46c6-86b9-5032741c3719" x="166" y="2" width="160" height="14" forecolor="#FFFFFF"/>
 					<textElement>
 						<font size="10" isBold="true"/>
 					</textElement>
@@ -91,9 +95,9 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 					<text><![CDATA[Service:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="fcc40373-4199-42ee-8291-ee98ae05c6cc" x="360" y="2" width="70" height="14" forecolor="#FFFFFF"/>
+					<reportElement uuid="fcc40373-4199-42ee-8291-ee98ae05c6cc" x="326" y="2" width="74" height="14" forecolor="#FFFFFF"/>
 					<textElement/>
-					<text><![CDATA[Effective Date:]]></text>
+					<text><![CDATA[Effective Period:]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -133,7 +137,7 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField>
 				<reportElement uuid="26e9f01b-3970-49c0-bc54-498d6d117e66" x="1" y="0" width="153" height="20"/>
 				<textElement/>
@@ -169,15 +173,25 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 			<frame>
 				<reportElement uuid="d19d558f-58c0-4139-a35e-b75dc81f6b64" mode="Opaque" x="0" y="0" width="555" height="18" backcolor="#808080"/>
 				<staticText>
-					<reportElement uuid="ebbb315b-150b-43da-8af1-e56e9a7f9f15" x="111" y="4" width="120" height="14" forecolor="#FFFFFF"/>
+					<reportElement uuid="ebbb315b-150b-43da-8af1-e56e9a7f9f15" x="61" y="0" width="104" height="14" forecolor="#FFFFFF"/>
 					<textElement/>
 					<text><![CDATA[Peak Period Start Time :]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="e7f70427-36eb-453b-9fff-2d2c3527fc6c" x="298" y="4" width="136" height="14" forecolor="#FFFFFF"/>
+					<reportElement uuid="e7f70427-36eb-453b-9fff-2d2c3527fc6c" x="297" y="0" width="136" height="14" forecolor="#FFFFFF"/>
 					<textElement/>
 					<text><![CDATA[Off Peak Period Start Time :]]></text>
 				</staticText>
+				<textField>
+					<reportElement uuid="9a21f668-26d4-44b4-9f28-f83de2cd6d35" x="165" y="2" width="111" height="14" forecolor="#FFFFFF"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$P{peakPeriodStartTime}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="8469b449-b1af-4f5a-b45a-731408d48b0e" x="433" y="0" width="116" height="14" forecolor="#FFFFFF"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$P{offPeakPeriodStartTime}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</pageFooter>

@@ -7,94 +7,136 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<image>
-				<reportElement x="-1" y="17" width="201" height="62" uuid="a773af30-b44d-4009-b9b9-ccef600009d4"/>
-				<imageExpression><![CDATA["C:\\Users\\sheye\\Downloads\\project files\\final_logo.png"]]></imageExpression>
+		<band height="119" splitType="Stretch">
+			<frame>
+				<reportElement uuid="69e0be48-cfb9-443d-a1ad-e5b331759ff3" mode="Opaque" x="111" y="0" width="444" height="67" backcolor="#FFFFFF"/>
+				<staticText>
+					<reportElement uuid="41797d52-912e-4996-b9c5-6e76f0051229" mode="Transparent" x="15" y="0" width="199" height="27" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Arial Black" size="18" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[MUMTEL]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement uuid="87e8851b-20a5-4e11-911d-be85d7631a70" x="370" y="52" width="73" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="94cb002f-1229-48fe-bf42-b30349e664e9" x="340" y="52" width="30" height="15"/>
+					<textElement/>
+					<text><![CDATA[Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="229" y="4" width="215" height="36" backcolor="#F0F0F0"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Monthly Sales Representative Comissions]]></text>
+				</staticText>
+			</frame>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="2" y="1" width="111" height="59"/>
+				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
 			</image>
+			<line>
+				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="67" width="595" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="c716edef-f439-4052-9f34-128e5d3981cc" x="126" y="27" width="199" height="41"/>
+				<textElement>
+					<font size="10" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1000 N 4TH ST
+Fairfield IA 52557 USA
+Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
+			</staticText>
+			<frame>
+				<reportElement uuid="764ddf37-25ff-4c62-b364-efab53314b95" x="-1" y="68" width="555" height="49"/>
+				<staticText>
+					<reportElement uuid="57c6e380-139f-4f22-8afa-d57c214c7c19" x="2" y="32" width="100" height="16"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Comission:]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement uuid="d452772f-5e38-44df-82bb-565440e40a04" x="2" y="84" width="110" height="16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comission Period:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a919ebc8-2f31-420b-b78e-aff53448c9ff" x="1" y="68" width="166" height="16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sales Representative Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="403addbc-7c5f-40d2-963c-c39a3f00f448" x="200" y="84" width="16" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="33" width="100" height="20" uuid="7cd526e8-9630-4786-bb88-2d12528c84b7"/>
+				<reportElement uuid="7cd526e8-9630-4786-bb88-2d12528c84b7" mode="Opaque" x="2" y="0" width="77" height="16" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Customer]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="77" y="33" width="100" height="20" uuid="637cf9e2-32d7-45d3-a781-62b7150864b8"/>
+				<reportElement uuid="637cf9e2-32d7-45d3-a781-62b7150864b8" mode="Opaque" x="79" y="0" width="67" height="16" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pohone]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="144" y="33" width="100" height="20" uuid="428c7113-0bc7-40f8-82a8-c673f3a107bc"/>
+				<reportElement uuid="428c7113-0bc7-40f8-82a8-c673f3a107bc" mode="Opaque" x="146" y="0" width="94" height="16" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Date]]></text>
+				<text><![CDATA[Date and Time]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="33" width="100" height="20" uuid="e02468e1-9922-4eb5-b439-0eef6cb40b5a"/>
+				<reportElement uuid="128d8965-bab0-4745-88e1-8ea4b39c43af" mode="Opaque" x="240" y="0" width="100" height="16" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Time]]></text>
+				<text><![CDATA[To]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="254" y="33" width="100" height="20" uuid="128d8965-bab0-4745-88e1-8ea4b39c43af"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Destination]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="354" y="33" width="100" height="20" uuid="499c5048-e93e-45cf-8ab9-331392a94811"/>
+				<reportElement uuid="499c5048-e93e-45cf-8ab9-331392a94811" mode="Opaque" x="340" y="0" width="70" height="16" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Duration]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="429" y="33" width="100" height="20" uuid="eecba9e5-6a0e-4cd6-8f97-9b430751c40a"/>
+				<reportElement uuid="eecba9e5-6a0e-4cd6-8f97-9b430751c40a" mode="Opaque" x="410" y="0" width="73" height="16" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cost]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="481" y="33" width="100" height="20" uuid="78061d20-914c-4a6a-8a43-500a5e08612a"/>
+				<reportElement uuid="78061d20-914c-4a6a-8a43-500a5e08612a" mode="Opaque" x="483" y="0" width="71" height="16" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comission]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="100" height="20" uuid="d452772f-5e38-44df-82bb-565440e40a04"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[From Date]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="154" y="0" width="100" height="20" uuid="74600d6a-db22-47c9-a56f-63f8eb3458af"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[To Date]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="300" y="0" width="100" height="20" uuid="a919ebc8-2f31-420b-b78e-aff53448c9ff"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Sales Rep Name:]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -102,15 +144,7 @@
 		<band height="125" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="15" width="100" height="20" uuid="57c6e380-139f-4f22-8afa-d57c214c7c19"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Comission:]]></text>
-			</staticText>
-		</band>
+		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>

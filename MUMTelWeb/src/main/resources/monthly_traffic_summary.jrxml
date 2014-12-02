@@ -2,73 +2,142 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="montly_traffic_summary" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f46c6ce7-b339-4a9d-8a4a-9a6abdb13ac7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="12"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="Table Dataset 1" uuid="002887a9-cd33-472c-83d9-603f3d11dd42"/>
+	<field name="service" class="java.lang.String"/>
+	<field name="fromCountry" class="java.lang.String"/>
+	<field name="toCountry" class="java.lang.String"/>
+	<field name="totalMinutesOfCall" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="20" width="236" height="59" uuid="ad79d89a-2f95-4777-8fb9-14d1de6a1129"/>
-				<imageExpression><![CDATA["C:\\Users\\sheye\\Downloads\\project files\\final_logo.png"]]></imageExpression>
+		<band height="80" splitType="Stretch">
+			<frame>
+				<reportElement uuid="69e0be48-cfb9-443d-a1ad-e5b331759ff3" mode="Opaque" x="111" y="0" width="444" height="67" backcolor="#FFFFFF"/>
+				<staticText>
+					<reportElement uuid="41797d52-912e-4996-b9c5-6e76f0051229" mode="Transparent" x="15" y="0" width="199" height="27" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Arial Black" size="18" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[MUMTEL]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement uuid="87e8851b-20a5-4e11-911d-be85d7631a70" x="370" y="52" width="73" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="94cb002f-1229-48fe-bf42-b30349e664e9" x="340" y="52" width="30" height="15"/>
+					<textElement/>
+					<text><![CDATA[Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="214" y="1" width="229" height="26" backcolor="#F0F0F0"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[MUMTel Monthly Traffic Summary]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="01350e46-2e4a-40c0-8c07-0f99803cf93d" x="314" y="27" width="26" height="20"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+			</frame>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="2" y="1" width="111" height="59"/>
+				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
 			</image>
+			<line>
+				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="67" width="595" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="c716edef-f439-4052-9f34-128e5d3981cc" x="126" y="27" width="199" height="41"/>
+				<textElement>
+					<font size="10" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1000 N 4TH ST
+Fairfield IA 52557 USA
+Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="179" y="15" width="208" height="20" uuid="f9bf252a-acc7-4ade-a904-a111cdbbc498"/>
-				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[MUMTel Monthly Traffic  Summary]]></text>
-			</staticText>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="50" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="2" width="100" height="20" uuid="e6b0f054-8e92-49a9-a4a3-e494ad522efe"/>
+				<reportElement uuid="e6b0f054-8e92-49a9-a4a3-e494ad522efe" mode="Opaque" x="2" y="0" width="111" height="20" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Service]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="149" y="2" width="100" height="20" uuid="f878841f-f5fa-439e-a1a9-4b91e56965a6"/>
+				<reportElement uuid="f878841f-f5fa-439e-a1a9-4b91e56965a6" mode="Opaque" x="113" y="0" width="152" height="20" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[From]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="287" y="2" width="100" height="20" uuid="74c94cf5-6a46-449b-92e1-d871fba482f8"/>
+				<reportElement uuid="74c94cf5-6a46-449b-92e1-d871fba482f8" mode="Opaque" x="265" y="0" width="160" height="20" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[To]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="425" y="2" width="130" height="20" uuid="924f2d30-73f4-4587-a46f-40ef6233a009"/>
+				<reportElement uuid="924f2d30-73f4-4587-a46f-40ef6233a009" mode="Opaque" x="425" y="0" width="130" height="20" forecolor="#FFFFFF" backcolor="#99B4D1"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Minutes of Calls]]></text>
 			</staticText>
-			<line>
-				<reportElement x="-22" y="-1" width="600" height="1" uuid="8fadf68e-81d3-477e-adb8-ebad67cae369"/>
-			</line>
 		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="2ae3ed8d-ce80-445d-9da2-a22c301205a1" x="2" y="1" width="109" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{service}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b5522b74-6e35-4ca5-87dd-3e4a425c9e18" x="111" y="1" width="154" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fromCountry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dc0e45bd-31ec-478c-a0cb-21088589451f" x="425" y="1" width="129" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{totalMinutesOfCall}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="89de191b-061a-402e-b371-624e96465ba8" x="265" y="1" width="160" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{toCountry}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d51c9ddc-5b4a-44e1-ae1a-678232c66b9f" x="4" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="80e90ee4-c939-448f-bb62-1b15d80ef5a5" x="84" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>

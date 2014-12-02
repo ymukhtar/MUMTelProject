@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="montly_traffic_summary" language="groovy" pageWidth="556" pageHeight="842" columnWidth="556" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f46c6ce7-b339-4a9d-8a4a-9a6abdb13ac7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<subDataset name="Table Dataset 1" uuid="002887a9-cd33-472c-83d9-603f3d11dd42"/>
+	<parameter name="period" class="java.lang.String"/>
+	<field name="service" class="java.lang.String"/>
+	<field name="fromCountry" class="java.lang.String"/>
+	<field name="toCountry" class="java.lang.String"/>
+	<field name="totalMinutesOfCall" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e6b0f054-8e92-49a9-a4a3-e494ad522efe" mode="Transparent" x="3" y="20" width="114" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f878841f-f5fa-439e-a1a9-4b91e56965a6" mode="Transparent" x="117" y="20" width="152" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74c94cf5-6a46-449b-92e1-d871fba482f8" mode="Transparent" x="269" y="20" width="160" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="924f2d30-73f4-4587-a46f-40ef6233a009" mode="Transparent" x="429" y="20" width="127" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Minutes of Calls]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="109a88d1-c582-4e89-b07a-ab4b9ad48fce" x="0" y="0" width="117" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Period:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a6d161a0-046a-4be5-890f-ef7d72aea1ec" x="3" y="1" width="114" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{service}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8afc7ad1-c760-4255-a5f8-0663bac2dcfe" x="117" y="1" width="152" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fromCountry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bdb137eb-cd1f-418d-9bd7-4dbbd0465822" x="269" y="1" width="160" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{toCountry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d8db3056-156b-48c3-8999-2aea4bcb742b" x="429" y="1" width="127" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{totalMinutesOfCall}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

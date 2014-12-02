@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rate_sheet" language="groovy" pageWidth="300" pageHeight="842" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="87d89a04-62a1-4dd9-bdc4-56bc26d5971e">
+	<property name="ireport.zoom" value="1.331000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<parameter name="service" class="java.lang.String"/>
+	<parameter name="sourceCountry" class="java.lang.String"/>
+	<parameter name="peakPeriodStartTime" class="java.lang.String"/>
+	<parameter name="offPeakPeriodStartTime" class="java.lang.String"/>
+	<parameter name="startDate" class="java.lang.String"/>
+	<parameter name="endDate" class="java.lang.String"/>
+	<parameter name="PARAM_REPORT_FILENAME" class="java.lang.String"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<field name="tocallingCode" class="com.mumtel.model.Country"/>
+	<field name="peakPeriodRate" class="java.lang.Float"/>
+	<field name="offPeakPeriodRate" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4e01e45f-075d-42e4-96a3-3056aaa4d40b" x="165" y="0" width="67" height="15" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peak Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8ad159a1-5b93-4887-905a-410e79946a6b" x="232" y="0" width="68" height="15" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Off Peak Rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f69f5048-a15d-4840-83d0-5b64c2d6a03f" mode="Transparent" x="2" y="0" width="163" height="15" forecolor="#000000" backcolor="#99B4D1">
+					<property name="net.sf.jasperreports.export.xls.create.custom.palette" value="false"/>
+					<propertyExpression name="net.sf.jasperreports.export.xls.sheet.name"><![CDATA[$P{service}+'_'+$P{sourceCountry}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destination]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="26e9f01b-3970-49c0-bc54-498d6d117e66" x="1" y="0" width="164" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tocallingCode}.getCountryName()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2e21ae33-0f0f-42eb-8cdf-e6915280b529" x="165" y="0" width="67" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{peakPeriodRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f243e5f5-26aa-4606-8e33-6491bff0f960" x="232" y="0" width="68" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{offPeakPeriodRate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
