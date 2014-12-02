@@ -61,6 +61,14 @@ public class CustomerController {
 	private static List<Country> allCountryList;
 	
 	
+	public  List<Country> getAllCountryList() {
+		if(allCountryList==null||allCountryList.size()==0){
+			allCountryList=countryService.getAll();
+		}
+		return allCountryList;
+	}
+
+
 	@PostConstruct
 	public void initIt() throws Exception {
 	  allCountryList=countryService.getAll();
@@ -70,8 +78,9 @@ public class CustomerController {
 	public String displayForm(Model model) {
 		model.addAttribute("customer",new Customer());
 		model.addAttribute("allSalesRep",salesRepService.getAll());
-		model.addAttribute("countriesList",allCountryList );
-		Country country=countryService.get(allCountryList.get(0).getCallingCode());
+		
+		model.addAttribute("countriesList",getAllCountryList() );
+		Country country=countryService.get(getAllCountryList().get(0).getCallingCode());
 		model.addAttribute("countryServiceList",country.getServicesCountryList());
 		model.addAttribute("countrySelected", 1);
 		
@@ -81,7 +90,7 @@ public class CustomerController {
 	@RequestMapping(value = "/fetchCountryServices", method = RequestMethod.GET)
 	public String displayFormWithNewServices(Customer customer,Model model,BindingResult result,@RequestParam("country") int countryCode) {
 		model.addAttribute("allSalesRep",salesRepService.getAll());
-		model.addAttribute("countriesList",allCountryList );
+		model.addAttribute("countriesList",getAllCountryList() );
 		Country country=countryService.get(countryCode);
 		model.addAttribute("countryServiceList",country.getServicesCountryList());
 		model.addAttribute("countrySelected",countryCode);
@@ -105,7 +114,7 @@ public class CustomerController {
 	public String save(@Valid Customer customer, BindingResult result,Model model) {
 		if(result.hasFieldErrors()){
 			model.addAttribute("allSalesRep",salesRepService.getAll());
-			model.addAttribute("countriesList",allCountryList );
+			model.addAttribute("countriesList",getAllCountryList() );
 			Country country=countryService.get(customer.getServiceCountry().getCountry().getCallingCode());
 			model.addAttribute("countryServiceList",country.getServicesCountryList());
 			model.addAttribute("countrySelected",country.getCallingCode());
