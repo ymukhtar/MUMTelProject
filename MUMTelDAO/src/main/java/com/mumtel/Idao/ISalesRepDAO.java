@@ -7,4 +7,6 @@ import com.mumtel.model.Users;
 
 
 public interface ISalesRepDAO extends IGenericDAO<SalesRep, Long>{
+	public long getPagedSalesRepListCount(String searchCriteria);
+	public List<SalesRep> getPagedSalesRepList(int start,int fetchSize,String criteriaString);
 }

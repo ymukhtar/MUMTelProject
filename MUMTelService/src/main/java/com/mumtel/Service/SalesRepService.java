@@ -31,4 +31,13 @@ public class SalesRepService extends GenericService<SalesRep, Long> implements I
 		// TODO Auto-generated method stub
 		genericDAO=salesRepDAO;
 	}
+	public long getPagedSalesRepListCount(String searchCriteria) {
+		// TODO Auto-generated method stub
+		return salesRepDAO.getPagedSalesRepListCount(searchCriteria);
+	}
+	public List<SalesRep> getPagedSalesRepList(int start, int fetchSize,
+			String criteriaString) {
+		// TODO Auto-generated method stub
+		return salesRepDAO.getPagedSalesRepList(start, fetchSize, criteriaString);
+	}
 }

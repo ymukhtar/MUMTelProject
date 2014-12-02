@@ -15,6 +15,15 @@
 	<jsp:param value="a" name="a" />
 </jsp:include>
 
+<script type="text/javascript">
+
+	function gernerateReport(type){
+		var urlA="<%=request.getContextPath()%>/report/monthly_traffic_report/"+type+"?&month="+jQuery('#month').val()+"&year="+jQuery('#year').val();
+		window.location.href=urlA;
+	}
+	
+</script>
+
 </head>
 <div id="page-wrapper" style="margin-left: 17%">
 
@@ -163,7 +172,7 @@
 					<a href="#">
 						<div class="panel-footer">
 							<span class="pull-left"><a
-								href="<c:url value="/serviceAndRatesDetails?currentPage=1&searchString="/>">View
+								href="<c:url value="/salesRepDetails?currentPage=1&searchString="/>">View
 									Details</a> <span class="pull-right"><i
 									class="fa fa-arrow-circle-right"></i></span>
 								<div class="clearfix"></div>
@@ -182,12 +191,12 @@
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="row">
-									<select name="tsMonth" id="tsMonth" style="color:black" >
+									<select name="month" id="month" style="color:black" >
 										<c:forEach var="month" items="${months}">
 											<option value="${month.key}">${month.value}</option>
 										</c:forEach>
 									</select> 
-									<select name="tsYear" id="tsYear" style="color:black" >
+									<select name="year" id="year" style="color:black" >
 										<c:forEach var="year" items="${years}">
 											<option value="${year}">${year}</option>
 										</c:forEach>
@@ -199,10 +208,10 @@
 					</div>
 					<a href="#">
 						<div class="panel-footer">
-							<span class="pull-left"><span class="pull-left"><a
-									href="<c:url value="/getMonthlySalesReport?month=12&year=2013"/>">PDF</a></span>
+							<span class="pull-left"><span class="pull-left">
+							<a onclick="gernerateReport('pdf')" role="button">PDF</a></span>
 								<span class="pull-right"><span class="pull-left"><a
-										href="<c:url value="/getMonthlySalesReport?month=12&year=2013"/>">XLS</a></span>
+										onclick="gernerateReport('xls')" role="button">XLS</a></span>
 									<div class="clearfix"></div>
 						</div>
 					</a>

@@ -66,4 +66,31 @@ public class SalesRepController {
 		model.addAttribute("message","SalesRep registered successfully!");
 		return "successPage";
 	}
+	
+	@Secured(MumTelAuthorities.ROLE_ADMIN)
+	@RequestMapping(value="/salesRepDetails",method=RequestMethod.GET)
+	public String getSalesRep(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
+		
+		long count=salesRepService.getPagedSalesRepListCount(searchString);
+		int totalPages=(int)Math.ceil(1.0*count/CommonUtility.FETCH_SIZE);
+		model.addAttribute("searchString", searchString);
+		if(count==0){
+			model.addAttribute("message", "No Sales Rep found matching your criteria!");
+		}else{
+			model.addAttribute("count", count);
+			int startIndex=(currentPage-1)*CommonUtility.FETCH_SIZE;
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("fetchSize", CommonUtility.FETCH_SIZE);
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("months", CommonUtility.MONTHS);
+			model.addAttribute("years", CommonUtility.YEARS);
+			model.addAttribute("message", "Total Customer found matching your criteria "+count);
+			int fetchSize=(int)( (startIndex+CommonUtility.FETCH_SIZE)<count?CommonUtility.FETCH_SIZE:(count-startIndex));
+			
+			List<SalesRep> salesRepList=salesRepService.getPagedSalesRepList(startIndex, fetchSize, searchString);
+			model.addAttribute("salesRepList", salesRepList);
+		}
+		
+		return "SalesRepDetailslistPage";
+	}
 }
