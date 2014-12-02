@@ -14,10 +14,20 @@ public class ExcelUtil {
 	public static int getIntValueFromCell(Cell cell) {
 		int value;
 		if (Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
-			value = Integer.parseInt(String.valueOf((int) cell
-					.getNumericCellValue()));
+			value = (int) cell
+					.getNumericCellValue();
 		} else {
 			value = Integer.parseInt(cell.getStringCellValue().trim());
+		}
+		return value;
+	}
+	
+	public static long getLongValueFromCell(Cell cell) {
+		long value;
+		if (Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
+			value = (long) cell.getNumericCellValue();
+		} else {
+			value = Long.parseLong(cell.getStringCellValue().trim());
 		}
 		return value;
 	}
