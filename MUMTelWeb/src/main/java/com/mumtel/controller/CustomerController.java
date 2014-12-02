@@ -67,6 +67,7 @@ public class CustomerController {
 	
 	@Autowired
 	private ISalesRepCustomerRefService isalesRepCustomerRefService;
+	
 
 	
 	@RequestMapping(value = "/registerCustomer", method = RequestMethod.GET)
@@ -100,5 +101,47 @@ public class CustomerController {
 		}
 		model.addAttribute("message","Customer registered successfully!");
 		return "successPage";
+	}
+	
+	@Secured(MumTelAuthorities.ROLE_ADMIN)
+	@RequestMapping(value="/customerDetails",method=RequestMethod.GET)
+	public String getCustomers(Model model,HttpServletRequest request,@RequestParam("currentPage") int currentPage,@RequestParam("searchString") String searchString){
+		
+		long count=customerService.getPagedCustomerListCount(searchString);
+		int totalPages=(int)Math.ceil(1.0*count/CommonUtility.FETCH_SIZE);
+		model.addAttribute("searchString", searchString);
+		if(count==0){
+			model.addAttribute("message", "No Customer found matching your criteria!");
+		}else{
+			model.addAttribute("count", count);
+			int startIndex=(currentPage-1)*CommonUtility.FETCH_SIZE;
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("fetchSize", CommonUtility.FETCH_SIZE);
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("months", CommonUtility.MONTHS);
+			model.addAttribute("years", CommonUtility.YEARS);
+			model.addAttribute("message", "Total Customer found matching your criteria "+count);
+			int fetchSize=(int)( (startIndex+CommonUtility.FETCH_SIZE)<count?CommonUtility.FETCH_SIZE:(count-startIndex));
+			
+			List<Customer> customerList=customerService.getPagedCustomerList(startIndex, fetchSize,searchString);
+			model.addAttribute("customerList", customerList);
+		}
+		
+		return "CustomerDetailslistPage";
+	}
+	
+	
+	@Secured(MumTelAuthorities.ROLE_ADMIN)
+	@RequestMapping(value="/viewBills",method=RequestMethod.GET)
+	public String viewBills(Model model,HttpServletRequest request,@RequestParam("personeId") Long personeId,@RequestParam("month") int month,@RequestParam("year") String year){
+		
+		Customer customer=customerService.get(personeId);
+		model.addAttribute("name",customer.getFirstName()+" "+customer.getLastName());
+		model.addAttribute("address",customer.getAddress().getStreetNo()+", "+customer.getAddress().getCity()+", "+customer.getAddress().getState()+", "+customer.getAddress().getZip());
+		model.addAttribute("phone",customer.getTelephone());
+		model.addAttribute("service",customer.getServiceCountry().getService().getDescription());
+		model.addAttribute("b",CommonUtility.MONTHS.get(month)+" "+year);
+		
+		return "customerBillReportPage";
 	}
 }

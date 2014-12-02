@@ -19,14 +19,23 @@ import com.mumtel.model.Customer;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
-public class CustomerService extends GenericService<Customer, Integer> implements ICustomerService{
+public class CustomerService extends GenericService<Customer, Long> implements ICustomerService{
 
 	@Autowired
-	private ICustomerDAO cusgtomerDAO;
-	@Override
+	private ICustomerDAO customerDAO;
+	@Override		
 	public void setGenericDAO() {
 		// TODO Auto-generated method stub
-		genericDAO=cusgtomerDAO;
+		genericDAO=customerDAO;
+	}
+	public long getPagedCustomerListCount(String searchCriteria) {
+		// TODO Auto-generated method stub
+		return customerDAO.getPagedCustomerListCount(searchCriteria);
+	}
+	public List<Customer> getPagedCustomerList(int start, int fetchSize,
+			String criteriaString) {
+		// TODO Auto-generated method stub
+		return customerDAO.getPagedCustomerList(start, fetchSize, criteriaString);
 	}
 
 }

@@ -25,6 +25,11 @@ public class SalesRepCustomerRef implements Serializable{
 	private Customer customer;
 	private Date dateCreated;
 	private float commision;
+	
+	public SalesRepCustomerRef() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public SalesRepCustomerRef(SalesRep salesRep, Customer customer,
 			Date dateCreated, float commision) {
 		super();

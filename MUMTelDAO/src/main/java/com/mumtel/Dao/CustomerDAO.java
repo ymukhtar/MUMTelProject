@@ -21,6 +21,43 @@ import com.mumtel.model.Users;
 
 @Repository
 @Transactional(propagation=Propagation.MANDATORY)
-public class CustomerDAO extends GenericHibernateDAO<Customer, Integer> implements ICustomerDAO{
+public class CustomerDAO extends GenericHibernateDAO<Customer, Long> implements ICustomerDAO{
+
+	public long getPagedCustomerListCount(String searchCriteria) {
+		// TODO Auto-generated method stub
+		String q="select count(c.id) From Customer c where 1=1 ";
+		if(searchCriteria!=null && searchCriteria.length()>0)
+		{
+			q+=" AND c.firstName like :fname or c.lastName like :lname or c.telephone like :phone";
+		}
+		Query query=sessionFactory.getCurrentSession().createQuery(q);
+		if(searchCriteria!=null && searchCriteria.length()>0){
+			query.setParameter("fname", "%"+searchCriteria+"%");
+			query.setParameter("lname", "%"+searchCriteria+"%");
+			query.setParameter("phone", "%"+searchCriteria+"%");
+		}
+		return (Long) query.uniqueResult();
+	}
+
+	public List<Customer> getPagedCustomerList(int start, int fetchSize,
+			String criteriaString) {
+		// TODO Auto-generated method stub
+		String q="From Customer c where 1=1";
+		if(criteriaString!=null && criteriaString.length()>0)
+		{
+			q+=" AND c.firstName like :fname or c.lastName like :lname or c.telephone like :phone";
+		}
+		Query query=sessionFactory.getCurrentSession().createQuery(q);
+		
+		if(criteriaString!=null && criteriaString.length()>0){
+			query.setParameter("fname", "%"+criteriaString+"%");
+			query.setParameter("lname", "%"+criteriaString+"%");
+			query.setParameter("phone", "%"+criteriaString+"%");
+		}
+		
+		query.setFirstResult(start);
+		query.setMaxResults(fetchSize);
+		return query.list();
+	}
 	
 }
