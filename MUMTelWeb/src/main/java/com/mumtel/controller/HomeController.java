@@ -17,6 +17,7 @@ import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICallServicesService;
 import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.ICustomerService;
+import com.mumtel.IService.ISalesRepService;
 import com.mumtel.Service.CustomerService;
 import com.mumtel.model.MonthlyTrafficReportVO;
 import com.mumtel.utils.CommonUtility;
@@ -42,7 +43,10 @@ public class HomeController {
 	private ICustomerService customerService;
 	
 	@Autowired
-	ICallServicesService callServicesService;
+	private ICallServicesService callServicesService;
+	
+	@Autowired
+	private ISalesRepService salesRepService;
 	
 	
 	/**
@@ -57,6 +61,7 @@ public class HomeController {
 		model.addAttribute("totalcallDetails",callDetailService.getPagedCallDetailListCount(""));
 		model.addAttribute("totalServices",callServicesService.getPagedServiceListCount(""));
 		model.addAttribute("totalCustomers",customerService.getPagedCustomerListCount(""));
+		model.addAttribute("totalSalesRep",salesRepService.getAll().size());
 		model.addAttribute("months", CommonUtility.MONTHS);
 		model.addAttribute("years", CommonUtility.YEARS);
 		return "adminDashboard";

@@ -27,23 +27,24 @@
 	}
 	function findCallDetails(){
 		
-		var urlA="<%=request.getContextPath()%>/customerDetails?currentPage=1&searchString="+jQuery('#searchType').val();
-		window.location.href=urlA;
-		
+		var urlA="<%=request.getContextPath()%>
+	/customerDetails?currentPage=1&searchString="
+				+ jQuery('#searchType').val();
+		window.location.href = urlA;
+
 	}
-	
-	jQuery(document).ready(function(){
+
+	jQuery(document).ready(function() {
 		jQuery('#pageSelection').val('${currentPage}');
-		$('#searchType').keypress(function(event){
+		$('#searchType').keypress(function(event) {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(keycode == '13'){
+			if (keycode == '13') {
 				findCallDetails();
 				return false;
 			}
-		 
+
 		});
 	});
-	
 </script>
 </head>
 <body>
@@ -61,48 +62,51 @@
 
 		<div class="form-group form-group-lg">
 
-				<a class="btn btn-default"
+			<a class="btn btn-default"
 				href='<c:url value="/report/customer_bill_report/pdf"/>'
-				role="button">Generate Customer Bill Report PDF</a>
-				 <a
+				role="button">Generate Customer Bill Report PDF</a> <a
 				class="btn btn-default"
 				href='<c:url value="/report/customer_bill_report/xls"/>'
-				role="button">Generate Customer Bill Report Excel</a>
+				role="button">Generate Customer Bill Report Excel</a> 
+				<a
+				class="btn btn-default" role="button"
+				onclick="window.history.back();"><span
+				class="glyphicon glyphicon-arrow-left"></span>&nbsp;Go Back</a>
 		</div>
 
 		<h3>${message}</h3>
 		<hr></hr>
-		<div style="overflow:scroll;height:500px">
-		<table id="example" class="table table-striped table-bordered"
-			cellspacing="20" width="100%">
-			<thead>
-				<tr>
-					<th>Sr #</th>
-					<th>Call Date</th>
-					<th>Call Time</th>
-					<th>To Phone</th>
-					<th>To Country</th>
-					<th>Call Duration</th>
-					<th>Call Rate</th>
-					<th>Call Cost</th>
-				</tr>
-			<thead>
-			<tbody>
-
-				<c:forEach var="bill" items="${billList}" varStatus="loop">
+		<div style="overflow: scroll; height: 500px">
+			<table id="example" class="table table-striped table-bordered"
+				cellspacing="20" width="100%">
+				<thead>
 					<tr>
-						<td>${loop.index+1}</td>
-						<td>${bill.callDate}</td>
-						<td>${bill.callTime}</td>
-						<td>${bill.toTelephone}</td>
-						<td>${bill.toCountryName}</td>
-						<td>${bill.callDuration}</td>
-						<td>${bill.callRate}</td>
-						<td>${bill.callCost}</td>
+						<th>Sr #</th>
+						<th>Call Date</th>
+						<th>Call Time</th>
+						<th>To Phone</th>
+						<th>To Country</th>
+						<th>Call Duration</th>
+						<th>Call Rate</th>
+						<th>Call Cost</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				<thead>
+				<tbody>
+
+					<c:forEach var="bill" items="${billList}" varStatus="loop">
+						<tr>
+							<td>${loop.index+1}</td>
+							<td>${bill.callDate}</td>
+							<td>${bill.callTime}</td>
+							<td>${bill.toTelephone}</td>
+							<td>${bill.toCountryName}</td>
+							<td>${bill.callDuration}</td>
+							<td>${bill.callRate}</td>
+							<td>${bill.callCost}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div>
 	</div>
 
