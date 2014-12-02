@@ -14,7 +14,19 @@
 
 <title>MUMTel</title>
 <script type="text/javascript">
+	function getServices(){
+		var urlA="<%=request.getContextPath()%>/fetchCountryServices?country="+ jQuery('#countrySS').val();
+		window.location.href = urlA;
+	}
 	
+	jQuery(document).ready(function() {
+		<c:if test="${serviceSelected!=null}">
+			jQuery('#serviceSS').val('${serviceSelected}');
+		</c:if>
+		<c:if test="${countrySelected!=null}">
+			jQuery('#countrySS').val('${countrySelected}');
+		</c:if>
+	});
 </script>
 </head>
 <body>
@@ -29,6 +41,27 @@
 			method="post" action="saveCustomer">
 			<div class="container">
 				<div class="form-group">
+					<label for="serviceCountry.country.callingCode" class="col-sm-2 control-label">Country:</label>
+					<div class="col-sm-7">
+						<form:select id="countrySS" path="serviceCountry.country.callingCode" cssClass="form-control" onchange="getServices();">
+							<c:forEach var="country" items="${countriesList}">
+								<form:option value="${country.callingCode}">${country.countryName}</form:option>
+							</c:forEach>
+						</form:select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="serviceCountry.serviceCountryID" class="col-sm-2 control-label">Service:</label>
+					<div class="col-sm-7">
+						<form:select id="serviceSS" path="serviceCountry.serviceCountryID" cssClass="form-control">
+							<c:forEach var="serviceCountry" items="${countryServiceList}">
+								<form:option value="${serviceCountry.serviceCountryID}">${serviceCountry.service.description}</form:option>
+							</c:forEach>
+						</form:select>
+					</div>
+				</div>
+				<div class="form-group">
+
 					<label for="firstName" class="col-sm-2 control-label">First
 						Name:</label>
 					<div class="col-sm-7">
@@ -126,7 +159,8 @@
 						<form:select cssClass="form-control" path="salesRepAssigned"
 							id="salesRepAssigned" placeholder="Select Sales Representative">
 							<c:forEach var="salesRep" items="${allSalesRep}">
-								<form:option cssClass="form-control" value="${salesRep.personID}">${salesRep}</form:option>
+								<form:option cssClass="form-control"
+									value="${salesRep.personID}">${salesRep}</form:option>
 							</c:forEach>
 						</form:select>
 					</div>

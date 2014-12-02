@@ -1,34 +1,17 @@
 package com.mumtel.controller;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -37,20 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mumtel.Dao.CustomerDAO;
 import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.ICustomerService;
 import com.mumtel.IService.ISalesRepCustomerRefService;
 import com.mumtel.IService.ISalesRepService;
-import com.mumtel.model.CallDetail;
+import com.mumtel.IService.IServiceCountryService;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
 import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.SalesRep;
 import com.mumtel.model.SalesRepCustomerRef;
-import com.mumtel.util.ExcelUtil;
-import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
 
@@ -71,12 +51,40 @@ public class CustomerController {
 	
 	@Autowired
 	private ISalesRepCustomerRefService isalesRepCustomerRefService;
-
 	
+	@Autowired
+	private ICountryService countryService;
+	
+	@Autowired
+	private IServiceCountryService services;
+	
+	private static List<Country> allCountryList;
+	
+	
+	@PostConstruct
+	public void initIt() throws Exception {
+	  allCountryList=countryService.getAll();
+	}
+
 	@RequestMapping(value = "/registerCustomer", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		model.addAttribute("customer",new Customer());
 		model.addAttribute("allSalesRep",salesRepService.getAll());
+		model.addAttribute("countriesList",allCountryList );
+		Country country=countryService.get(allCountryList.get(0).getCallingCode());
+		model.addAttribute("countryServiceList",country.getServicesCountryList());
+		model.addAttribute("countrySelected", 1);
+		
+		return "registerCustomerPage";
+	}
+	
+	@RequestMapping(value = "/fetchCountryServices", method = RequestMethod.GET)
+	public String displayFormWithNewServices(Customer customer,Model model,BindingResult result,@RequestParam("country") int countryCode) {
+		model.addAttribute("allSalesRep",salesRepService.getAll());
+		model.addAttribute("countriesList",allCountryList );
+		Country country=countryService.get(countryCode);
+		model.addAttribute("countryServiceList",country.getServicesCountryList());
+		model.addAttribute("countrySelected",countryCode);
 		return "registerCustomerPage";
 	}
 	
@@ -97,6 +105,11 @@ public class CustomerController {
 	public String save(@Valid Customer customer, BindingResult result,Model model) {
 		if(result.hasFieldErrors()){
 			model.addAttribute("allSalesRep",salesRepService.getAll());
+			model.addAttribute("countriesList",allCountryList );
+			Country country=countryService.get(customer.getServiceCountry().getCountry().getCallingCode());
+			model.addAttribute("countryServiceList",country.getServicesCountryList());
+			model.addAttribute("countrySelected",country.getCallingCode());
+			model.addAttribute("serviceSelected",customer.getServiceCountry().getServiceCountryID());
 			return "registerCustomerPage";
 		}else{
 			customer.getSalesRepAssigned().setCustomer(customer);

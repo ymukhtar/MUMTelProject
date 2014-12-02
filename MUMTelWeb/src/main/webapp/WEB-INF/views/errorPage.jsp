@@ -23,7 +23,7 @@
 	
 		<h4 class="error">${errorMessage}</h4>
 		<a class="btn btn-default" role="button" onclick="window.history.back();"><span
-			class="glyphicon glyphicon-search"></span>&nbsp;Go Back</a>
+			class="glyphicon glyphicon-arrow-left"></span>&nbsp;Go Back</a>
 	</div>
 
 
