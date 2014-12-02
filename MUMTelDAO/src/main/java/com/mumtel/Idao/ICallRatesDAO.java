@@ -1,6 +1,7 @@
 package com.mumtel.Idao;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import com.mumtel.model.CallDetail;
@@ -15,4 +16,5 @@ public interface ICallRatesDAO extends IGenericDAO<CallRates, Integer>{
 	public List<CallRates> getPagedCallRatesList(int start,int fetchSize,String criteriaString);
 	public void createAll(Collection<CallRates> entityList,ServiceCountry sc);
 	public List<CallRates> getAllcallRates(int countryCode,int serviceCode);
+	public void updateOldCallRates(Date date);
 }

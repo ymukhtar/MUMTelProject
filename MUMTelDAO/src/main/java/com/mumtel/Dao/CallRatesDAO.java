@@ -1,6 +1,7 @@
 package com.mumtel.Dao;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -58,17 +59,23 @@ public class CallRatesDAO extends GenericHibernateDAO<CallRates, Integer> implem
 	}
 	
 	public void createAll(Collection<CallRates> entityList,ServiceCountry sc){
+		//UPDATE All OLD CALL RATES
 		for(CallRates cr:entityList){
 			cr.setServiceCountry(sc);
 			create(cr);
 		}
 	}
 
+	public void updateOldCallRates(Date date){
+		Query query=sessionFactory.getCurrentSession().createQuery("UPDATE CallRates  SET  dateTo=:dateTo");
+		query.setDate("dateTo", date);
+		query.executeUpdate();
+	}
 	public List<CallRates> getAllcallRates(int countryCode, int serviceCode) {
 		
 		StringBuilder query=new StringBuilder("SELECT cr FROM CallRates cr,ServiceCountry sc ")
 							.append(" WHERE cr.serviceCountry.serviceCountryID=sc.serviceCountryID ")
-							.append(" and sc.service.serviceCode=:serviceCode AND sc.country.callingCode=:countryCode ");
+							.append(" and sc.service.serviceCode=:serviceCode AND sc.country.callingCode=:countryCode and cr.dateTo IS NULL ");
 		System.out.println(query.toString());
 		
 		Query queryH=sessionFactory.getCurrentSession().createQuery(query.toString());
