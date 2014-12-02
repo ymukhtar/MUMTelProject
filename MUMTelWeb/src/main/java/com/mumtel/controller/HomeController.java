@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICallServicesService;
 import com.mumtel.IService.ICountryService;
+import com.mumtel.IService.ICustomerService;
+import com.mumtel.Service.CustomerService;
 import com.mumtel.utils.MumTelAuthorities;
 
 
@@ -33,6 +35,9 @@ public class HomeController {
 	private ICallDetailsService callDetailService;
 	
 	@Autowired
+	private ICustomerService customerService;
+	
+	@Autowired
 	ICallServicesService callServicesService;
 	
 	
@@ -47,6 +52,7 @@ public class HomeController {
 		model.addAttribute("totalcodes",countryService.getPagedCountryListCount(""));
 		model.addAttribute("totalcallDetails",callDetailService.getPagedCallDetailListCount(""));
 		model.addAttribute("totalServices",callServicesService.getPagedServiceListCount(""));
+		model.addAttribute("totalCustomers",customerService.getPagedCustomerListCount(""));
 		return "adminDashboard";
 	}
 	
