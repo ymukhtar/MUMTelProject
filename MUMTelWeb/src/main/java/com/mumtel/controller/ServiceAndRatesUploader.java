@@ -164,7 +164,7 @@ public class ServiceAndRatesUploader {
 			return "errorPage";
 		}
 		model.addAttribute("currentPage", 1);
-		model.addAttribute("searchString", "");
+		model.addAttribute("searchString", "1");
 		model.addAttribute("allCountries",allCountries);
 		return "redirect:/serviceAndRatesDetails";
 	}
@@ -202,7 +202,7 @@ public class ServiceAndRatesUploader {
 			Service service=null;
 			Set<Service> allServices = new HashSet<Service>();
 			for (int i = 0; i < totalServices; i++) {
-				service = new Service(workbook.getSheetName(i).split("_")[0]);
+				service = new Service(workbook.getSheetName(i).split("_")[0].trim());
 				if (!allServicesList.contains(service)) {
 					allServices.add(service);
 				}
@@ -218,12 +218,12 @@ public class ServiceAndRatesUploader {
 			for (int i = 0; i < totalServices; i++) {
 				Sheet sheet = workbook.getSheetAt(0);
 				String[] country_service = workbook.getSheetName(i).split("_");
-				if ("USA".equals(country_service[1])) {
+				if ("USA".equals(country_service[1].trim())) {
 					country_service[1] = "United States of America";
 				}
 				ServiceCountry serviceCountry = new ServiceCountry(
-						getCountryFromDesc(country_service[1], allCountries),
-						getServiceFromSet(allServicesList, country_service[0]),
+						getCountryFromDesc(country_service[1].trim(), allCountries),
+						getServiceFromSet(allServicesList, country_service[0].trim()),
 						new Date());
 				List<CallRates> callRateList = new ArrayList<CallRates>();
 				for (Row row : sheet) {
@@ -255,7 +255,7 @@ public class ServiceAndRatesUploader {
 
 	private Country getCountryFromDesc(String desc, List<Country> allCountry) {
 		for (Country country : allCountry) {
-			if (desc.trim().equalsIgnoreCase(country.getCountryName().trim())) {
+			if (desc.equalsIgnoreCase(country.getCountryName())) {
 				return country;
 			}
 		}

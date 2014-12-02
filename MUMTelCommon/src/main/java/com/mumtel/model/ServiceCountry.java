@@ -61,17 +61,14 @@ public class ServiceCountry {
 		this.service = service;
 		this.dateCreated = dateCreated;
 	}
-	
-	
+		
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
-		result = prime * result
-				+ ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + ((service == null) ? 0 : service.hashCode());
-		result = prime * result + serviceCountryID;
 		return result;
 	}
 
@@ -89,17 +86,10 @@ public class ServiceCountry {
 				return false;
 		} else if (!country.equals(other.country))
 			return false;
-		if (dateCreated == null) {
-			if (other.dateCreated != null)
-				return false;
-		} else if (!dateCreated.equals(other.dateCreated))
-			return false;
 		if (service == null) {
 			if (other.service != null)
 				return false;
 		} else if (!service.equals(other.service))
-			return false;
-		if (serviceCountryID != other.serviceCountryID)
 			return false;
 		return true;
 	}
