@@ -75,12 +75,12 @@
 				<div class="form-group">
 					<label for="offPeakPeriodStart" class="col-sm-2 control-label">Peak Time End:</label>
 					<div class="col-sm-7">
-						<form:select path="offPeakPeriodStartHr" cssClass="form-control">
+						Hour:<form:select path="offPeakPeriodStartHr" cssClass="form-control">
 							<c:forEach var="i" begin="0" end="23">
 								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" ></fmt:formatNumber></form:option>
 							</c:forEach>
 						</form:select>
-						<form:select path="offPeakPeriodStartMin" cssClass="form-control">
+						Min:<form:select path="offPeakPeriodStartMin" cssClass="form-control">
 							<c:forEach var="i" begin="0" end="59">
 								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" ></fmt:formatNumber></form:option>
 							</c:forEach>
