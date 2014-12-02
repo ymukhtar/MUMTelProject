@@ -3,6 +3,7 @@ package com.mumtel.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,19 @@ public class ServiceCountryService extends
 		serviceCountry.setDateCreated(new Date(System.currentTimeMillis()));
 		serviceCountryDAO.create(serviceCountry);
 		return false;
+	}
+	
+	public boolean createAllServiceCountry(Set<ServiceCountry> scSet){
+		List<ServiceCountry> serviceCountryList = serviceCountryDAO.getAll();
+		for (ServiceCountry sc:scSet) {
+			if (!serviceCountryList.contains(sc)) {
+				logger.debug("creating** service country" + sc);
+				serviceCountryDAO.create(sc);
+			} else {
+				sc = serviceCountryList.get(serviceCountryList.indexOf(sc));
+			}
+		}
+		return true;
 	}
 
 	public ServiceCountry getServiceCountry(int countryCode, int serviceCode) {

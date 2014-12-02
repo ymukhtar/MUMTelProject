@@ -2,6 +2,8 @@ package com.mumtel.IService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import com.mumtel.model.CallRates;
 import com.mumtel.model.PeakTimes;
 import com.mumtel.model.ServiceCountry;
@@ -14,4 +16,5 @@ public interface IServiceCountryService extends IGenericService<ServiceCountry, 
 	public ServiceCountry getServiceCountry(int countryCode,int serviceCode);
 	public boolean createNewService(ServiceCountry serviceCountry);
 	public PeakTimes getPeakTime(int serviceCode, int countryCode);
+	public boolean createAllServiceCountry(Set<ServiceCountry> scSet);
 }

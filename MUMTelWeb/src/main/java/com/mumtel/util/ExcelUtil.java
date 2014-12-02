@@ -17,7 +17,7 @@ public class ExcelUtil {
 			value = Integer.parseInt(String.valueOf((int) cell
 					.getNumericCellValue()));
 		} else {
-			value = Integer.parseInt(cell.getStringCellValue());
+			value = Integer.parseInt(cell.getStringCellValue().trim());
 		}
 		return value;
 	}
@@ -27,7 +27,7 @@ public class ExcelUtil {
 		if (Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
 			value = cell.getNumericCellValue();
 		} else {
-			value = Double.parseDouble(cell.getStringCellValue());
+			value = Double.parseDouble(cell.getStringCellValue().trim());
 		}
 		return value;
 	}
@@ -39,7 +39,7 @@ public class ExcelUtil {
 			} else if (Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
 				return HSSFDateUtil.getJavaDate(cell.getNumericCellValue());
 			} else {
-				return sdf.parse(cell.getStringCellValue());
+				return sdf.parse(cell.getStringCellValue().trim());
 			}
 		} catch (Exception e) {
 			System.out.println("Unable to get Date Value" + cell);
@@ -47,7 +47,7 @@ public class ExcelUtil {
 				return HSSFDateUtil.getJavaDate(cell.getNumericCellValue());
 			} else {
 				try {
-					return sdf.parse(cell.getStringCellValue());
+					return sdf.parse(cell.getStringCellValue().trim());
 				} catch (ParseException pe) {
 					return null;
 				}

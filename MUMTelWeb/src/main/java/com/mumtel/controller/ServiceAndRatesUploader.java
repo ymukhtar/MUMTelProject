@@ -2,6 +2,7 @@ package com.mumtel.controller;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -101,6 +102,73 @@ public class ServiceAndRatesUploader {
 		}
 	}
 	
+	@RequestMapping(value = "/uploadServicesAndPeakTimes", method = RequestMethod.POST)
+	public String uploadServicesAndPeakTimes(FileuploadForm fileuploadForm, BindingResult result,Model model) {
+		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
+		Workbook workbook;
+		String fileName = fileuploadForm.getFileData().getOriginalFilename();
+		List<Country> allCountries = countryService.getAll();
+		logger.debug(Arrays.toString(allCountries.toArray()));
+		
+		try {
+			if (fileName.endsWith("xls")) {
+				workbook = new HSSFWorkbook(bis);
+			} else if (fileName.endsWith("xlsx")) {
+				workbook = new XSSFWorkbook(bis);
+			} else {
+				throw new IllegalArgumentException(
+						"Received file does not have a standard excel extension.");
+			}
+			List<Service> allServicesList = callServicesService.getAll();
+			Set<Service> allServices=new HashSet<Service>();
+			Set<ServiceCountry> serviceCountrySet=new HashSet<ServiceCountry>();
+			Sheet sheet=workbook.getSheetAt(0);
+			ServiceCountry sc=null;
+			String country=null;
+			for (Row row : sheet) {
+				// skip the first row
+				if (row.getRowNum() == 0) {
+					continue;
+				}
+				sc=new ServiceCountry();
+				country=row.getCell(0).getStringCellValue().trim();
+				if ("USA".equalsIgnoreCase(country)) {
+					country = "United States of America";
+				}
+				sc.setCountry(getCountryFromDesc(country.trim(),allCountries));
+				if(sc.getCountry()==null){
+					logger.error("Unable to get Country for:"+country.trim());
+				}
+				Service s=new Service(row.getCell(1).getStringCellValue().trim());
+				if(!allServicesList.contains(s))
+					allServices.add(s);
+				sc.setPeakTime(new PeakTimes(sc,ExcelUtil.getIntValueFromCell(row.getCell(2)),ExcelUtil.getIntValueFromCell(row.getCell(3))));
+				sc.setService(s);
+				sc.setDateCreated(new java.util.Date());
+				serviceCountrySet.add(sc);
+			}
+			if (allServices.size() > 0) {
+				callServicesService.createAll(allServices);
+				allServicesList= callServicesService.getAll();
+			}
+			for(ServiceCountry s:serviceCountrySet){
+				if(allServicesList.contains(s.getService())){
+					s.setService(allServicesList.get(allServicesList.indexOf(s.getService())));
+				}
+			}
+			serviceCountryService.createAllServiceCountry(serviceCountrySet);
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			model.addAttribute("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			return "errorPage";
+		}
+		model.addAttribute("currentPage", 1);
+		model.addAttribute("searchString", "");
+		model.addAttribute("allCountries",allCountries);
+		return "redirect:/serviceAndRatesDetails";
+	}
+	
 	//updatePeakTime
 	
 	@RequestMapping(value = "/uploadServicesAndRates", method = RequestMethod.POST)
@@ -187,7 +255,7 @@ public class ServiceAndRatesUploader {
 
 	private Country getCountryFromDesc(String desc, List<Country> allCountry) {
 		for (Country country : allCountry) {
-			if (desc.equalsIgnoreCase(country.getCountryName())) {
+			if (desc.trim().equalsIgnoreCase(country.getCountryName().trim())) {
 				return country;
 			}
 		}

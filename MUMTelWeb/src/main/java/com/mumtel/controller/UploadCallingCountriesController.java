@@ -71,7 +71,7 @@ public class UploadCallingCountriesController {
                  continue;
                }
 
-              countriesList.add(new Country(ExcelUtil.getIntValueFromCell(row.getCell(1)), row.getCell(0).getStringCellValue()));
+              countriesList.add(new Country(ExcelUtil.getIntValueFromCell(row.getCell(1)), row.getCell(0).getStringCellValue().trim()));
             }
             countryService.createAll(countriesList);
             if(logger.isDebugEnabled()){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class ServiceCountry {
 	@OneToMany(mappedBy="serviceCountry")
 	private List<CallRates> callRateList=new ArrayList<CallRates>();
 	
-	@OneToOne(mappedBy="serviceCountry")
+	@OneToOne(cascade=CascadeType.ALL,mappedBy="serviceCountry")
 	private PeakTimes	peakTime;
 	
 	@OneToMany(mappedBy="serviceCountry")
