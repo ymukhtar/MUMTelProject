@@ -15,7 +15,9 @@
 
 <title>MUMTel</title>
 <script type="text/javascript">
-	
+	function submitForm(){
+		jQuery('#peakPeriodStart').val(jQuery('#peakPeriodStartHr').val()+jQuery('#peakPeriodStartMin').val());
+	}
 </script>
 </head>
 <body>
@@ -52,11 +54,19 @@
 				<div class="form-group">
 					<label for="peakPeriodStart" class="col-sm-2 control-label">Peak Time Start:</label>
 					<div class="col-sm-7">
-						<form:select path="peakPeriodStart" cssClass="form-control">
+						Hour:
+						<form:select path="peakPeriodStartHr" cssClass="form-control">
 							<c:forEach var="i" begin="0" end="23">
-								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" minFractionDigits="2"></fmt:formatNumber></form:option>
+								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" ></fmt:formatNumber></form:option>
 							</c:forEach>
-						</form:select>	 
+						</form:select>	
+						Min:
+						<form:select path="peakPeriodStartMin" cssClass="form-control">
+							<c:forEach var="i" begin="0" end="59">
+								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" ></fmt:formatNumber></form:option>
+							</c:forEach>
+						</form:select>	
+						<form:input type="hidden" path="peakPeriodStart" />
 					</div>
 					<div class="col-sm-3">
 						<form:errors path="peakPeriodStart" cssClass="error" />
@@ -65,11 +75,16 @@
 				<div class="form-group">
 					<label for="offPeakPeriodStart" class="col-sm-2 control-label">Peak Time End:</label>
 					<div class="col-sm-7">
-						<form:select path="offPeakPeriodStart" cssClass="form-control">
+						<form:select path="offPeakPeriodStartHr" cssClass="form-control">
 							<c:forEach var="i" begin="0" end="23">
-								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" minFractionDigits="2"></fmt:formatNumber></form:option>
+								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" ></fmt:formatNumber></form:option>
 							</c:forEach>
-						</form:select>	 
+						</form:select>
+						<form:select path="offPeakPeriodStartMin" cssClass="form-control">
+							<c:forEach var="i" begin="0" end="59">
+								<form:option value="${i}"><fmt:formatNumber pattern="##" value="${i}" ></fmt:formatNumber></form:option>
+							</c:forEach>
+						</form:select>
 					</div>
 					<div class="col-sm-3">
 						<form:errors path="offPeakPeriodStart" cssClass="error" />
@@ -77,14 +92,12 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default">Update</button>
+						<button type="submit" class="btn btn-default" onsubmit="submitForm();">Update</button>
 					</div>
 				</div>
 			</div>
 		</form:form>
-
 	</div>
-
 	<footer>
 		<p>&copy; Company 2014 Developed By Yasir Mukhtar & Awais Tariq</p>
 	</footer>

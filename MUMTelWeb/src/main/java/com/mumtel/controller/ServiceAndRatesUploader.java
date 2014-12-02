@@ -91,6 +91,8 @@ public class ServiceAndRatesUploader {
 				peakTime.setPeaktimeID(pt.getPeaktimeID());
 				serviceCountry=pt.getServiceCountry();
 			}
+			peakTime.setPeakPeriodStart(Integer.parseInt(peakTime.getPeakPeriodStartHr()+""+String.format("%02d", peakTime.getPeakPeriodStartMin())));
+			peakTime.setOffPeakPeriodStart(Integer.parseInt(peakTime.getOffPeakPeriodStartHr()+""+String.format("%02d",peakTime.getOffPeakPeriodStartMin())));
 			peakTimeService.create(peakTime);
 			model.addAttribute("currentPage", 1);
 			model.addAttribute("searchString",serviceCountry.getCountry().getCallingCode());

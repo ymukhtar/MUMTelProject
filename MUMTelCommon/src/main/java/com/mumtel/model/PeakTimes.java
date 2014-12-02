@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 
@@ -23,10 +24,18 @@ public class PeakTimes implements Serializable{
 	@GeneratedValue
 	private int peaktimeID;
 	
-	
 	private int peakPeriodStart;
 	
 	private int offPeakPeriodStart;
+
+	@Transient
+	private int peakPeriodStartHr;
+	@Transient
+	private int peakPeriodStartMin;
+	@Transient
+	private int offPeakPeriodStartHr;
+	@Transient
+	private int offPeakPeriodStartMin;
 	
 	 public PeakTimes() {
 	
@@ -69,11 +78,46 @@ public class PeakTimes implements Serializable{
 	public void setOffPeakPeriodStart(int offPeakPeriodStart) {
 		this.offPeakPeriodStart = offPeakPeriodStart;
 	}
+	public int getPeakPeriodStartHr() {
+		if(peakPeriodStart!=0)
+			peakPeriodStartHr = peakPeriodStart / 100;
+		return peakPeriodStartHr;
+	
+	}
+	public void setPeakPeriodStartHr(int peakPeriodStartHr) {
+		this.peakPeriodStartHr = peakPeriodStartHr;
+	}
+	public int getPeakPeriodStartMin() {
+		if(peakPeriodStart!=0)
+			peakPeriodStartMin = peakPeriodStart % 100;
+		return peakPeriodStartMin;
+	}
+	public void setPeakPeriodStartMin(int peakPeriodStartMin) {
+		this.peakPeriodStartMin = peakPeriodStartMin;
+	}
+	public int getOffPeakPeriodStartHr() {
+		if(offPeakPeriodStart!=0)			
+			offPeakPeriodStartHr=offPeakPeriodStart/100;
+		return offPeakPeriodStartHr;
+	}
+	
+	public void setOffPeakPeriodStartHr(int offPeakPeriodStartHr) {
+		this.offPeakPeriodStartHr = offPeakPeriodStartHr;
+	}
+	
+	public int getOffPeakPeriodStartMin() {
+		if(offPeakPeriodStart!=0)
+			offPeakPeriodStartMin=offPeakPeriodStart%100;
+		return offPeakPeriodStartMin;
+	}
+	
+	public void setOffPeakPeriodStartMin(int offPeakPeriodStartMin) {
+		this.offPeakPeriodStartMin = offPeakPeriodStartMin;
+	}
 	@Override
 	public String toString() {
 		return "PeakTimes [peaktimeID=" + peaktimeID + ", peakPeriodStart="
 				+ peakPeriodStart + ", offPeakPeriodStart="
 				+ offPeakPeriodStart +serviceCountry.toString()+ "]";
 	}
-	
 }

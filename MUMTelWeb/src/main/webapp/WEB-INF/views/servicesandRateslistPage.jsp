@@ -77,7 +77,7 @@
 					<th>Sr #</th>
 					<th>Service Name</th>
 					<th>Date Created</th>
-					<th>Peak Times</th>
+					<th>Peak Times(Start-End)</th>
 					<th>Rate Sheet</th>
 				</tr>
 			<thead>
@@ -89,8 +89,11 @@
 						<td>${CountryService.service.description}</td>
 						<td>${CountryService.dateCreated}</td>
 						<td>
-							<fmt:formatNumber pattern="##" value="${CountryService.peakTime.peakPeriodStart}" minFractionDigits="2"></fmt:formatNumber>
-							- <fmt:formatNumber pattern="##" value="${CountryService.peakTime.offPeakPeriodStart}"  minFractionDigits="2"></fmt:formatNumber>
+							<fmt:formatNumber pattern="##" value="${CountryService.peakTime.peakPeriodStartHr}" minIntegerDigits="2"></fmt:formatNumber>
+							:<fmt:formatNumber pattern="##" value="${CountryService.peakTime.peakPeriodStartMin}" minIntegerDigits="2"></fmt:formatNumber>
+							
+							- <fmt:formatNumber pattern="##" value="${CountryService.peakTime.offPeakPeriodStartHr}"  minIntegerDigits="2" ></fmt:formatNumber>
+							:<fmt:formatNumber pattern="##" value="${CountryService.peakTime.offPeakPeriodStartMin}"  minIntegerDigits="2" ></fmt:formatNumber>
 							
 							<c:if test="${CountryService!=null }">
 								<a class="btn btn-default"
