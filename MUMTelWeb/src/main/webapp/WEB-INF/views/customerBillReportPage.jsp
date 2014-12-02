@@ -4,6 +4,7 @@
 	prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,17 +50,29 @@
 
 	<!-- Main jumbotron for a primary marketing message or call to action -->
 	<div id="page-wrapper">
-	<center><h2>Customer Bill</h2></center>
+		<center>
+			<h2>Customer Bill</h2>
+		</center>
 		<div class="container">
-					<label>Customer Name: ${name}</label><br>
-					<label>Phone: ${phone}</label><br>
-					<label>Address: ${address}</label><br>
-					<label>Billing Month: ${billingMonth}</label><br>
-					<label>Service: ${service}</label><br>
+			<label>Customer Name: ${name}</label><br> <label>Phone:
+				${phone}</label><br> <label>Address: ${address}</label><br> <label>Billing
+				Month: ${billingMonth}</label><br> <label>Service: ${service}</label><br>
+		</div>
+
+		<div class="form-group form-group-lg">
+
+				<a class="btn btn-default"
+				href='<c:url value="/report/customer_bill_report/pdf"/>'
+				role="button">Generate Customer Bill Report PDF</a>
+				 <a
+				class="btn btn-default"
+				href='<c:url value="/report/customer_bill_report/xls"/>'
+				role="button">Generate Customer Bill Report Excel</a>
 		</div>
 
 		<h3>${message}</h3>
 		<hr></hr>
+		<div style="overflow:scroll;height:500px">
 		<table id="example" class="table table-striped table-bordered"
 			cellspacing="20" width="100%">
 			<thead>
@@ -75,7 +88,7 @@
 				</tr>
 			<thead>
 			<tbody>
-				
+
 				<c:forEach var="bill" items="${billList}" varStatus="loop">
 					<tr>
 						<td>${loop.index+1}</td>
@@ -90,21 +103,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-
-		<%--For displaying Page numbers. 
-    The when condition does not display a link for the current page--%>
-
-		<ul class="pager">
-			<li class="previous"><a onclick="nextPage('${currentPage-1}');" title="Previous">&larr;
-					Previous</a></li>
-			<li><select id="pageSelection" onchange="nextPage(this.value);">
-					<c:forEach begin="1" end="${totalPages}" varStatus="loop">
-						<option value="${loop.index}">${loop.index}</option>
-					</c:forEach>
-			</select></li>
-			<li class="next"><a onclick="nextPage('${currentPage+1}');" title="Next">Next&rarr;</a></li>
-		</ul>
-		<br>
+		</div>
 	</div>
 
 	<footer>

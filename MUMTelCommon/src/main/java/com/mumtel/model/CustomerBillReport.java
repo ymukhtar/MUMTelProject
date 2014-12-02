@@ -12,7 +12,7 @@ public class CustomerBillReport implements Serializable{
 	
 	@Id
 	private long id;
-	private Date callDate;
+	private String callDate;
 	private String callTime;
 	private String callDuration;
 	private String toTelephone;
@@ -23,7 +23,7 @@ public class CustomerBillReport implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CustomerBillReport(long id, Date callDate, String callTime,
+	public CustomerBillReport(long id, String callDate, String callTime,
 			String callDuration, String toTelephone, String toCountryName,
 			String callRate, String callCost) {
 		super();
@@ -42,10 +42,10 @@ public class CustomerBillReport implements Serializable{
 	public void setId(long id) {
 		this.id = id;
 	}
-	public Date getCallDate() {
+	public String getCallDate() {
 		return callDate;
 	}
-	public void setCallDate(Date callDate) {
+	public void setCallDate(String callDate) {
 		this.callDate = callDate;
 	}
 	public String getCallTime() {
