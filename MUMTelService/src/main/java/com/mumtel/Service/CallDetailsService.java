@@ -14,6 +14,7 @@ import com.mumtel.Idao.ICountryDAO;
 import com.mumtel.Idao.IGenericDAO;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
+import com.mumtel.model.MonthlyTrafficReportVO;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
@@ -40,6 +41,13 @@ public class CallDetailsService extends GenericService<CallDetail, Integer> impl
 	@Override
 	public void setGenericDAO() {
 		genericDAO=callDetailsDAO;
+		
+	}
+	
+
+	public List<MonthlyTrafficReportVO> getMonthlyTrafficVO(int month,int year){
+		
+		return callDetailsDAO.getMonthlyTrafficVO(month,year);
 		
 	}
 

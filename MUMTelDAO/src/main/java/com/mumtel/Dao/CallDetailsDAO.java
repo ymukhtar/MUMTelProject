@@ -1,5 +1,6 @@
 package com.mumtel.Dao;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -11,6 +12,7 @@ import com.mumtel.Idao.ICallDetailsDAO;
 import com.mumtel.Idao.ICountryDAO;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
+import com.mumtel.model.MonthlyTrafficReportVO;
 import com.mumtel.model.Users;
 
 @Repository
@@ -51,6 +53,16 @@ public class CallDetailsDAO extends GenericHibernateDAO<CallDetail, Integer> imp
 		query.setFirstResult(start);
 		query.setMaxResults(fetchSize);
 		return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<MonthlyTrafficReportVO> getMonthlyTrafficVO(int month, int year) {
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(
+				"EXEC GetMonthlyTrafficReport :month,:year ")
+				.addEntity(MonthlyTrafficReportVO.class)
+				.setInteger("month", month)
+				.setInteger("year", year);
+		return (List<MonthlyTrafficReportVO>)query.list();
 	}
 
 }

@@ -134,6 +134,64 @@
                         </div>
                     </div>
                 </div>
+                <!-- ADDED By Yasir to show Monthly Call Summary -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div >
+                                        	<select name="tsMonth" id="tsMonth" class="form-control">
+												<c:forEach var="month" items="${months}">
+											   		 <option value="${month.key}">${month.value}</option>
+											   	 </c:forEach>
+											</select>
+											<select name="tsYear" id="tsYear" class="form-control">
+												<c:forEach var="year" items="${years}">
+											   		 <option value="${year}">${year}</option>
+											   	 </c:forEach>
+											</select>
+                                        </div>
+                                        <div>Generate Monthly Traffic Summary!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left"><span class="pull-left"><a href="<c:url value="/getMonthlySalesReport?month=12&year=2013"/>">PDF</a></span>
+                                    <span class="pull-right"><span class="pull-left"><a href="<c:url value="/getMonthlySalesReport?month=12&year=2013"/>">XLS</a></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-support fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"></div>
+                                        <div>Generate Sales Rep Commission Report!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left"><a href="<c:url value="/serviceAndRatesDetails?currentPage=1&searchString="/>">View Details</a>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.container-fluid -->
 
