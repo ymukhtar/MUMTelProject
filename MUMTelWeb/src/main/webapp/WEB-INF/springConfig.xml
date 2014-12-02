@@ -34,6 +34,7 @@
 				<value>com.mumtel.model.ServiceCountry</value>
 				<value>com.mumtel.model.Users</value>
 				<value>com.mumtel.model.MonthlyTrafficReportVO</value>
+				<value>com.mumtel.model.CustomerBillReport</value>
 			</list>
 		</property>
 	</bean>

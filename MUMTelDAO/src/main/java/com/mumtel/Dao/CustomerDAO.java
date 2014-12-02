@@ -11,6 +11,7 @@ import com.mumtel.Idao.ICustomerDAO;
 import com.mumtel.Idao.IUserDAO;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
+import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.Users;
 
 /**
@@ -58,6 +59,18 @@ public class CustomerDAO extends GenericHibernateDAO<Customer, Long> implements 
 		query.setFirstResult(start);
 		query.setMaxResults(fetchSize);
 		return query.list();
+	}
+
+	public List<CustomerBillReport> getBillDetailOfCustomer(String phone,
+			String month, String year) {
+		// TODO Auto-generated method stub
+		Query query=sessionFactory.getCurrentSession().createSQLQuery(
+				"exec generate_bill :phone, :month, :year ")
+				.addEntity(CustomerBillReport.class)
+				.setParameter("phone", phone)
+				.setParameter("month", month)
+				.setParameter("year", year);
+		return (List<CustomerBillReport>)query.list();
 	}
 	
 }

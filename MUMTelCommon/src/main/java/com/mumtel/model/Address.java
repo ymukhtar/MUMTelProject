@@ -24,7 +24,7 @@ public class Address implements Serializable{
 	private String streetNo;
 	@Pattern(regexp="^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$",message="city should be valid!")
 	private String city;
-	@Pattern(regexp="^A[ABELKPRSZ]|BC|C[AOT]|D[EC]|F[LM]|G[ALMU]|HI|I[ADLN]|K[SY]|LA|M[ABDEHINOPSTX]|N[CDEFHJKMSUVWY]|O[HKNRT]|P[AERW]|QC|RI|S[CDN]|T[NX]|U[ST]|V[AIT]|W[AIKVY]|YT$",message="state should be valid!")
+//	@Pattern(regexp="^A[ABELKPRSZ]|BC|C[AOT]|D[EC]|F[LM]|G[ALMU]|HI|I[ADLN]|K[SY]|LA|M[ABDEHINOPSTX]|N[CDEFHJKMSUVWY]|O[HKNRT]|P[AERW]|QC|RI|S[CDN]|T[NX]|U[ST]|V[AIT]|W[AIKVY]|YT$",message="state should be valid!")
 	private String state;
 	@Pattern(regexp="^\\d{5}(?:[-\\s]\\d{4})?$",message="zip should be valid!")
 	private String zip;

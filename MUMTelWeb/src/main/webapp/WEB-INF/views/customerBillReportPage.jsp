@@ -65,18 +65,27 @@
 			<thead>
 				<tr>
 					<th>Sr #</th>
+					<th>Call Date</th>
+					<th>Call Time</th>
 					<th>To Phone</th>
 					<th>To Country</th>
-					<th>Call Time</th>
 					<th>Call Duration</th>
+					<th>Call Rate</th>
 					<th>Call Cost</th>
 				</tr>
 			<thead>
 			<tbody>
 				
-				<c:forEach var="c" items="${customerList}" varStatus="loop">
+				<c:forEach var="bill" items="${billList}" varStatus="loop">
 					<tr>
-
+						<td>${loop.index+1}</td>
+						<td>${bill.callDate}</td>
+						<td>${bill.callTime}</td>
+						<td>${bill.toTelephone}</td>
+						<td>${bill.toCountryName}</td>
+						<td>${bill.callDuration}</td>
+						<td>${bill.callRate}</td>
+						<td>${bill.callCost}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

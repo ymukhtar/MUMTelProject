@@ -16,6 +16,7 @@ import com.mumtel.Idao.IGenericDAO;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
+import com.mumtel.model.CustomerBillReport;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
@@ -36,6 +37,11 @@ public class CustomerService extends GenericService<Customer, Long> implements I
 			String criteriaString) {
 		// TODO Auto-generated method stub
 		return customerDAO.getPagedCustomerList(start, fetchSize, criteriaString);
+	}
+	public List<CustomerBillReport> getBillDetailOfCustomer(String phone,
+			String month, String year) {
+		// TODO Auto-generated method stub
+		return customerDAO.getBillDetailOfCustomer(phone, month, year);
 	}
 
 }

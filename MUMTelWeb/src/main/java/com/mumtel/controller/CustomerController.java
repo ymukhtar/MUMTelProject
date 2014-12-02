@@ -27,6 +27,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mumtel.Dao.CustomerDAO;
 import com.mumtel.IService.ICallDetailsService;
 import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.ICustomerService;
@@ -43,6 +46,7 @@ import com.mumtel.IService.ISalesRepService;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
+import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.SalesRep;
 import com.mumtel.model.SalesRepCustomerRef;
 import com.mumtel.util.ExcelUtil;
@@ -67,7 +71,6 @@ public class CustomerController {
 	
 	@Autowired
 	private ISalesRepCustomerRefService isalesRepCustomerRefService;
-	
 
 	
 	@RequestMapping(value = "/registerCustomer", method = RequestMethod.GET)
@@ -136,11 +139,14 @@ public class CustomerController {
 	public String viewBills(Model model,HttpServletRequest request,@RequestParam("personeId") Long personeId,@RequestParam("month") int month,@RequestParam("year") String year){
 		
 		Customer customer=customerService.get(personeId);
+		
+		List<CustomerBillReport> billList=customerService.getBillDetailOfCustomer(customer.getTelephone(), String.valueOf(month), year);
 		model.addAttribute("name",customer.getFirstName()+" "+customer.getLastName());
 		model.addAttribute("address",customer.getAddress().getStreetNo()+", "+customer.getAddress().getCity()+", "+customer.getAddress().getState()+", "+customer.getAddress().getZip());
 		model.addAttribute("phone",customer.getTelephone());
 		model.addAttribute("service",customer.getServiceCountry().getService().getDescription());
 		model.addAttribute("b",CommonUtility.MONTHS.get(month)+" "+year);
+		model.addAttribute("billList",billList);
 		
 		return "customerBillReportPage";
 	}
