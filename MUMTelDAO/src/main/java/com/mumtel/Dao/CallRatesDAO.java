@@ -72,7 +72,7 @@ public class CallRatesDAO extends GenericHibernateDAO<CallRates, Integer> implem
 	}
 
 	public void updateOldCallRates(Date date,ServiceCountry sc){
-		Query query=sessionFactory.getCurrentSession().createQuery("UPDATE CallRates  SET  dateTo=:dateTo where serviceCountry.serviceCountryID=:code ");
+		Query query=sessionFactory.getCurrentSession().createQuery("UPDATE CallRates  SET  dateTo=:dateTo where serviceCountry.serviceCountryID=:code AND dateTo is NULL");
 		query.setDate("dateTo", date);
 		query.setInteger("code", sc.getServiceCountryID());
 		query.executeUpdate();
