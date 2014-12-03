@@ -7,7 +7,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-INSERT INTO USER VALUES('admin',1,'admin');
+INSERT INTO Users(userName,enabled,password) VALUES('admin',1,'admin');
 GO
 INSERT into Authorities(role,username) VALUES('ROLE_ADMIN','admin')
 GO
@@ -75,8 +75,10 @@ BEGIN
 		AND MONTH(c.callDateandTime)=@month
 		group by s.description,sCountry.countryName,dCountry.countryName
 END
-
-alter procedure generate_commission
+GO
+DROP PROCEDURE generate_commission
+GO
+CREATE procedure generate_commission
 @salesRep varchar(5),
 @month varchar(4),
 @year varchar(4)
