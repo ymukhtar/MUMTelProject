@@ -13,7 +13,7 @@
 			<frame>
 				<reportElement uuid="69e0be48-cfb9-443d-a1ad-e5b331759ff3" mode="Opaque" x="111" y="13" width="444" height="67" backcolor="#FFFFFF"/>
 				<staticText>
-					<reportElement uuid="41797d52-912e-4996-b9c5-6e76f0051229" mode="Transparent" x="15" y="0" width="199" height="27" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="41797d52-912e-4996-b9c5-6e76f0051229" mode="Transparent" x="24" y="0" width="199" height="27" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
 						<font fontName="Arial Black" size="18" isBold="true" isItalic="false"/>
 					</textElement>
@@ -30,7 +30,7 @@
 					<text><![CDATA[Date:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="322" y="17" width="122" height="20" backcolor="#F0F0F0"/>
+					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="322" y="17" width="122" height="18" backcolor="#F0F0F0"/>
 					<textElement>
 						<font size="14" isBold="true" isItalic="true"/>
 					</textElement>
@@ -41,7 +41,7 @@
 				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="80" width="595" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="c716edef-f439-4052-9f34-128e5d3981cc" x="126" y="40" width="199" height="41"/>
+				<reportElement uuid="c716edef-f439-4052-9f34-128e5d3981cc" x="135" y="40" width="199" height="41"/>
 				<textElement>
 					<font size="10" isItalic="false"/>
 				</textElement>
@@ -50,8 +50,8 @@ Fairfield IA 52557 USA
 Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 			</staticText>
 			<image scaleImage="FillFrame">
-				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="10" y="11" width="111" height="59"/>
-				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
+				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="2" y="13" width="124" height="67"/>
+				<imageExpression><![CDATA["mumtel-logo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -61,43 +61,46 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 	<columnHeader>
 		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="87a55199-d118-4505-8639-50e780a077d2" mode="Opaque" x="86" y="0" width="100" height="17" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<reportElement uuid="87a55199-d118-4505-8639-50e780a077d2" mode="Opaque" x="69" y="0" width="117" height="17" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement/>
 				<text><![CDATA[Country Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a667df7a-6bd5-47d9-ad7e-874acf7e96b8" mode="Opaque" x="2" y="0" width="84" height="17" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<reportElement uuid="a667df7a-6bd5-47d9-ad7e-874acf7e96b8" mode="Opaque" x="2" y="0" width="67" height="17" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement/>
 				<text><![CDATA[Country Code]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement uuid="22154a83-121c-4170-9ed6-c16b0b21025b" x="86" y="0" width="100" height="20"/>
+				<reportElement uuid="22154a83-121c-4170-9ed6-c16b0b21025b" x="69" y="0" width="117" height="14"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{countryName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5be8d4bb-bd99-487b-a830-fad2271814f3" x="2" y="0" width="84" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement uuid="5be8d4bb-bd99-487b-a830-fad2271814f3" x="2" y="0" width="67" height="14" isRemoveLineWhenBlank="true"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{callingCode}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement uuid="25675ecb-6f7b-484c-ac98-463692a67a1a" x="0" y="14" width="185" height="1"/>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="30" splitType="Stretch">
+		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement uuid="22044a06-102a-4b4d-9d66-59cf22032734" x="1" y="10" width="80" height="20"/>
+				<reportElement uuid="22044a06-102a-4b4d-9d66-59cf22032734" x="2" y="0" width="80" height="14"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="75b84902-94c3-492a-9b2d-62374d6532c8" x="86" y="10" width="40" height="20"/>
+				<reportElement uuid="75b84902-94c3-492a-9b2d-62374d6532c8" x="87" y="0" width="40" height="14"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

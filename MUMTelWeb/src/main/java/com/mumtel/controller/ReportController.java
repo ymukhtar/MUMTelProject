@@ -1,5 +1,6 @@
 package com.mumtel.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -29,11 +30,14 @@ import com.mumtel.IService.ICallRatesService;
 import com.mumtel.IService.ICallServicesService;
 import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.ICustomerService;
+import com.mumtel.IService.ISalesRepService;
 import com.mumtel.model.CallRates;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
 import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.MonthlyTrafficReportVO;
+import com.mumtel.model.SalesRepCommisionReport;
+import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.PrettyPrintingMap;
 
 @Controller
@@ -50,10 +54,11 @@ public class ReportController {
 	@Autowired
 	private ICallRatesService callRateService;
 	@Autowired
-	private ICallDetailsService callDetailService;
-	
+	private ICallDetailsService callDetailService;	
 	@Autowired
 	private ICustomerService customerService;
+	@Autowired
+	private ISalesRepService salesRepService;
 	
 
 	@RequestMapping(method = RequestMethod.GET, value = "country_list_report/pdf")
@@ -63,6 +68,11 @@ public class ReportController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
 		List<Country> countriesList = countryService.getAll();
+		if(countriesList==null || countriesList.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
 
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(
 				countriesList);
@@ -80,7 +90,13 @@ public class ReportController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
 		List<Country> countriesList = countryService.getAll();
+		if(countriesList==null || countriesList.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
 
+		
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(
 				countriesList);
 
@@ -100,9 +116,16 @@ public class ReportController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
 		List<MonthlyTrafficReportVO> report = callDetailService.getMonthlyTrafficVO(month, year);	
+		if(report==null || report.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
+
+		
 		logger.debug(Arrays.toString(report.toArray()));
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(report);
-
+		parameterMap.put("month", CommonUtility.MONTHS.get(month)+" "+year);	
 		parameterMap.put("datasource", JRdataSource);
 		modelAndView = new ModelAndView("monthlyTrafficPdfReport", parameterMap);
 
@@ -115,10 +138,17 @@ public class ReportController {
 		
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List<MonthlyTrafficReportVO> report = callDetailService.getMonthlyTrafficVO(month, year);	
+		List<MonthlyTrafficReportVO> report = callDetailService.getMonthlyTrafficVO(month, year);
+		if(report==null || report.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
+		
 		logger.debug(Arrays.toString(report.toArray()));
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(report);
 
+		parameterMap.put("month", CommonUtility.MONTHS.get(month)+" "+year);
 		parameterMap.put("datasource", JRdataSource);
 		modelAndView = new ModelAndView("monthlyTrafficXlsReport", parameterMap);
 		
@@ -136,22 +166,30 @@ public class ReportController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
 		List<CustomerBillReport> customerBill = customerService.getBillDetailOfCustomer(phone, month, year);
+		if(customerBill==null || customerBill.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
+		
 		Customer customer = customerService.getCustomerbyPhone(phone);
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(customerBill);		
 		
-//		float amountDue = 0;
-//		Iterator<CustomerBillReport> it = customerBill.iterator();
-//		while(it.hasNext()){
-//		 CustomerBillReport billRecord = it.next();
-//			amountDue += Float.parseFloat(billRecord.getCallCost());
-//			logger.debug("1 "+billRecord.getCallDuration());
-//			int durationInMilliSeconds = (int)(Float.parseFloat(billRecord.getCallDuration())*60000);
-//			String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(durationInMilliSeconds),
-//				    TimeUnit.MILLISECONDS.toMinutes(durationInMilliSeconds) % TimeUnit.HOURS.toMinutes(1),
-//				    TimeUnit.MILLISECONDS.toSeconds(durationInMilliSeconds) % TimeUnit.MINUTES.toSeconds(1));
-//			billRecord.setCallDuration(hms);
-//			logger.debug("2 "+billRecord.getCallDuration());
-//		}
+		float amountDue = 0;
+		for(CustomerBillReport billRecord : customerBill)
+		{
+			amountDue += Float.parseFloat(billRecord.getCallCost());	
+			int durationInMilliSeconds;
+			try{
+			   durationInMilliSeconds = (int)(Float.parseFloat(billRecord.getCallDuration())*60000);
+			}catch(Exception ex){
+				break;
+			}
+			String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(durationInMilliSeconds),
+				    TimeUnit.MILLISECONDS.toMinutes(durationInMilliSeconds) % TimeUnit.HOURS.toMinutes(1),
+				    TimeUnit.MILLISECONDS.toSeconds(durationInMilliSeconds) % TimeUnit.MINUTES.toSeconds(1));
+			billRecord.setCallDuration(hms);			
+		}
 
 		parameterMap.put("customerName", customer.getFirstName() + " " + customer.getLastName());
 		parameterMap.put("customerPhone", customer.getTelephone());
@@ -159,7 +197,8 @@ public class ReportController {
 		parameterMap.put("city", customer.getAddress().getCity());
 		parameterMap.put("state", customer.getAddress().getState());
 		parameterMap.put("zip", customer.getAddress().getZip());
-		//parameterMap.put("totalAmount", amountDue);
+		parameterMap.put("totalAmount", amountDue);
+		parameterMap.put("billingMonth", CommonUtility.MONTHS.get(Integer.parseInt(month))+" "+year);	
 		parameterMap.put("datasource", JRdataSource);
 		modelAndView = new ModelAndView("customerBillsPdfReport", parameterMap);
 		
@@ -173,10 +212,37 @@ public class ReportController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
 		List<CustomerBillReport> customerBill = customerService.getBillDetailOfCustomer(phone, month, year);
+		if(customerBill==null || customerBill.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
 		
-		JRDataSource JRdataSource = new JRBeanCollectionDataSource(customerBill);
+		Customer customer = customerService.getCustomerbyPhone(phone);
+		
+		
+		
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(customerBill);		
+		
+		float amountDue = 0;
+		for(CustomerBillReport billRecord : customerBill)
+		{
+			amountDue += Float.parseFloat(billRecord.getCallCost());
+			
+			billRecord.setCallRate(new DecimalFormat("#0.00").format(Float.parseFloat(billRecord.getCallRate())));
+			billRecord.setCallDuration(new DecimalFormat("#0.00").format(Float.parseFloat(billRecord.getCallDuration())));
+			billRecord.setCallCost(new DecimalFormat("#0.00").format(Float.parseFloat(billRecord.getCallCost())));
+		}
 
-		parameterMap.put("datasource", JRdataSource);
+		parameterMap.put("customerName", customer.getFirstName() + " " + customer.getLastName());
+		parameterMap.put("customerPhone", customer.getTelephone());
+		parameterMap.put("streetAddress", customer.getAddress().getStreetNo());
+		parameterMap.put("city", customer.getAddress().getCity());
+		parameterMap.put("state", customer.getAddress().getState());
+		parameterMap.put("zip", customer.getAddress().getZip());
+		parameterMap.put("totalAmount", new DecimalFormat("#0.00").format(amountDue));
+		parameterMap.put("billingMonth", CommonUtility.MONTHS.get(Integer.parseInt(month))+" "+year);	
+		parameterMap.put("datasource", JRdataSource);		
 		modelAndView = new ModelAndView("customerBillsXlsReport", parameterMap);
 		
 		res.setHeader("Content-disposition", "attachment; filename=Customer_Bill.xls");
@@ -187,6 +253,43 @@ public class ReportController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "rate_sheet/pdf")
 	public ModelAndView generateRateSheetPdfReport(HttpServletResponse res,ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode,@RequestParam("month") int month,@RequestParam("year") int year) {
+		System.out.println("Printing Report");
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode,month,year);
+				
+		if(callRateList==null || callRateList.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
+		
+		if(logger.isDebugEnabled()){
+			for(CallRates r:callRateList){
+				logger.debug(r);
+			}
+		}
+	
+		
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);
+		
+		parameterMap.put("datasource", JRdataSource);
+		parameterMap.put("startDate", callRateList.get(0).getDateFrom());		
+		parameterMap.put("service", callServicesService.get(serviceCode).getDescription());
+		parameterMap.put("sourceCountry", countryService.get(countryCode).getCountryName());
+		parameterMap.put("peakPeriodStartTime", 
+				callRateList.get(0).getServiceCountry().getPeakTime().getPeakPeriodStart());
+		parameterMap.put("offPeakPeriodStartTime", 
+				callRateList.get(0).getServiceCountry().getPeakTime().getOffPeakPeriodStart());		
+		modelAndView = new ModelAndView("RateSheetPdfReport", parameterMap);
+		logger.debug("---->"+parameterMap.get("peakPeriodStartTime"));
+
+		return modelAndView;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rate_sheet/xls")
+	public ModelAndView generateRateSheetXlsReport(HttpServletResponse res, ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode,@RequestParam("month") int month,@RequestParam("year") int year) {
 		System.out.println("Printing Report");
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
@@ -204,38 +307,14 @@ public class ReportController {
 			}
 		}
 	
-		
-		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);		
 		
 		parameterMap.put("datasource", JRdataSource);
+		parameterMap.put("startDate", callRateList.get(0).getDateFrom());
 		parameterMap.put("service", callServicesService.get(serviceCode).getDescription());
 		parameterMap.put("sourceCountry", countryService.get(countryCode).getCountryName());
 		parameterMap.put("peakPeriodStartTime", callRateList.get(0).getServiceCountry().getPeakTime().getPeakPeriodStart());
 		parameterMap.put("offPeakPeriodStartTime", callRateList.get(0).getServiceCountry().getPeakTime().getOffPeakPeriodStart());		
-		modelAndView = new ModelAndView("RateSheetPdfReport", parameterMap);
-		logger.debug("---->"+parameterMap.get("peakPeriodStartTime"));
-
-		return modelAndView;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "rate_sheet/xls")
-	public ModelAndView generateRateSheetXlsReport(HttpServletResponse res, ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode,@RequestParam("month") int month,@RequestParam("year") int year) {
-		System.out.println("Printing Report");
-
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-
-		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode,month,year);
-		if(logger.isDebugEnabled()){
-			for(CallRates r:callRateList){
-				logger.debug(r);
-			}
-		}
-	
-		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);		
-		
-		parameterMap.put("datasource", JRdataSource);
-		parameterMap.put("service", callServicesService.get(serviceCode).getDescription());
-		parameterMap.put("sourceCountry", countryService.get(countryCode).getCountryName());
 		modelAndView = new ModelAndView("RateSheetXlsReport", parameterMap);
 		
 //		Calendar cal = Calendar.getInstance();
@@ -253,18 +332,56 @@ public class ReportController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "monthly_sales_rep_comission/pdf")
 	public ModelAndView generateMonthlySalesRepComissionPdfReport(
-			ModelAndView modelAndView) {
+			ModelAndView modelAndView,@RequestParam("id") String id, @RequestParam("month") String month,@RequestParam("year") String year) {
 		System.out.println("Printing Report");
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		ArrayList<String> usersList = new ArrayList();
-		usersList.add("test1");
+		List<SalesRepCommisionReport> comissionReport = salesRepService.getCommissionDetail(id, month, year);
+		if(comissionReport==null || comissionReport.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
 
-		JRDataSource JRdataSource = new JRBeanCollectionDataSource(usersList);
+		float totalComission = 0;
+		for(SalesRepCommisionReport commissionRecord : comissionReport){
+			totalComission += commissionRecord.getCommission().floatValue();
+		}
 
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(comissionReport);
+
+		parameterMap.put("totalComission", totalComission);
 		parameterMap.put("datasource", JRdataSource);
 		modelAndView = new ModelAndView("monthlySalesRepComissionPdfReport",
+				parameterMap);
+
+		return modelAndView;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "monthly_sales_rep_comission/xls")
+	public ModelAndView generateMonthlySalesRepComissionXlsReport(
+			ModelAndView modelAndView,@RequestParam("id") String id, @RequestParam("month") String month,@RequestParam("year") String year) {
+		System.out.println("Printing Report");
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List<SalesRepCommisionReport> comissionReport = salesRepService.getCommissionDetail(id, month, year);
+		if(comissionReport==null || comissionReport.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
+		
+		float totalComission = 0;
+		for(SalesRepCommisionReport commissionRecord : comissionReport){
+			totalComission += commissionRecord.getCommission().floatValue();
+		}
+
+		JRDataSource JRdataSource = new JRBeanCollectionDataSource(comissionReport);
+
+		parameterMap.put("datasource", JRdataSource);
+		modelAndView = new ModelAndView("monthlySalesRepComissionXlsReport",
 				parameterMap);
 
 		return modelAndView;

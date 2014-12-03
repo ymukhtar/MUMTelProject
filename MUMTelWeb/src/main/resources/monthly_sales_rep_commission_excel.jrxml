@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_sales_rep_commission" language="groovy" pageWidth="800" pageHeight="842" columnWidth="800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c44a8d5a-d53f-4645-855d-8bb5eeb3d00e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_sales_rep_commission" language="groovy" pageWidth="580" pageHeight="842" columnWidth="580" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c44a8d5a-d53f-4645-855d-8bb5eeb3d00e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<parameter name="salesRepName" class="java.lang.String"/>
+	<parameter name="startDate" class="java.lang.String"/>
+	<parameter name="endDate" class="java.lang.String"/>
+	<parameter name="totalComission" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="callsDuration" class="java.lang.String"/>
+	<field name="telephone" class="java.lang.String"/>
+	<field name="callCost" class="java.lang.String"/>
+	<field name="comission" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="69" splitType="Stretch">
+		<band height="58" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="7cd526e8-9630-4786-bb88-2d12528c84b7" mode="Transparent" x="1" y="48" width="165" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="57c6e380-139f-4f22-8afa-d57c214c7c19" mode="Transparent" x="2" y="30" width="200" height="14" forecolor="#000000"/>
 				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Customer]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="637cf9e2-32d7-45d3-a781-62b7150864b8" mode="Transparent" x="166" y="49" width="154" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Pohone]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="428c7113-0bc7-40f8-82a8-c673f3a107bc" mode="Transparent" x="320" y="48" width="107" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Date and Time]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="128d8965-bab0-4745-88e1-8ea4b39c43af" mode="Transparent" x="427" y="48" width="144" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[To]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="499c5048-e93e-45cf-8ab9-331392a94811" mode="Transparent" x="571" y="49" width="70" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Duration]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="eecba9e5-6a0e-4cd6-8f97-9b430751c40a" mode="Transparent" x="641" y="49" width="77" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cost]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="78061d20-914c-4a6a-8a43-500a5e08612a" mode="Transparent" x="718" y="49" width="81" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Comission]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="57c6e380-139f-4f22-8afa-d57c214c7c19" x="2" y="32" width="165" height="16"/>
-				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Comission:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d452772f-5e38-44df-82bb-565440e40a04" x="2" y="16" width="165" height="16"/>
+				<reportElement uuid="d452772f-5e38-44df-82bb-565440e40a04" mode="Transparent" x="2" y="16" width="200" height="14" forecolor="#000000"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comission Period:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a919ebc8-2f31-420b-b78e-aff53448c9ff" x="1" y="0" width="166" height="16"/>
+				<reportElement uuid="a919ebc8-2f31-420b-b78e-aff53448c9ff" mode="Transparent" x="2" y="0" width="200" height="16" forecolor="#000000"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sales Representative Name:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="403addbc-7c5f-40d2-963c-c39a3f00f448" x="321" y="16" width="106" height="16"/>
+				<reportElement uuid="403addbc-7c5f-40d2-963c-c39a3f00f448" mode="Transparent" x="325" y="16" width="84" height="14"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="7cd526e8-9630-4786-bb88-2d12528c84b7" mode="Transparent" x="2" y="44" width="200" height="14" forecolor="#000000" backcolor="#99B4D1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="637cf9e2-32d7-45d3-a781-62b7150864b8" mode="Transparent" x="202" y="44" width="126" height="14" forecolor="#000000" backcolor="#99B4D1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pohone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="499c5048-e93e-45cf-8ab9-331392a94811" mode="Transparent" x="325" y="44" width="85" height="14" forecolor="#000000" backcolor="#99B4D1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duration]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eecba9e5-6a0e-4cd6-8f97-9b430751c40a" mode="Transparent" x="409" y="44" width="87" height="14" forecolor="#000000" backcolor="#99B4D1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cost]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="78061d20-914c-4a6a-8a43-500a5e08612a" mode="Transparent" x="496" y="44" width="87" height="14" forecolor="#000000" backcolor="#99B4D1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comission]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d0a3f3b4-f6ec-4dbb-8c95-f3d52b0ea3f3" x="202" y="30" width="123" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{totalComission}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -96,41 +96,31 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement uuid="1e95f64c-6808-4e19-8413-e49df0958f20" x="0" y="0" width="166" height="20"/>
+				<reportElement uuid="eedc1923-5dd0-41b0-96cb-b5af5c6c61f7" x="2" y="0" width="200" height="14"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="eb6261cb-fc6a-4019-958c-fc87760059f9" x="167" y="0" width="153" height="20"/>
+				<reportElement uuid="e5bdfd49-1e45-4173-822e-3a9c1d5c60a8" x="325" y="0" width="84" height="14"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{callsDuration}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1939bf68-9432-48f7-90fa-a33aab8da737" x="320" y="0" width="107" height="20"/>
+				<reportElement uuid="6f4367f0-b355-48cc-a16c-2e1d98ca305d" x="202" y="0" width="123" height="14"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{telephone}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="360c9d3c-e162-4284-82c0-623f652904e6" x="427" y="0" width="144" height="20"/>
+				<reportElement uuid="67aabef7-3600-47e9-920a-a88a8332c2c4" x="410" y="0" width="86" height="14"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{callCost}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="219a2254-dc3d-4e38-9584-b42c37bc9b69" x="571" y="0" width="70" height="20"/>
+				<reportElement uuid="2f2d3c6e-4ce1-471b-915f-502ad283b2a6" x="496" y="0" width="84" height="14"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="210aeabc-b10d-41b5-b015-382bc033c8e5" x="641" y="0" width="77" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="b3ea305f-db14-4262-919d-5b05e0caba38" x="718" y="0" width="81" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{comission}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

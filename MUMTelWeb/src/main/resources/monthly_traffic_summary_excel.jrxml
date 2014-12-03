@@ -7,6 +7,7 @@
 	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
 	<subDataset name="Table Dataset 1" uuid="002887a9-cd33-472c-83d9-603f3d11dd42"/>
 	<parameter name="period" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.String"/>
 	<field name="service" class="java.lang.String"/>
 	<field name="fromCountry" class="java.lang.String"/>
 	<field name="toCountry" class="java.lang.String"/>
@@ -45,12 +46,17 @@
 				<text><![CDATA[Total Minutes of Calls]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="109a88d1-c582-4e89-b07a-ab4b9ad48fce" x="0" y="0" width="117" height="20"/>
+				<reportElement uuid="109a88d1-c582-4e89-b07a-ab4b9ad48fce" x="3" y="0" width="114" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Period:]]></text>
+				<text><![CDATA[Month:]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="08bcd869-b3a6-435f-84a4-1d246ef9c534" x="117" y="0" width="152" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

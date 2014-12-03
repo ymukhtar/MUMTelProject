@@ -4,10 +4,11 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="Table Dataset 1" uuid="002887a9-cd33-472c-83d9-603f3d11dd42"/>
+	<parameter name="month" class="java.lang.String"/>
 	<field name="service" class="java.lang.String"/>
 	<field name="fromCountry" class="java.lang.String"/>
 	<field name="toCountry" class="java.lang.String"/>
-	<field name="totalMinutesOfCall" class="java.lang.String"/>
+	<field name="totalMinutesOfCall" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -33,21 +34,26 @@
 					<text><![CDATA[Date:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="214" y="1" width="229" height="26" backcolor="#F0F0F0"/>
+					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="272" y="0" width="172" height="36" backcolor="#F0F0F0"/>
 					<textElement>
 						<font size="14" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[MUMTel Monthly Traffic Summary]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="01350e46-2e4a-40c0-8c07-0f99803cf93d" x="314" y="27" width="26" height="20"/>
-					<textElement textAlignment="Center"/>
-					<text><![CDATA[-]]></text>
+					<reportElement uuid="01350e46-2e4a-40c0-8c07-0f99803cf93d" x="272" y="36" width="23" height="16"/>
+					<textElement/>
+					<text><![CDATA[For:]]></text>
 				</staticText>
+				<textField>
+					<reportElement uuid="0c481ec9-2653-4d68-8528-69c3f9b7925d" x="295" y="36" width="103" height="16"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<image scaleImage="FillFrame">
-				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="2" y="1" width="111" height="59"/>
-				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
+				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="2" y="1" width="111" height="66"/>
+				<imageExpression><![CDATA["mumtel-logo.png"]]></imageExpression>
 			</image>
 			<line>
 				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="67" width="595" height="1"/>
@@ -64,30 +70,30 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="21" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="e6b0f054-8e92-49a9-a4a3-e494ad522efe" mode="Opaque" x="2" y="0" width="111" height="20" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<reportElement uuid="e6b0f054-8e92-49a9-a4a3-e494ad522efe" mode="Opaque" x="2" y="0" width="72" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Service]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f878841f-f5fa-439e-a1a9-4b91e56965a6" mode="Opaque" x="113" y="0" width="152" height="20" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<reportElement uuid="f878841f-f5fa-439e-a1a9-4b91e56965a6" mode="Opaque" x="74" y="0" width="172" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[From]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="74c94cf5-6a46-449b-92e1-d871fba482f8" mode="Opaque" x="265" y="0" width="160" height="20" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<reportElement uuid="74c94cf5-6a46-449b-92e1-d871fba482f8" mode="Opaque" x="246" y="0" width="179" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[To]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="924f2d30-73f4-4587-a46f-40ef6233a009" mode="Opaque" x="425" y="0" width="130" height="20" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<reportElement uuid="924f2d30-73f4-4587-a46f-40ef6233a009" mode="Opaque" x="425" y="0" width="130" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -99,41 +105,44 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<textField>
-				<reportElement uuid="2ae3ed8d-ce80-445d-9da2-a22c301205a1" x="2" y="1" width="109" height="20"/>
+				<reportElement uuid="2ae3ed8d-ce80-445d-9da2-a22c301205a1" x="2" y="1" width="72" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{service}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b5522b74-6e35-4ca5-87dd-3e4a425c9e18" x="111" y="1" width="154" height="20"/>
+				<reportElement uuid="b5522b74-6e35-4ca5-87dd-3e4a425c9e18" x="74" y="0" width="172" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{fromCountry}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="dc0e45bd-31ec-478c-a0cb-21088589451f" x="425" y="1" width="129" height="20"/>
+				<reportElement uuid="dc0e45bd-31ec-478c-a0cb-21088589451f" x="425" y="1" width="129" height="16"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{totalMinutesOfCall}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#0.00").format($F{totalMinutesOfCall})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="89de191b-061a-402e-b371-624e96465ba8" x="265" y="1" width="160" height="20"/>
+				<reportElement uuid="89de191b-061a-402e-b371-624e96465ba8" x="246" y="1" width="179" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{toCountry}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement uuid="7dfa1fb0-4eed-411e-b982-37f34901ba88" x="0" y="16" width="552" height="1"/>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="20" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<textField>
-				<reportElement uuid="d51c9ddc-5b4a-44e1-ae1a-678232c66b9f" x="4" y="0" width="80" height="20"/>
+				<reportElement uuid="d51c9ddc-5b4a-44e1-ae1a-678232c66b9f" x="4" y="0" width="80" height="16"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="80e90ee4-c939-448f-bb62-1b15d80ef5a5" x="84" y="0" width="40" height="20"/>
+				<reportElement uuid="80e90ee4-c939-448f-bb62-1b15d80ef5a5" x="84" y="0" width="40" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

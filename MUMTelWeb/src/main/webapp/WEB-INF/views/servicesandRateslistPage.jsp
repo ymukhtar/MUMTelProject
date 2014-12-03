@@ -22,7 +22,7 @@
 	}
 	
 	function showRateList(serviceCode,countryCode,type,index){
-		var urlA="<%=request.getContextPath()%>/report/rate_sheet/pdf?serviceCode="+serviceCode+"&countryCode="+countryCode+"&month="+jQuery('#month'+index).val()+"&year="+jQuery('#year'+index).val();
+		var urlA="<%=request.getContextPath()%>/report/rate_sheet/"+type+"?serviceCode="+serviceCode+"&countryCode="+countryCode+"&month="+jQuery('#month'+index).val()+"&year="+jQuery('#year'+index).val();
 		window.location.href = urlA;
 	}
 

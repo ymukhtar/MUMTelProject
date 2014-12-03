@@ -58,16 +58,10 @@
 	<bean id="monthlySalesRepComissionPdfReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:monthly_sales_rep_commission.jrxml" p:reportDataKey="datasource" />
-	<!-- <bean id="htmlReport" -->
-	<!-- class="org.springframework.web.servlet.view.jasperreports.JasperReportsHtmlView" -->
-	<!-- p:url="classpath:chathuranga-sample-report.jrxml" -->
-	<!-- p:reportDataKey="datasource" /> -->
-
-
-	<!-- <bean id="csvReport" -->
-	<!-- class="org.springframework.web.servlet.view.jasperreports.JasperReportsCsvView" -->
-	<!-- p:url="classpath:chathuranga-sample-report.jrxml" -->
-	<!-- p:reportDataKey="datasource"/> -->
+		
+	<bean id="monthlySalesRepComissionXlsReport"
+		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
+		p:url="classpath:monthly_sales_rep_commission_excel.jrxml" p:reportDataKey="datasource" />
 
 
 </beans>

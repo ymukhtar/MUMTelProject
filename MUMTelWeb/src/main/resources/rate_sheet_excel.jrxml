@@ -20,9 +20,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="16" splitType="Stretch">
+		<band height="58" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="4e01e45f-075d-42e4-96a3-3056aaa4d40b" x="165" y="0" width="67" height="15" forecolor="#000000"/>
+				<reportElement uuid="4e01e45f-075d-42e4-96a3-3056aaa4d40b" x="165" y="42" width="67" height="15" forecolor="#000000"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -36,7 +36,7 @@
 				<text><![CDATA[Peak Rate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8ad159a1-5b93-4887-905a-410e79946a6b" x="232" y="0" width="68" height="15" forecolor="#000000"/>
+				<reportElement uuid="8ad159a1-5b93-4887-905a-410e79946a6b" x="232" y="42" width="68" height="15" forecolor="#000000"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -50,7 +50,7 @@
 				<text><![CDATA[Off Peak Rate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f69f5048-a15d-4840-83d0-5b64c2d6a03f" mode="Transparent" x="2" y="0" width="163" height="15" forecolor="#000000" backcolor="#99B4D1">
+				<reportElement uuid="f69f5048-a15d-4840-83d0-5b64c2d6a03f" mode="Transparent" x="2" y="42" width="163" height="15" forecolor="#000000" backcolor="#99B4D1">
 					<property name="net.sf.jasperreports.export.xls.create.custom.palette" value="false"/>
 					<propertyExpression name="net.sf.jasperreports.export.xls.sheet.name"><![CDATA[$P{service}+'_'+$P{sourceCountry}]]></propertyExpression>
 				</reportElement>
@@ -66,6 +66,42 @@
 				</textElement>
 				<text><![CDATA[Destination]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="d976105d-decb-45e4-8b89-fdd0b7e0a344" x="2" y="0" width="163" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Effective From:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8ca2d5a7-e821-4481-9885-5a79f3c25a66" x="2" y="14" width="163" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peak Period Start Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="814811b7-6485-4376-83b3-3c18e1c0e827" x="2" y="28" width="163" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Offpeak Period Start Time:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1c401952-101c-4fa4-a738-d0544af22464" x="165" y="0" width="67" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{startDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d6427bf0-d302-46e7-a6b1-8049bf19a2c1" x="165" y="14" width="67" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{peakPeriodStartTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2ea970f1-0a37-42fb-afd4-ab4afd11e845" x="165" y="28" width="67" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{offPeakPeriodStartTime}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
