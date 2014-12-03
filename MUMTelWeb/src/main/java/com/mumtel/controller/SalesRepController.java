@@ -77,23 +77,27 @@ public class SalesRepController {
 				SalesRep salesRep = new SalesRep();
 				Customer customer=customerService.getCustomerbyPhone(String.valueOf((long)row.getCell(0).getNumericCellValue()));
 				int salesRepID=(int)row.getCell(1).getNumericCellValue();
-				salesRep.setFirstName("Sales"+salesRepID);
-				salesRep.setLastName(" REP"+salesRepID);
+				salesRep.setFirstName("Sales");
+				salesRep.setLastName("REP");
 				salesRep.setAddress(new Address("2000", "Fairfield", "IA", "52557"));
 				salesRep.setBusinesssAddress(salesRep.getAddress());
 				salesRep.setBusinesssPhone(String.valueOf(salesRepID));
 				salesRep.setEmailAddress("abc@mum.edu");
 				if(allSalesRep.contains(salesRep))
 					continue;
+				else{
+					salesRepService.create(salesRep);
+					allSalesRep=salesRepService.getAll();
+				}
 				SalesRepCustomerRef srs=new SalesRepCustomerRef(salesRep, customer, new Date(),(int)row.getCell(2).getNumericCellValue());
 				customer.setSalesRepAssigned(srs);
 				customerService.update(customer);
-				salesRepService.create(salesRep);
+				
 			}
 		
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			model.addAttribute("errorMessage", "Invalid File or format please Choose customer XLS");
+			model.addAttribute("errorMessage", "Invalid File or format please Choose SalesRep XLS");
 			return "errorPage";
 		}
 		return "redirect://home";
@@ -101,6 +105,7 @@ public class SalesRepController {
 	@RequestMapping(value = "/registerSalesRep", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		model.addAttribute("salesRep",new SalesRep());
+		model.addAttribute("fileuploadForm", new FileuploadForm());
 		return "registerSalesRep";
 	}
 	
