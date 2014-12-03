@@ -1,14 +1,25 @@
 package com.mumtel.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -26,11 +37,18 @@ import com.mumtel.IService.ICustomerService;
 import com.mumtel.IService.ISalesRepCustomerRefService;
 import com.mumtel.IService.ISalesRepService;
 import com.mumtel.IService.IServiceCountryService;
+import com.mumtel.Service.SalesRepCustomerRefService;
+import com.mumtel.model.Address;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
 import com.mumtel.model.CustomerBillReport;
+import com.mumtel.model.PeakTimes;
 import com.mumtel.model.SalesRep;
 import com.mumtel.model.SalesRepCustomerRef;
+import com.mumtel.model.Service;
+import com.mumtel.model.ServiceCountry;
+import com.mumtel.util.ExcelUtil;
+import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
 
@@ -58,6 +76,9 @@ public class CustomerController {
 	@Autowired
 	private IServiceCountryService services;
 	
+	@Autowired
+	private ISalesRepService salesRepSer;
+	
 	private static List<Country> allCountryList;
 	
 	
@@ -68,7 +89,77 @@ public class CustomerController {
 		return allCountryList;
 	}
 
+	
+	
+	@RequestMapping(value = "/uploadCustomers", method = RequestMethod.POST)
+	public String uploadServicesAndPeakTimes(FileuploadForm fileuploadForm, BindingResult result,Model model) {
+		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
+		Workbook workbook;
+		String fileName = fileuploadForm.getFileData().getOriginalFilename();
+		List<Country> allCountries = countryService.getAll();
+		logger.debug(Arrays.toString(allCountries.toArray()));
+		
+		try {
+			if (fileName.endsWith("xls")) {
+				workbook = new HSSFWorkbook(bis);
+			} else if (fileName.endsWith("xlsx")) {
+				workbook = new XSSFWorkbook(bis);
+			} else {
+				throw new IllegalArgumentException(
+						"Received file does not have a standard excel extension.");
+			}
+			
+			Sheet sheet = workbook.getSheetAt(0);
 
+			List<Customer> allCustomers=customerService.getAll();
+			List<Customer> customerList=new ArrayList<Customer>();
+			
+			// Iterate through each rows one by one
+			Iterator<Row> rowIterator = sheet.iterator();
+			boolean firstRow=true;
+			while (rowIterator.hasNext()) {
+				
+				Row row = rowIterator.next();
+				if(firstRow){
+					firstRow=false;
+					continue;
+				}
+				
+				Customer customer = new Customer();
+				customer.setFirstName(row.getCell(0).getStringCellValue().split(" ")[0]);
+				customer.setLastName(row.getCell(0).getStringCellValue().split(" ")[1]);
+				customer.setTelephone(String.valueOf((long)row.getCell(1).getNumericCellValue()));
+				
+				int countryCode = (int) row.getCell(6).getNumericCellValue();
+				String serviceName = row.getCell(7).getStringCellValue();
+				Address address=new Address();
+				address.setStreetNo(row.getCell(2).getStringCellValue());
+				address.setCity(row.getCell(3).getStringCellValue());
+				address.setState(row.getCell(4).getStringCellValue());
+				address.setZip(String.valueOf((int)row.getCell(5).getNumericCellValue()));
+				
+				customer.setAddress(address);
+				customer.setEmailAddress("yasir1@gmail.com");
+				customer.setServiceCountry(services.getServiceCountry(countryCode, serviceName));
+				SalesRep salesRep=salesRepSer.get((long)row.getCell(8).getNumericCellValue());
+				
+				SalesRepCustomerRef srs=new SalesRepCustomerRef(salesRep, customer, new Date(),(int)row.getCell(9).getNumericCellValue());
+				
+				customer.setSalesRepAssigned(srs);
+				
+				if(!allCustomers.contains(customer)){
+					customerList.add(customer);
+				}
+				
+			}
+			customerService.createAll(customerList);	
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			model.addAttribute("errorMessage", "Invalid File or format please Choose customer XLS");
+			return "errorPage";
+		}
+		return "redirect://home";
+	}
 	@PostConstruct
 	public void initIt() throws Exception {
 	  allCountryList=countryService.getAll();
@@ -83,7 +174,7 @@ public class CustomerController {
 		Country country=countryService.get(getAllCountryList().get(0).getCallingCode());
 		model.addAttribute("countryServiceList",country.getServicesCountryList());
 		model.addAttribute("countrySelected", 1);
-		
+		model.addAttribute("fileuploadForm", new FileuploadForm());
 		return "registerCustomerPage";
 	}
 	

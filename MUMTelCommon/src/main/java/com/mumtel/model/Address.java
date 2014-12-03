@@ -22,11 +22,11 @@ public class Address implements Serializable{
 	//@Pattern(regexp="(?<=start)[\\d]+[A-Za-z0-9\\s,\\.]+?[\\d\\-]+|(?<=start)[A-Za-z0-9\\s,\\.]+?(?=end)",message="Street should be valid!")
 	@NotEmpty
 	private String streetNo;
-	@Pattern(regexp="^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$",message="city should be valid!")
+	//@Pattern(regexp="^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$",message="city should be valid!")
 	private String city;
 //	@Pattern(regexp="^A[ABELKPRSZ]|BC|C[AOT]|D[EC]|F[LM]|G[ALMU]|HI|I[ADLN]|K[SY]|LA|M[ABDEHINOPSTX]|N[CDEFHJKMSUVWY]|O[HKNRT]|P[AERW]|QC|RI|S[CDN]|T[NX]|U[ST]|V[AIT]|W[AIKVY]|YT$",message="state should be valid!")
 	private String state;
-	@Pattern(regexp="^\\d{5}(?:[-\\s]\\d{4})?$",message="zip should be valid!")
+
 	private String zip;
 	
 	public Address() {

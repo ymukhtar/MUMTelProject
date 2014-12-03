@@ -26,6 +26,32 @@ public class Customer extends Person implements Serializable{
 	@OneToMany(mappedBy="customer")
 	private List<Bill> bills;
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((telephone == null) ? 0 : telephone.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (telephone == null) {
+			if (other.telephone != null)
+				return false;
+		} else if (!telephone.equals(other.telephone))
+			return false;
+		return true;
+	}
+
 	@ManyToOne
 	private ServiceCountry serviceCountry;
 	

@@ -35,8 +35,22 @@
 
 	<div id="page-wrapper">
 		<center>
-			<h2>Register New Customer</h2>
+			<h2>Upload Customer</h2>
 		</center>
+		<div class="container">
+			<fieldset>
+			<legend>Upload Customers:</legend>
+			<form:form modelAttribute="fileuploadForm" method="post" enctype="multipart/form-data" action="uploadCustomers">
+				<div class="container">
+					<form:input class="btn btn-default" path="fileData" type="file" />
+				</div>
+				<div class="container">
+					<input class="btn btn-default" type="submit" />
+				</div>
+			</form:form>
+		</fieldset>
+		
+		</div>
 		<form:form class="form-horizontal" modelAttribute="customer"
 			method="post" action="saveCustomer">
 			<div class="container">

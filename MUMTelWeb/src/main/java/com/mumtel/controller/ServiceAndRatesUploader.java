@@ -190,7 +190,7 @@ public class ServiceAndRatesUploader {
 			String dateOfFile = fileName.split("_")[1];
 			logger.info("Dates " + dateOfFile);
 			int year = Integer.parseInt(dateOfFile.substring(0, 4));
-			int month = Integer.parseInt(dateOfFile.substring(4, 6));
+			int month = Integer.parseInt(dateOfFile.substring(4, 6))-1;
 			int day = Integer.parseInt(dateOfFile.substring(6, 8));
 			calendar.set(Calendar.YEAR, year);
 			calendar.set(Calendar.MONTH, month);
@@ -216,7 +216,7 @@ public class ServiceAndRatesUploader {
 			// create Service Country Object
 			Map<ServiceCountry, List<CallRates>> serviceCallRates = new HashMap<ServiceCountry, List<CallRates>>(totalServices);
 			for (int i = 0; i < totalServices; i++) {
-				Sheet sheet = workbook.getSheetAt(0);
+				Sheet sheet = workbook.getSheetAt(i);
 				String[] country_service = workbook.getSheetName(i).split("_");
 				if ("USA".equals(country_service[1].trim())) {
 					country_service[1] = "United States of America";
