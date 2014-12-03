@@ -63,11 +63,11 @@
 		<div class="form-group form-group-lg">
 
 				<a class="btn btn-default"
-				href='<c:url value="/report/customer_bills/pdf?phone=${phone}&month=${month}&year=${year}"/>'
+				href='<c:url value="/report/monthly_sales_rep_comission/pdf?phone=${id}&month=${month}&year=${year}"/>'
 				role="button">Generate Commission Report PDF</a>
 				
 				<a class="btn btn-default"
-				href='<c:url value="/report/customer_bills/xls?phone=${phone}&month=${month}&year=${year}"/>'
+				href='<c:url value="/report/monthly_sales_rep_comission/xls?phone=${id}&month=${month}&year=${year}"/>'
 				role="button">Generate Commission Report XLS</a>
 				
 				<a class="btn btn-default" role="button" onclick="window.history.back();"><span
@@ -82,7 +82,7 @@
 			<thead>
 				<tr>
 					<th>Sr #</th>
-					<th>Name</th>
+					<th>ID</th>
 					<th>Phone</th>
 					<th>Call Duration</th>
 					<th>Call Cost($)</th>

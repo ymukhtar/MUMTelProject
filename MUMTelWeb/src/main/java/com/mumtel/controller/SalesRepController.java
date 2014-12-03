@@ -157,6 +157,7 @@ public class SalesRepController {
 		model.addAttribute("name",salesRep.getFirstName()+" "+salesRep.getLastName());
 		model.addAttribute("address",salesRep.getBusinesssAddress().getStreetNo()+", "+salesRep.getBusinesssAddress().getCity()+", "+salesRep.getBusinesssAddress().getState()+", "+salesRep.getBusinesssAddress().getZip());
 		model.addAttribute("phone",salesRep.getBusinesssPhone());
+		model.addAttribute("id",salesRep.getPersonID());
 		model.addAttribute("month",month);
 		model.addAttribute("year",year);
 		model.addAttribute("billingMonth",CommonUtility.MONTHS.get(month)+" "+year);
