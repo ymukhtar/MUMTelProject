@@ -63,7 +63,7 @@
 		<div class="form-group form-group-lg">
 
 				<a class="btn btn-default"
-				href='<c:url value="/report/monthly_sales_rep_comission/pdf?=id=${id}&month=${month}&year=${year}"/>'
+				href='<c:url value="/report/monthly_sales_rep_comission/pdf?id=${id}&month=${month}&year=${year}"/>'
 				role="button">Generate Commission Report PDF</a>
 				
 				<a class="btn btn-default"
