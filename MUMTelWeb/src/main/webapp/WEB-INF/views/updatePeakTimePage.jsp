@@ -93,8 +93,14 @@
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-default" onsubmit="submitForm();">Update</button>
+						&nbsp;
+						
+				<a class="btn btn-default" role="button" onclick="window.history.back();"><span
+						class="glyphicon glyphicon-arrow-left"></span>&nbsp;Cancel</a>
 					</div>
 				</div>
+				
+			
 			</div>
 		</form:form>
 	</div>

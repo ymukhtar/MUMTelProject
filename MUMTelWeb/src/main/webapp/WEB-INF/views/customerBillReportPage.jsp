@@ -69,6 +69,9 @@
 				<a class="btn btn-default"
 				href='<c:url value="/report/customer_bills/xls?phone=${phone}&month=${month}&year=${year}"/>'
 				role="button">Generate Customer Bill Report XLS</a>
+				
+				<a class="btn btn-default" role="button" onclick="window.history.back();"><span
+			class="glyphicon glyphicon-arrow-left"></span>&nbsp;Go Back</a>
 		</div>
 
 		<h3>${message}</h3>
