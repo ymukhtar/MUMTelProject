@@ -83,10 +83,14 @@ public class CustomerDAO extends GenericHibernateDAO<Customer, Long> implements 
 		Query query=sessionFactory.getCurrentSession().createQuery(q);
 		
 		if(searchCriteria!=null && searchCriteria.length()>0){
-			query.setParameter("phone", "%"+searchCriteria+"%");
+			query.setParameter("phone", searchCriteria);
 		}
+		List<Customer> customers=query.list();
 		
-		return (Customer) query.list().get(0);
+		if(customers.size()>0)
+			return customers.get(0);
+		else
+			return null;
 	}
 	
 }

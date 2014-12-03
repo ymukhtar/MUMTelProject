@@ -71,16 +71,19 @@ public class CallRatesDAO extends GenericHibernateDAO<CallRates, Integer> implem
 		query.setDate("dateTo", date);
 		query.executeUpdate();
 	}
-	public List<CallRates> getAllcallRates(int countryCode, int serviceCode) {
+	public List<CallRates> getAllcallRates(int countryCode, int serviceCode,int month,int year) {
 		
 		StringBuilder query=new StringBuilder("SELECT cr FROM CallRates cr,ServiceCountry sc ")
 							.append(" WHERE cr.serviceCountry.serviceCountryID=sc.serviceCountryID ")
+							.append("and month(cr.dateFrom)=:month and year(cr.dateFrom)=:year")
 							.append(" and sc.service.serviceCode=:serviceCode AND sc.country.callingCode=:countryCode and cr.dateTo IS NULL ");
 		System.out.println(query.toString());
 		
 		Query queryH=sessionFactory.getCurrentSession().createQuery(query.toString());
 		queryH.setInteger("serviceCode", serviceCode);
 		queryH.setInteger("countryCode", countryCode);
+		queryH.setInteger("month", month);
+		queryH.setInteger("year", year);
 		return queryH.list();
 	}
 

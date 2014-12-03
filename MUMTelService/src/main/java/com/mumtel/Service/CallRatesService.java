@@ -40,9 +40,9 @@ public class CallRatesService extends GenericService<CallRates, Integer> impleme
 		return callRatesDAO.getPagedCallRatesList(start, fetchSize, criteriaString);
 	}
 
-	public List<CallRates> getAllcallRates(int countryCode, int serviceCode) {
+	public List<CallRates> getAllcallRates(int countryCode, int serviceCode,int month,int year) {
 		// TODO Auto-generated method stub
-		return callRatesDAO.getAllcallRates(countryCode, serviceCode);
+		return callRatesDAO.getAllcallRates(countryCode, serviceCode,month,year);
 	}
 
 	@Override

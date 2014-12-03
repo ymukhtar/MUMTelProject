@@ -5,8 +5,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,6 +31,7 @@ import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.ICustomerService;
 import com.mumtel.model.CallRates;
 import com.mumtel.model.Country;
+import com.mumtel.model.Customer;
 import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.MonthlyTrafficReportVO;
 import com.mumtel.utils.PrettyPrintingMap;
@@ -133,11 +136,33 @@ public class ReportController {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
 		List<CustomerBillReport> customerBill = customerService.getBillDetailOfCustomer(phone, month, year);
-		
+		Customer customer = customerService.getCustomerbyPhone(phone);
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(customerBill);		
+		
+//		float amountDue = 0;
+//		Iterator<CustomerBillReport> it = customerBill.iterator();
+//		while(it.hasNext()){
+//		 CustomerBillReport billRecord = it.next();
+//			amountDue += Float.parseFloat(billRecord.getCallCost());
+//			logger.debug("1 "+billRecord.getCallDuration());
+//			int durationInMilliSeconds = (int)(Float.parseFloat(billRecord.getCallDuration())*60000);
+//			String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(durationInMilliSeconds),
+//				    TimeUnit.MILLISECONDS.toMinutes(durationInMilliSeconds) % TimeUnit.HOURS.toMinutes(1),
+//				    TimeUnit.MILLISECONDS.toSeconds(durationInMilliSeconds) % TimeUnit.MINUTES.toSeconds(1));
+//			billRecord.setCallDuration(hms);
+//			logger.debug("2 "+billRecord.getCallDuration());
+//		}
 
+		parameterMap.put("customerName", customer.getFirstName() + " " + customer.getLastName());
+		parameterMap.put("customerPhone", customer.getTelephone());
+		parameterMap.put("streetAddress", customer.getAddress().getStreetNo());
+		parameterMap.put("city", customer.getAddress().getCity());
+		parameterMap.put("state", customer.getAddress().getState());
+		parameterMap.put("zip", customer.getAddress().getZip());
+		//parameterMap.put("totalAmount", amountDue);
 		parameterMap.put("datasource", JRdataSource);
 		modelAndView = new ModelAndView("customerBillsPdfReport", parameterMap);
+		
 
 		return modelAndView;
 	}
@@ -161,18 +186,25 @@ public class ReportController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "rate_sheet/pdf")
-	public ModelAndView generateRateSheetPdfReport(HttpServletResponse res,ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode) {
+	public ModelAndView generateRateSheetPdfReport(HttpServletResponse res,ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode,@RequestParam("month") int month,@RequestParam("year") int year) {
 		System.out.println("Printing Report");
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode);
+		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode,month,year);
+		if(callRateList==null || callRateList.size()==0){
+			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
+			modelAndView = new ModelAndView("errorPage", parameterMap);
+			return modelAndView;
+		}
+		
 		if(logger.isDebugEnabled()){
 			for(CallRates r:callRateList){
 				logger.debug(r);
 			}
 		}
 	
+		
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);
 		
 		parameterMap.put("datasource", JRdataSource);
@@ -187,12 +219,12 @@ public class ReportController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "rate_sheet/xls")
-	public ModelAndView generateRateSheetXlsReport(HttpServletResponse res, ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode) {
+	public ModelAndView generateRateSheetXlsReport(HttpServletResponse res, ModelAndView modelAndView,@RequestParam("countryCode") int countryCode,@RequestParam("serviceCode") int serviceCode,@RequestParam("month") int month,@RequestParam("year") int year) {
 		System.out.println("Printing Report");
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode);
+		List<CallRates> callRateList=callRateService.getAllcallRates(countryCode, serviceCode,month,year);
 		if(logger.isDebugEnabled()){
 			for(CallRates r:callRateList){
 				logger.debug(r);
