@@ -8,6 +8,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 DROP procedure [dbo].[generate_bill]
+GO
 CREATE procedure [dbo].[generate_bill]
 @phone varchar(20),
 @month varchar(5),
@@ -44,8 +45,9 @@ as
     and sC.serviceCountryID=pT.SC_CODE
     and bi.call_date>= cRates.dateFrom AND (bi.call_date<= cRates.dateTo OR cRates.dateTo IS NULL)
    end
-   
+   GO
    DROP PROCEDURE  [dbo].[GetMonthlyTrafficReport] 
+   GO
    CREATE PROCEDURE [dbo].[GetMonthlyTrafficReport] 
 	-- Add the parameters for the stored procedure here
 	@month int, 

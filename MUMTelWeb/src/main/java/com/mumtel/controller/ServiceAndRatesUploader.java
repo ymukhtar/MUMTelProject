@@ -42,6 +42,7 @@ import com.mumtel.model.Service;
 import com.mumtel.model.ServiceCountry;
 import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
+import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
 
 @Controller
@@ -63,6 +64,8 @@ public class ServiceAndRatesUploader {
 	@RequestMapping(value = "/showServiceAndRateUploader", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		model.addAttribute("fileuploadForm", new FileuploadForm());
+		model.addAttribute("months", CommonUtility.MONTHS);
+		model.addAttribute("years", CommonUtility.YEARS);
 		return "uploadServicesAndRates";
 	}
 	
@@ -303,6 +306,8 @@ public class ServiceAndRatesUploader {
 		model.addAttribute("allCountries", allCountries);
 		model.addAttribute("selectedCountryCode",firstCountry.getCallingCode());
 		model.addAttribute("countryServiceList",countryServiceList);
+		model.addAttribute("months", CommonUtility.MONTHS);
+		model.addAttribute("years", CommonUtility.YEARS);
 		return "servicesandRateslistPage";
 	}
 }

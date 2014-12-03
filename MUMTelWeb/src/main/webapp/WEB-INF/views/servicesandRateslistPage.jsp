@@ -20,6 +20,11 @@
 		var urlA="<%=request.getContextPath()%>/serviceAndRatesDetails?currentPage=1&searchString="+ jQuery('#searchType').val();
 		window.location.href = urlA;
 	}
+	
+	function showRateList(serviceCode,countryCode,type,index){
+		var urlA="<%=request.getContextPath()%>/report/rate_sheet/pdf?serviceCode="+serviceCode+"&countryCode="+countryCode+"&month="+jQuery('#month'+index).val()+"&year="+jQuery('#year'+index).val();
+		window.location.href = urlA;
+	}
 
 	jQuery(document).ready(function() {
 		jQuery('#searchType').val('${selectedCountryCode}');
@@ -122,10 +127,24 @@
 									href='<c:url value="/updatePeakTime?serviceCode=${CountryService.service.serviceCode}&countryCode=${CountryService.country.callingCode}"/>'
 									role="button">Update</a>
 							</c:if></td>
-						<td><a class="btn btn-default"
-							href='<c:url value="/report/rate_sheet/pdf?serviceCode=${CountryService.service.serviceCode}&countryCode=${CountryService.country.callingCode}"/>'
+						<td>
+							<select name="month${loop.index}" id="month${loop.index}" >
+								<c:forEach var="month" items="${months}">
+							   		 <option value="${month.key}">${month.value}</option>
+							   	 </c:forEach>
+							</select>
+							&nbsp;&nbsp;
+							<select name="year${loop.index}" id="year${loop.index}" >
+							<c:forEach var="year" items="${years}">
+						   		 <option value="${year}">${year}</option>
+						   	 </c:forEach>
+						</select>
+						<a class="btn btn-default"
+							href='#'
+							onclick='javascript:showRateList("${CountryService.service.serviceCode}","${CountryService.country.callingCode}","pdf","${loop.index}")'
 							role="button">PDF</a> &nbsp;&nbsp; <a class="btn btn-default"
-							href='<c:url value="/report/rate_sheet/xls?serviceCode=${CountryService.service.serviceCode}&countryCode=${CountryService.country.callingCode}"/>'
+							href='#'
+							onclick='javascript:showRateList("${CountryService.service.serviceCode}","${CountryService.country.callingCode}","xls","${loop.index}")'
 							role="button">XLS</a></td>
 					</tr>
 				</c:forEach>

@@ -28,9 +28,7 @@ public class CommonUtility {
 		MONTHS.put(11, "November");
 		MONTHS.put(12, "December");
 		
-		YEARS.add("2010");
-		YEARS.add("2011");
-		YEARS.add("2012");
+		
 		YEARS.add("2013");
 		YEARS.add("2014");
 	}
