@@ -63,12 +63,12 @@
 		<div class="form-group form-group-lg">
 
 				<a class="btn btn-default"
-				href='<c:url value="/report/customer_bill_report/pdf"/>'
+				href='<c:url value="/report/customer_bills/pdf?phone=${phone}&month=${month}&year=${year}"/>'
 				role="button">Generate Customer Bill Report PDF</a>
-				 <a
-				class="btn btn-default"
-				href='<c:url value="/report/customer_bill_report/xls"/>'
-				role="button">Generate Customer Bill Report Excel</a>
+				
+				<a class="btn btn-default"
+				href='<c:url value="/report/customer_bills/xls?phone=${phone}&month=${month}&year=${year}"/>'
+				role="button">Generate Customer Bill Report XLS</a>
 		</div>
 
 		<h3>${message}</h3>

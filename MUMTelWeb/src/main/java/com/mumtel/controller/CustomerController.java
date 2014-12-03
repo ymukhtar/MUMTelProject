@@ -166,6 +166,8 @@ public class CustomerController {
 		model.addAttribute("name",customer.getFirstName()+" "+customer.getLastName());
 		model.addAttribute("address",customer.getAddress().getStreetNo()+", "+customer.getAddress().getCity()+", "+customer.getAddress().getState()+", "+customer.getAddress().getZip());
 		model.addAttribute("phone",customer.getTelephone());
+		model.addAttribute("month",month);
+		model.addAttribute("year",year);
 		model.addAttribute("service",customer.getServiceCountry().getService().getDescription());
 		model.addAttribute("billingMonth",CommonUtility.MONTHS.get(month)+" "+year);
 		model.addAttribute("billList",billList);
