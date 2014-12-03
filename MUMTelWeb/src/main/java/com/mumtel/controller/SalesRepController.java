@@ -1,19 +1,17 @@
 package com.mumtel.controller;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -27,17 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mumtel.IService.ICallDetailsService;
-import com.mumtel.IService.ICountryService;
 import com.mumtel.IService.ICustomerService;
 import com.mumtel.IService.ISalesRepService;
-import com.mumtel.model.CallDetail;
+import com.mumtel.model.Address;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
-import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.SalesRep;
 import com.mumtel.model.SalesRepCommisionReport;
-import com.mumtel.util.ExcelUtil;
+import com.mumtel.model.SalesRepCustomerRef;
 import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
@@ -50,8 +45,59 @@ public class SalesRepController {
 	
 	@Autowired
 	private ISalesRepService salesRepService;
-
 	
+	@Autowired
+	private ICustomerService customerService;
+
+	@RequestMapping(value = "/uploadSalesRep", method = RequestMethod.POST)
+	public String uploadServicesAndPeakTimes(FileuploadForm fileuploadForm, BindingResult result,Model model) {
+		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
+		Workbook workbook;
+		String fileName = fileuploadForm.getFileData().getOriginalFilename();
+		try {
+			if (fileName.endsWith("xls")) {
+				workbook = new HSSFWorkbook(bis);
+			} else if (fileName.endsWith("xlsx")) {
+				workbook = new XSSFWorkbook(bis);
+			} else {
+				throw new IllegalArgumentException(
+						"Received file does not have a standard excel extension.");
+			}
+			Sheet sheet = workbook.getSheetAt(0);
+			List<SalesRep> allSalesRep=salesRepService.getAll();
+			// Iterate through each rows one by one
+			Iterator<Row> rowIterator = sheet.iterator();
+			boolean firstRow=true;
+			while (rowIterator.hasNext()) {
+				Row row = rowIterator.next();
+				if(firstRow){
+					firstRow=false;
+					continue;
+				}
+				SalesRep salesRep = new SalesRep();
+				Customer customer=customerService.getCustomerbyPhone(String.valueOf((long)row.getCell(0).getNumericCellValue()));
+				int salesRepID=(int)row.getCell(1).getNumericCellValue();
+				salesRep.setFirstName("Sales"+salesRepID);
+				salesRep.setLastName(" REP"+salesRepID);
+				salesRep.setAddress(new Address("2000", "Fairfield", "IA", "52557"));
+				salesRep.setBusinesssAddress(salesRep.getAddress());
+				salesRep.setBusinesssPhone(String.valueOf(salesRepID));
+				salesRep.setEmailAddress("abc@mum.edu");
+				if(allSalesRep.contains(salesRep))
+					continue;
+				SalesRepCustomerRef srs=new SalesRepCustomerRef(salesRep, customer, new Date(),(int)row.getCell(2).getNumericCellValue());
+				customer.setSalesRepAssigned(srs);
+				customerService.update(customer);
+				salesRepService.create(salesRep);
+			}
+		
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			model.addAttribute("errorMessage", "Invalid File or format please Choose customer XLS");
+			return "errorPage";
+		}
+		return "redirect://home";
+	}
 	@RequestMapping(value = "/registerSalesRep", method = RequestMethod.GET)
 	public String displayForm(Model model) {
 		model.addAttribute("salesRep",new SalesRep());

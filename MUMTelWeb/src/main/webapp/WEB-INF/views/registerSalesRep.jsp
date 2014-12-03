@@ -25,6 +25,21 @@
 		<center>
 			<h2>Register New Sales Representative</h2>
 		</center>
+		
+		<div class="container">
+			<fieldset>
+			<legend>Upload Sales Rep:</legend>
+			<form:form modelAttribute="fileuploadForm" method="post" enctype="multipart/form-data" action="uploadSalesRep">
+				<div class="container">
+					<form:input class="btn btn-default" path="fileData" type="file" />
+				</div>
+				<div class="container">
+					<input class="btn btn-default" type="submit" />
+				</div>
+			</form:form>
+		</fieldset>
+		
+		</div>
 		<form:form class="form-horizontal" modelAttribute="salesRep"
 			method="post"
 			action="saveSalesRep">

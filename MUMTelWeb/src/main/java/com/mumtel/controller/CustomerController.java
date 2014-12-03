@@ -5,10 +5,8 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -37,17 +35,12 @@ import com.mumtel.IService.ICustomerService;
 import com.mumtel.IService.ISalesRepCustomerRefService;
 import com.mumtel.IService.ISalesRepService;
 import com.mumtel.IService.IServiceCountryService;
-import com.mumtel.Service.SalesRepCustomerRefService;
 import com.mumtel.model.Address;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
 import com.mumtel.model.CustomerBillReport;
-import com.mumtel.model.PeakTimes;
 import com.mumtel.model.SalesRep;
 import com.mumtel.model.SalesRepCustomerRef;
-import com.mumtel.model.Service;
-import com.mumtel.model.ServiceCountry;
-import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.MumTelAuthorities;
@@ -96,9 +89,6 @@ public class CustomerController {
 		ByteArrayInputStream bis = new ByteArrayInputStream(fileuploadForm.getFileData().getBytes());
 		Workbook workbook;
 		String fileName = fileuploadForm.getFileData().getOriginalFilename();
-		List<Country> allCountries = countryService.getAll();
-		logger.debug(Arrays.toString(allCountries.toArray()));
-		
 		try {
 			if (fileName.endsWith("xls")) {
 				workbook = new HSSFWorkbook(bis);
@@ -141,11 +131,12 @@ public class CustomerController {
 				customer.setAddress(address);
 				customer.setEmailAddress("yasir1@gmail.com");
 				customer.setServiceCountry(services.getServiceCountry(countryCode, serviceName));
-				SalesRep salesRep=salesRepSer.get((long)row.getCell(8).getNumericCellValue());
 				
-				SalesRepCustomerRef srs=new SalesRepCustomerRef(salesRep, customer, new Date(),(int)row.getCell(9).getNumericCellValue());
+			//	SalesRep salesRep=salesRepSer.get((long)row.getCell(8).getNumericCellValue());
 				
-				customer.setSalesRepAssigned(srs);
+			//	SalesRepCustomerRef srs=new SalesRepCustomerRef(salesRep, customer, new Date(),(int)row.getCell(9).getNumericCellValue());
+				
+			//	customer.setSalesRepAssigned(srs);
 				
 				if(!allCustomers.contains(customer)){
 					customerList.add(customer);

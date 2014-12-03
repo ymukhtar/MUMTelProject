@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 
 @Entity
@@ -21,8 +20,38 @@ public class SalesRep extends Person implements Serializable{
 	@Embedded
 	@Valid
 	private Address businesssAddress;
+	
+	
 	@OneToMany(mappedBy="salesRep")
+	
 	private List<SalesRepCustomerRef> customersReferred;
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((businesssPhone == null) ? 0 : businesssPhone.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SalesRep other = (SalesRep) obj;
+		if (businesssPhone == null) {
+			if (other.businesssPhone != null)
+				return false;
+		} else if (!businesssPhone.equals(other.businesssPhone))
+			return false;
+		return true;
+	}
+	
 	public SalesRep() {
 		super();
 		// TODO Auto-generated constructor stub

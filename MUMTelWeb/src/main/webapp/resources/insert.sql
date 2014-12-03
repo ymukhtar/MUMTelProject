@@ -1,12 +1,16 @@
 
 USE [mumtel]
+
 GO
 /****** Object:  StoredProcedure [dbo].[generate_bill]    Script Date: 12/02/2014 13:55:54 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
+INSERT INTO USER VALUES('admin',1,'admin');
+GO
+INSERT into Authorities(role,username) VALUES('ROLE_ADMIN','admin')
+GO
 DROP procedure [dbo].[generate_bill]
 GO
 CREATE procedure [dbo].[generate_bill]
