@@ -43,5 +43,9 @@ public class CustomerService extends GenericService<Customer, Long> implements I
 		// TODO Auto-generated method stub
 		return customerDAO.getBillDetailOfCustomer(phone, month, year);
 	}
+	public Customer getCustomerbyPhone(String searchCriteria) {
+		// TODO Auto-generated method stub
+		return customerDAO.getCustomerbyPhone(searchCriteria);
+	}
 
 }

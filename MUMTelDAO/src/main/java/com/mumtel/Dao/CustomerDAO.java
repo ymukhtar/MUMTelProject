@@ -72,5 +72,21 @@ public class CustomerDAO extends GenericHibernateDAO<Customer, Long> implements 
 				.setParameter("year", year);
 		return (List<CustomerBillReport>)query.list();
 	}
+
+	public Customer getCustomerbyPhone(String searchCriteria) {
+		// TODO Auto-generated method stub
+		String q="From Customer c where 1=1";
+		if(searchCriteria!=null && searchCriteria.length()>0)
+		{
+			q+=" AND c.telephone=:phone";
+		}
+		Query query=sessionFactory.getCurrentSession().createQuery(q);
+		
+		if(searchCriteria!=null && searchCriteria.length()>0){
+			query.setParameter("phone", "%"+searchCriteria+"%");
+		}
+		
+		return (Customer) query.list().get(0);
+	}
 	
 }

@@ -16,6 +16,7 @@ import com.mumtel.model.Users;
 
 public interface ICustomerService extends IGenericService<Customer, Long>{
 	public long getPagedCustomerListCount(String searchCriteria);
+	public Customer getCustomerbyPhone(String searchCriteria);
 	public List<Customer> getPagedCustomerList(int start,int fetchSize,String criteriaString);
 	public List<CustomerBillReport> getBillDetailOfCustomer(String phone,String month,String year);
 }
