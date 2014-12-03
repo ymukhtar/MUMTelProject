@@ -78,7 +78,7 @@ alter procedure generate_commission
 @year varchar(4)
 as
 begin
- select p.personID,p.firstName+' '+p.lastName as name,c.telephone,sum(cd.duration) as callsDuration,
+ select p.personID as id,p.firstName+' '+p.lastName as name,c.telephone,sum(cd.duration) as callsDuration,
     sum(CASE When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then (duration/60.0)*cRates.peakPeriodRate
 		 When DATEPART(hour,cd.callDateandTime) NOT between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then (duration/60.0)*cRates.offPeakPeriodRate end) callCost,
 	sum(CASE When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then ((duration/60.0)*cRates.peakPeriodRate)*ref.commision
