@@ -43,7 +43,6 @@
 
 $(document).ready(function() {
     $(".nav navbar-nav side-nav li a").on("click", function() {
-    	alert("Hello");
         $(".nav navbar-nav side-nav li a.active").removeClass("active");
         $(this).addClass("active");
     });
@@ -67,8 +66,7 @@ $(document).ready(function() {
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value="/home"/>">MUMTel
-					Admin</a>
+				<a class="navbar-brand" href="<c:url value="/home"/>"><img alt="" src="resources/images/mumtel-logo6.png"></a>
 			</div>
 			<!-- Top Menu Items -->
 			<ul class="nav navbar-right top-nav">
@@ -98,17 +96,11 @@ $(document).ready(function() {
 							class="fa fa-edit fa-fw"></i> Register Customer</a></li>
 					<li><a
 						href="<c:url value="/createService"/>"><i
-							class="fa fa-edit fa-fw"></i>Create New Service</a></li>
+							class="fa fa-cloud fa-fw"></i>Create New Service</a></li>
 					<li><a
 						href="<c:url value="/registerSalesRep"/>"><i
 							class="fa fa-sitemap fa-fw"></i> Register Sales Rep</a></li>
-					<li><a
-						href="<c:url value="/enterPeakTime?currentPage=1&searchString="/>"><i
-							class="fa fa-fw fa-desktop"></i> Create Peak Time</a></li>
-							
-					<li><a
-						href="<c:url value="/registerCustomer?currentPage=1&searchString="/>"><i
-							class="fa fa-files-o fa-fw"></i> Register Customer</a></li>		
+
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
