@@ -34,7 +34,9 @@ import com.mumtel.IService.ISalesRepService;
 import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
+import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.SalesRep;
+import com.mumtel.model.SalesRepCommisionReport;
 import com.mumtel.util.ExcelUtil;
 import com.mumtel.util.FileuploadForm;
 import com.mumtel.utils.CommonUtility;
@@ -92,5 +94,23 @@ public class SalesRepController {
 		}
 		
 		return "SalesRepDetailslistPage";
+	}
+	
+	@Secured(MumTelAuthorities.ROLE_ADMIN)
+	@RequestMapping(value="/viewCommission",method=RequestMethod.GET)
+	public String viewBills(Model model,HttpServletRequest request,@RequestParam("personeId") Long personeId,@RequestParam("month") int month,@RequestParam("year") String year){
+		
+		SalesRep salesRep=salesRepService.get(personeId);
+		
+		List<SalesRepCommisionReport> commList=salesRepService.getCommissionDetail(String.valueOf(personeId), String.valueOf(month), year);
+		model.addAttribute("name",salesRep.getFirstName()+" "+salesRep.getLastName());
+		model.addAttribute("address",salesRep.getBusinesssAddress().getStreetNo()+", "+salesRep.getBusinesssAddress().getCity()+", "+salesRep.getBusinesssAddress().getState()+", "+salesRep.getBusinesssAddress().getZip());
+		model.addAttribute("phone",salesRep.getBusinesssPhone());
+		model.addAttribute("month",month);
+		model.addAttribute("year",year);
+		model.addAttribute("billingMonth",CommonUtility.MONTHS.get(month)+" "+year);
+		model.addAttribute("commList",commList);
+		
+		return "SakesRepCommissionReportPage";
 	}
 }

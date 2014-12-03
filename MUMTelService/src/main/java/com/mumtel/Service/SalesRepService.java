@@ -19,6 +19,7 @@ import com.mumtel.model.CallDetail;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
 import com.mumtel.model.SalesRep;
+import com.mumtel.model.SalesRepCommisionReport;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRES_NEW)
@@ -39,5 +40,9 @@ public class SalesRepService extends GenericService<SalesRep, Long> implements I
 			String criteriaString) {
 		// TODO Auto-generated method stub
 		return salesRepDAO.getPagedSalesRepList(start, fetchSize, criteriaString);
+	}
+	public List<SalesRepCommisionReport> getCommissionDetail(String id,String month,String year) {
+		// TODO Auto-generated method stub
+		return salesRepDAO.getCommissionDetail(id, month, year);
 	}
 }

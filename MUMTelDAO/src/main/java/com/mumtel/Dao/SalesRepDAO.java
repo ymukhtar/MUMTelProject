@@ -12,7 +12,9 @@ import com.mumtel.Idao.ISalesRepDAO;
 import com.mumtel.Idao.IUserDAO;
 import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
+import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.SalesRep;
+import com.mumtel.model.SalesRepCommisionReport;
 import com.mumtel.model.Users;
 
 /**
@@ -60,6 +62,17 @@ public class SalesRepDAO extends GenericHibernateDAO<SalesRep, Long> implements 
 		query.setFirstResult(start);
 		query.setMaxResults(fetchSize);
 		return query.list();
+	}
+
+	public List<SalesRepCommisionReport> getCommissionDetail(String id,String month,String year) {
+		// TODO Auto-generated method stub
+		Query query=sessionFactory.getCurrentSession().createSQLQuery(
+				"exec generate_commission :salesRep, :month, :year ")
+				.addEntity(SalesRepCommisionReport.class)
+				.setParameter("salesRep", id)
+				.setParameter("month", month)
+				.setParameter("year", year);
+		return (List<SalesRepCommisionReport>)query.list();
 	}
 	
 }

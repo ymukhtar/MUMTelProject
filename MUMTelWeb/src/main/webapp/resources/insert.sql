@@ -72,13 +72,13 @@ BEGIN
 		group by s.description,sCountry.countryName,dCountry.countryName
 END
 
-create procedure generate_commission
+alter procedure generate_commission
 @salesRep varchar(5),
 @month varchar(4),
 @year varchar(4)
 as
 begin
- select p.personID,p.firstName+' '+p.lastName as name,sum(cd.duration) as callsDuration,
+ select p.personID,p.firstName+' '+p.lastName as name,c.telephone,sum(cd.duration) as callsDuration,
     sum(CASE When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then (duration/60.0)*cRates.peakPeriodRate
 		 When DATEPART(hour,cd.callDateandTime) NOT between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then (duration/60.0)*cRates.offPeakPeriodRate end) callCost,
 	sum(CASE When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then ((duration/60.0)*cRates.peakPeriodRate)*ref.commision
@@ -97,5 +97,5 @@ begin
  and MONTH(cd.callDateandTime)=@month
  and YEAR(cd.callDateandTime)=@year
  and ref.salesRep_personID=@salesRep
- group by p.personID,p.firstName+' '+p.lastName
+ group by p.personID,p.firstName+' '+p.lastName,c.telephone
  end

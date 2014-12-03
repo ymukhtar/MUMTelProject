@@ -35,6 +35,7 @@
 				<value>com.mumtel.model.Users</value>
 				<value>com.mumtel.model.MonthlyTrafficReportVO</value>
 				<value>com.mumtel.model.CustomerBillReport</value>
+				<value>com.mumtel.model.SalesRepCommisionReport</value>
 			</list>
 		</property>
 	</bean>

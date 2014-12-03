@@ -35,7 +35,7 @@
 	
 	function viewBills(a,b){
 		
-		var urlA="<%=request.getContextPath()%>/viewBills?personeId="+a+"&month="+jQuery('#month'+b).val()+"&year="+jQuery('#year'+b).val();
+		var urlA="<%=request.getContextPath()%>/viewCommission?personeId="+a+"&month="+jQuery('#month'+b).val()+"&year="+jQuery('#year'+b).val();
 		window.location.href=urlA;
 		
 	}
@@ -99,7 +99,9 @@
 					<th>Buisness Address</th>
 					<th>Phone</th>
 					<th>Email</th>
-					<th>Total Commission</th>
+					<th>Select Month</th>
+					<th>Select Year</th>
+					<th>View Commission</th>
 				</tr>
 			<thead>
 			<tbody>
@@ -111,8 +113,25 @@
 						<td>${c.businesssAddress.streetNo}, ${c.businesssAddress.city}, ${c.businesssAddress.state}, ${c.businesssAddress.zip}</td>
 						<td>${c.businesssPhone}</td>
 						<td>${c.emailAddress}</td>
-						<td>$0</td>
+												<td>
+						<select name="month${loop.index}" id="month${loop.index}" class="form-control">
+							<c:forEach var="month" items="${months}">
+						   		 <option value="${month.key}">${month.value}</option>
+						   	 </c:forEach>
+						</select>
 						</td>
+						<td>
+						<select name="year${loop.index}" id="year${loop.index}" class="form-control">
+							<c:forEach var="year" items="${years}">
+						   		 <option value="${year}">${year}</option>
+						   	 </c:forEach>
+						</select>
+						</td>
+						<td>
+							<a class="btn btn-default" onclick="viewBills(${c.personID},${loop.index})"
+									role="button">View Bills
+							</a>
+					   </td>
 					</tr>
 				</c:forEach>
 			</tbody>
