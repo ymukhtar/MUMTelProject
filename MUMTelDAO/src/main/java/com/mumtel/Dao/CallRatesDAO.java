@@ -60,31 +60,51 @@ public class CallRatesDAO extends GenericHibernateDAO<CallRates, Integer> implem
 	
 	public void createAll(Collection<CallRates> entityList,ServiceCountry sc){
 		//UPDATE All OLD CALL RATES
+		boolean firstTime=true;
 		for(CallRates cr:entityList){
+			if(firstTime){
+				firstTime=false;
+				updateOldCallRates(cr.getDateFrom(), sc);
+			}
 			cr.setServiceCountry(sc);
 			create(cr);
 		}
 	}
 
-	public void updateOldCallRates(Date date){
-		Query query=sessionFactory.getCurrentSession().createQuery("UPDATE CallRates  SET  dateTo=:dateTo");
+	public void updateOldCallRates(Date date,ServiceCountry sc){
+		Query query=sessionFactory.getCurrentSession().createQuery("UPDATE CallRates  SET  dateTo=:dateTo where serviceCountry.serviceCountryID=:code ");
 		query.setDate("dateTo", date);
+		query.setInteger("code", sc.getServiceCountryID());
 		query.executeUpdate();
 	}
+	
 	public List<CallRates> getAllcallRates(int countryCode, int serviceCode,int month,int year) {
 		
 		StringBuilder query=new StringBuilder("SELECT cr FROM CallRates cr,ServiceCountry sc ")
 							.append(" WHERE cr.serviceCountry.serviceCountryID=sc.serviceCountryID ")
 							.append("and month(cr.dateFrom)=:month and year(cr.dateFrom)=:year")
-							.append(" and sc.service.serviceCode=:serviceCode AND sc.country.callingCode=:countryCode and cr.dateTo IS NULL ");
-		System.out.println(query.toString());
+							.append(" and sc.service.serviceCode=:serviceCode AND sc.country.callingCode=:countryCode");
 		
 		Query queryH=sessionFactory.getCurrentSession().createQuery(query.toString());
+		
 		queryH.setInteger("serviceCode", serviceCode);
 		queryH.setInteger("countryCode", countryCode);
 		queryH.setInteger("month", month);
 		queryH.setInteger("year", year);
-		return queryH.list();
+		List<CallRates> callRates= queryH.list();
+		//Read OLD Effective Rec
+		if(callRates==null||callRates.size()==0){
+			query=new StringBuilder("SELECT cr FROM CallRates cr,ServiceCountry sc ")
+						.append(" WHERE cr.serviceCountry.serviceCountryID=sc.serviceCountryID ")
+						.append(" and sc.service.serviceCode=:serviceCode AND sc.country.callingCode=:countryCode AND cr.dateTo IS NULL");
+			
+			queryH=sessionFactory.getCurrentSession().createQuery(query.toString());
+			queryH.setInteger("serviceCode", serviceCode);
+			queryH.setInteger("countryCode", countryCode);
+			callRates= queryH.list();
+		}
+		
+		return callRates;
 	}
 
 }

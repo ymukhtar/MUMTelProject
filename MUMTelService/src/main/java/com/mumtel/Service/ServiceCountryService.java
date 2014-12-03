@@ -56,16 +56,9 @@ public class ServiceCountryService extends
 		List<ServiceCountry> serviceCountryList = serviceCountryDAO.getAll();
 		// create all ServiceCountries
 		// serviceCountryDAO.createAll(map.keySet());
-		boolean firstTimeOnly=false;
 		ServiceCountry sc = null;
 		for (Map.Entry<ServiceCountry, List<CallRates>> entry : map.entrySet()) {
 			sc = entry.getKey();
-			
-			if(!firstTimeOnly){
-				firstTimeOnly=true;
-				CallRates cr=entry.getValue().get(0);
-				callRatesDAO.updateOldCallRates(cr.getDateFrom());
-			}
 			
 			if (!serviceCountryList.contains(sc)) {
 				logger.debug("creating** service country" + sc);
