@@ -34,8 +34,6 @@
 	}
 	
 	function viewBills(b){
-		
-	alert(b);
 		var urlA="<%=request.getContextPath()%>/viewCommission?personeId="+document.getElementById('lbl'+b).innerText+"&month="+jQuery('#month'+b).val()+"&year="+jQuery('#year'+b).val();
 		window.location.href=urlA;
 		
@@ -157,6 +155,5 @@
 	<footer>
 		<p>&copy; Company 2014 Developed By Yasir Mukhtar & Awais Tariq</p>
 	</footer>
-	</div>
 </body>
 </html>

@@ -54,10 +54,10 @@
 			<h2>Sales Rep Commission</h2>
 		</center>
 		<div class="container">
-			<label>Sales Rep Name: ${name}</label><br> <label>Phone:
+			<label>Sales Rep Name: ${name}</label><br> <label>Sales Rep ID:
 				${phone}</label><br> <label>Buisness Address: ${address}</label><br> <label>Commission
-				Month: ${billingMonth}</label><br> <label>Service: ${service}</label><br>
-			<label>Total Commission: <span id="totalCost"></span></label>
+				Month: ${billingMonth}</label>
+			<label>Total Commission: <span id="totalComm"></span></label>
 		</div>
 
 		<div class="form-group form-group-lg">
@@ -90,7 +90,7 @@
 				</tr>
 			<thead>
 			<tbody>
-				<c:set var="billAmount" value="0"></c:set>
+				<c:set var="commAmount" value="0"></c:set>
 				<c:forEach var="comm" items="${commList}" varStatus="loop">
 					<tr>
 						<td>${loop.index+1}</td>
@@ -109,6 +109,7 @@
 								value="${comm.commission}"
 								minIntegerDigits="1"
 								maxFractionDigits="2"></fmt:formatNumber>
+						<c:set var="commAmount" value="${commAmount+ comm.commission}"></c:set>
 						</td>
 					</tr>
 				</c:forEach>
@@ -121,7 +122,7 @@
 	</footer>
 	</div>
 	<script type="text/javascript">
-		jQuery('#totalCost').html('<fmt:formatNumber pattern="##" value="${billAmount}" minIntegerDigits="1" maxFractionDigits="2"></fmt:formatNumber>$');
+		jQuery('#totalComm').html('<fmt:formatNumber pattern="##" value="${commAmount}" minIntegerDigits="1" maxFractionDigits="2"></fmt:formatNumber>$');
 	</script>
 </body>
 </html>
