@@ -1,6 +1,8 @@
 package com.mumtel.controller;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -36,6 +38,7 @@ import com.mumtel.model.Country;
 import com.mumtel.model.Customer;
 import com.mumtel.model.CustomerBillReport;
 import com.mumtel.model.MonthlyTrafficReportVO;
+import com.mumtel.model.SalesRep;
 import com.mumtel.model.SalesRepCommisionReport;
 import com.mumtel.utils.CommonUtility;
 import com.mumtel.utils.PrettyPrintingMap;
@@ -188,7 +191,13 @@ public class ReportController {
 			String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(durationInMilliSeconds),
 				    TimeUnit.MILLISECONDS.toMinutes(durationInMilliSeconds) % TimeUnit.HOURS.toMinutes(1),
 				    TimeUnit.MILLISECONDS.toSeconds(durationInMilliSeconds) % TimeUnit.MINUTES.toSeconds(1));
-			billRecord.setCallDuration(hms);			
+			billRecord.setCallDuration(hms);
+			
+		}
+		
+		for(CustomerBillReport billRecord : customerBill){
+			String[] parts = billRecord.getCallTime().split(":");			
+			billRecord.setCallTime(String.format("%02d:%02d", Integer.parseInt(parts[0]), Integer.parseInt(parts[1])));
 		}
 
 		parameterMap.put("customerName", customer.getFirstName() + " " + customer.getLastName());
@@ -210,7 +219,7 @@ public class ReportController {
 	public ModelAndView generateCustomerBillsXlsReport(HttpServletResponse res,ModelAndView modelAndView,@RequestParam("phone") String phone,@RequestParam("month") String month,@RequestParam("year") String year) {
 		
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
-
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		List<CustomerBillReport> customerBill = customerService.getBillDetailOfCustomer(phone, month, year);
 		if(customerBill==null || customerBill.size()==0){
 			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
@@ -275,13 +284,15 @@ public class ReportController {
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(callRateList);
 		
 		parameterMap.put("datasource", JRdataSource);
-		parameterMap.put("startDate", callRateList.get(0).getDateFrom());		
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		parameterMap.put("startDate", formatter.format(callRateList.get(0).getDateFrom()));		
 		parameterMap.put("service", callServicesService.get(serviceCode).getDescription());
 		parameterMap.put("sourceCountry", countryService.get(countryCode).getCountryName());
-		parameterMap.put("peakPeriodStartTime", 
-				callRateList.get(0).getServiceCountry().getPeakTime().getPeakPeriodStart());
-		parameterMap.put("offPeakPeriodStartTime", 
-				callRateList.get(0).getServiceCountry().getPeakTime().getOffPeakPeriodStart());		
+		int peakPeriodStartTime = callRateList.get(0).getServiceCountry().getPeakTime().getPeakPeriodStart();
+		parameterMap.put("peakPeriodStartTime", new DecimalFormat("00").format(peakPeriodStartTime/100)+":00");				
+		int offPeakPeriodStartTime = callRateList.get(0).getServiceCountry().getPeakTime().getOffPeakPeriodStart();	
+		parameterMap.put("offPeakPeriodStartTime", new DecimalFormat("00").format(offPeakPeriodStartTime/100)+":00");	
+					
 		modelAndView = new ModelAndView("RateSheetPdfReport", parameterMap);
 		logger.debug("---->"+parameterMap.get("peakPeriodStartTime"));
 
@@ -313,8 +324,10 @@ public class ReportController {
 		parameterMap.put("startDate", callRateList.get(0).getDateFrom());
 		parameterMap.put("service", callServicesService.get(serviceCode).getDescription());
 		parameterMap.put("sourceCountry", countryService.get(countryCode).getCountryName());
-		parameterMap.put("peakPeriodStartTime", callRateList.get(0).getServiceCountry().getPeakTime().getPeakPeriodStart());
-		parameterMap.put("offPeakPeriodStartTime", callRateList.get(0).getServiceCountry().getPeakTime().getOffPeakPeriodStart());		
+		int peakPeriodStartTime = callRateList.get(0).getServiceCountry().getPeakTime().getPeakPeriodStart();
+		parameterMap.put("peakPeriodStartTime", new DecimalFormat("00").format(peakPeriodStartTime/100)+":00");				
+		int offPeakPeriodStartTime = callRateList.get(0).getServiceCountry().getPeakTime().getOffPeakPeriodStart();	
+		parameterMap.put("offPeakPeriodStartTime", new DecimalFormat("00").format(offPeakPeriodStartTime/100)+":00");	
 		modelAndView = new ModelAndView("RateSheetXlsReport", parameterMap);
 		
 //		Calendar cal = Calendar.getInstance();
@@ -337,6 +350,7 @@ public class ReportController {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
+		SalesRep salesRep=salesRepService.get(Long.parseLong(id));
 		List<SalesRepCommisionReport> comissionReport = salesRepService.getCommissionDetail(id, month, year);
 		if(comissionReport==null || comissionReport.size()==0){
 			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
@@ -352,6 +366,8 @@ public class ReportController {
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(comissionReport);
 
 		parameterMap.put("totalComission", totalComission);
+		parameterMap.put("salesRepName", salesRep.getFirstName()+" "+salesRep.getLastName());
+		parameterMap.put("startDate", CommonUtility.MONTHS.get(Integer.parseInt(month))+" "+year);
 		parameterMap.put("datasource", JRdataSource);
 		modelAndView = new ModelAndView("monthlySalesRepComissionPdfReport",
 				parameterMap);
@@ -365,7 +381,7 @@ public class ReportController {
 		System.out.println("Printing Report");
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
-
+		SalesRep salesRep=salesRepService.get(Long.parseLong(id));
 		List<SalesRepCommisionReport> comissionReport = salesRepService.getCommissionDetail(id, month, year);
 		if(comissionReport==null || comissionReport.size()==0){
 			parameterMap.put("errorMessage", "Invalid File or format please upload  Services and PeakTimes XLS File");
@@ -380,6 +396,9 @@ public class ReportController {
 
 		JRDataSource JRdataSource = new JRBeanCollectionDataSource(comissionReport);
 
+		parameterMap.put("totalComission", totalComission);
+		parameterMap.put("salesRepName", salesRep.getFirstName()+" "+salesRep.getLastName());
+		parameterMap.put("startDate", CommonUtility.MONTHS.get(Integer.parseInt(month))+" "+year);
 		parameterMap.put("datasource", JRdataSource);
 		modelAndView = new ModelAndView("monthlySalesRepComissionXlsReport",
 				parameterMap);

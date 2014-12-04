@@ -19,7 +19,7 @@
 					</textElement>
 					<text><![CDATA[MUMTEL]]></text>
 				</staticText>
-				<textField pattern="dd/MM/yyyy">
+				<textField pattern="MM/dd/yyyy">
 					<reportElement uuid="87e8851b-20a5-4e11-911d-be85d7631a70" x="370" y="52" width="73" height="15"/>
 					<textElement/>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
@@ -93,17 +93,25 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="14" splitType="Stretch">
-			<textField>
-				<reportElement uuid="22044a06-102a-4b4d-9d66-59cf22032734" x="2" y="0" width="80" height="14"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement uuid="75b84902-94c3-492a-9b2d-62374d6532c8" x="87" y="0" width="40" height="14"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement uuid="b492abf6-b9fc-46f0-9af0-97fbe2637d6a" mode="Opaque" x="3" y="6" width="552" height="14" backcolor="#FFFFE1"/>
+				<textField>
+					<reportElement uuid="22044a06-102a-4b4d-9d66-59cf22032734" x="0" y="0" width="80" height="14"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement uuid="75b84902-94c3-492a-9b2d-62374d6532c8" x="85" y="0" width="40" height="14"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="3e8af5c2-8aa2-4ec7-9660-5f1af433f3fa" x="428" y="1" width="124" height="13"/>
+					<textElement/>
+					<text><![CDATA[MUMTEL 2014]]></text>
+				</staticText>
+			</frame>
 		</band>
 	</pageFooter>
 	<summary>

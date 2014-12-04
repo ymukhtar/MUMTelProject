@@ -13,7 +13,7 @@
 	<field name="callsDuration" class="java.lang.String"/>
 	<field name="telephone" class="java.lang.String"/>
 	<field name="callCost" class="java.lang.String"/>
-	<field name="comission" class="java.lang.String"/>
+	<field name="commission" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -31,7 +31,7 @@
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Comission Period:]]></text>
+				<text><![CDATA[Comission Month:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="a919ebc8-2f31-420b-b78e-aff53448c9ff" mode="Transparent" x="2" y="0" width="200" height="16" forecolor="#000000"/>
@@ -41,13 +41,6 @@
 				<text><![CDATA[Sales Representative Name:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="403addbc-7c5f-40d2-963c-c39a3f00f448" mode="Transparent" x="325" y="16" width="84" height="14"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[-]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="7cd526e8-9630-4786-bb88-2d12528c84b7" mode="Transparent" x="2" y="44" width="200" height="14" forecolor="#000000" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="10" isBold="true"/>
@@ -55,14 +48,14 @@
 				<text><![CDATA[Customer]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="637cf9e2-32d7-45d3-a781-62b7150864b8" mode="Transparent" x="202" y="44" width="126" height="14" forecolor="#000000" backcolor="#99B4D1"/>
+				<reportElement uuid="637cf9e2-32d7-45d3-a781-62b7150864b8" mode="Transparent" x="202" y="44" width="123" height="14" forecolor="#000000" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pohone]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="499c5048-e93e-45cf-8ab9-331392a94811" mode="Transparent" x="325" y="44" width="85" height="14" forecolor="#000000" backcolor="#99B4D1"/>
+				<reportElement uuid="499c5048-e93e-45cf-8ab9-331392a94811" mode="Transparent" x="325" y="44" width="84" height="14" forecolor="#000000" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -76,7 +69,7 @@
 				<text><![CDATA[Cost]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="78061d20-914c-4a6a-8a43-500a5e08612a" mode="Transparent" x="496" y="44" width="87" height="14" forecolor="#000000" backcolor="#99B4D1"/>
+				<reportElement uuid="78061d20-914c-4a6a-8a43-500a5e08612a" mode="Transparent" x="496" y="44" width="84" height="14" forecolor="#000000" backcolor="#99B4D1"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -86,6 +79,16 @@
 				<reportElement uuid="d0a3f3b4-f6ec-4dbb-8c95-f3d52b0ea3f3" x="202" y="30" width="123" height="14"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{totalComission}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b0015f50-1998-4dcd-92fa-7fd86c1571d7" x="202" y="0" width="123" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{salesRepName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f7376702-e5fe-45a8-8857-64be90b301af" x="202" y="16" width="123" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{startDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -120,7 +123,7 @@
 			<textField>
 				<reportElement uuid="2f2d3c6e-4ce1-471b-915f-502ad283b2a6" x="496" y="0" width="84" height="14"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{comission}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{commission}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
