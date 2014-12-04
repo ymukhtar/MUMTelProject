@@ -89,7 +89,7 @@ select p.personID as id,p.firstName+' '+p.lastName as name,c.telephone,sum(cd.du
 		 When DATEPART(hour,cd.callDateandTime) NOT between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then (duration/60.0)*cRates.offPeakPeriodRate end) callCost,
 		sum(CASE When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then ((duration/60.0)*cRates.peakPeriodRate)*(ref.commision/100)
 		 When DATEPART(hour,cd.callDateandTime) NOT between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then ((duration/60.0)*cRates.offPeakPeriodRate)*(ref.commision/100) end) commission
- from SalesRepCustomerRef ref,Customer c,CallDetail cd,ServiceCountry sC,CallRates cRates,PeakTimes pT,ServiceCountry sC1,Person p
+ from SalesRep rep,SalesRepCustomerRef ref,Customer c,CallDetail cd,ServiceCountry sC,CallRates cRates,PeakTimes pT,ServiceCountry sC1,Person p
  where ref.customer_personID=c.personID
  and p.personID=c.personID
  and c.telephone=cd.fromTel
@@ -100,8 +100,9 @@ select p.personID as id,p.firstName+' '+p.lastName as name,c.telephone,sum(cd.du
  and cRates.tocallingCode_callingCode=cd.toCallingCode_callingCode
  and cd.callDateandTime>= cRates.dateFrom AND (cd.callDateandTime<= cRates.dateTo OR cRates.dateTo IS NULL)
  and pT.SC_CODE=sC.serviceCountryID
- and MONTH(cd.callDateandTime)=@month
- and YEAR(cd.callDateandTime)=@year
- and ref.salesRep_personID=@salesRep
+ and MONTH(cd.callDateandTime)=12
+ and YEAR(cd.callDateandTime)=2013
+ and rep.businesssPhone=23
+ and ref.salesRep_personID=rep.personID
  group by p.personID,p.firstName+' '+p.lastName,c.telephone
  end
