@@ -88,6 +88,7 @@ public class SalesRepController {
 				else{
 					salesRepService.create(salesRep);
 					allSalesRep=salesRepService.getAll();
+					salesRep=allSalesRep.get(allSalesRep.indexOf(salesRep));
 				}
 				SalesRepCustomerRef srs=new SalesRepCustomerRef(salesRep, customer, new Date(),(int)row.getCell(2).getNumericCellValue());
 				customer.setSalesRepAssigned(srs);
