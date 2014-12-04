@@ -83,13 +83,12 @@ public class SalesRepController {
 				salesRep.setBusinesssAddress(salesRep.getAddress());
 				salesRep.setBusinesssPhone(String.valueOf(salesRepID));
 				salesRep.setEmailAddress("abc@mum.edu");
-				if(allSalesRep.contains(salesRep))
-					continue;
-				else{
+				if(!allSalesRep.contains(salesRep)){
 					salesRepService.create(salesRep);
 					allSalesRep=salesRepService.getAll();
-					salesRep=allSalesRep.get(allSalesRep.indexOf(salesRep));
 				}
+				salesRep=allSalesRep.get(allSalesRep.indexOf(salesRep));
+				
 				SalesRepCustomerRef srs=new SalesRepCustomerRef(salesRep, customer, new Date(),(int)row.getCell(2).getNumericCellValue());
 				customer.setSalesRepAssigned(srs);
 				customerService.update(customer);
