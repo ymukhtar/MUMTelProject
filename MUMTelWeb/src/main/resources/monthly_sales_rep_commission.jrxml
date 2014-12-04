@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_sales_rep_commission" language="groovy" pageWidth="700" pageHeight="842" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c44a8d5a-d53f-4645-855d-8bb5eeb3d00e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_sales_rep_commission" language="groovy" pageWidth="621" pageHeight="842" columnWidth="581" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c44a8d5a-d53f-4645-855d-8bb5eeb3d00e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -16,9 +16,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="119" splitType="Stretch">
+		<band height="120" splitType="Stretch">
 			<frame>
-				<reportElement uuid="69e0be48-cfb9-443d-a1ad-e5b331759ff3" mode="Opaque" x="111" y="0" width="549" height="67" backcolor="#FFFFFF"/>
+				<reportElement uuid="69e0be48-cfb9-443d-a1ad-e5b331759ff3" mode="Opaque" x="111" y="0" width="479" height="67" backcolor="#FFFFFF"/>
 				<staticText>
 					<reportElement uuid="41797d52-912e-4996-b9c5-6e76f0051229" mode="Transparent" x="15" y="0" width="199" height="27" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
@@ -27,12 +27,12 @@
 					<text><![CDATA[MUMTEL]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="94cb002f-1229-48fe-bf42-b30349e664e9" x="443" y="52" width="30" height="15"/>
+					<reportElement uuid="94cb002f-1229-48fe-bf42-b30349e664e9" x="364" y="52" width="30" height="15"/>
 					<textElement/>
 					<text><![CDATA[Date:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="334" y="1" width="215" height="36" backcolor="#F0F0F0"/>
+					<reportElement uuid="2ec9884d-ffcb-4638-a633-b074984a519f" mode="Opaque" x="252" y="1" width="218" height="36" backcolor="#F0F0F0"/>
 					<textElement>
 						<font size="14" isBold="true" isItalic="true"/>
 					</textElement>
@@ -44,7 +44,7 @@
 				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
 			</image>
 			<line>
-				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="67" width="700" height="1"/>
+				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="68" width="630" height="1"/>
 			</line>
 			<staticText>
 				<reportElement uuid="c716edef-f439-4052-9f34-128e5d3981cc" x="126" y="27" width="199" height="41"/>
@@ -56,23 +56,23 @@ Fairfield IA 52557 USA
 Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 			</staticText>
 			<frame>
-				<reportElement uuid="764ddf37-25ff-4c62-b364-efab53314b95" mode="Opaque" x="-1" y="68" width="661" height="49" backcolor="#FFFFE1"/>
+				<reportElement uuid="764ddf37-25ff-4c62-b364-efab53314b95" mode="Opaque" x="2" y="69" width="579" height="50" backcolor="#FFFFE1"/>
 				<staticText>
-					<reportElement uuid="57c6e380-139f-4f22-8afa-d57c214c7c19" x="2" y="32" width="100" height="16"/>
+					<reportElement uuid="57c6e380-139f-4f22-8afa-d57c214c7c19" x="2" y="30" width="100" height="16"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total Comission:]]></text>
 				</staticText>
 				<textField>
-					<reportElement uuid="2b171b58-7651-4020-8aaf-e67f3e0b3477" x="102" y="32" width="118" height="16"/>
+					<reportElement uuid="2b171b58-7651-4020-8aaf-e67f3e0b3477" x="102" y="30" width="118" height="16"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.text.DecimalFormat('$ #,##0.00').format(Float.parseFloat($P{totalComission}) != null ? Float.parseFloat($P{totalComission}) : 0)]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="8bf91977-404e-455d-bf36-045732feaa88" x="112" y="16" width="152" height="16"/>
+					<reportElement uuid="8bf91977-404e-455d-bf36-045732feaa88" x="114" y="15" width="152" height="16"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -80,26 +80,26 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 				</textField>
 			</frame>
 			<staticText>
-				<reportElement uuid="d452772f-5e38-44df-82bb-565440e40a04" x="2" y="84" width="110" height="16"/>
+				<reportElement uuid="d452772f-5e38-44df-82bb-565440e40a04" x="4" y="85" width="110" height="16"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comission Month:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a919ebc8-2f31-420b-b78e-aff53448c9ff" x="1" y="68" width="166" height="16"/>
+				<reportElement uuid="a919ebc8-2f31-420b-b78e-aff53448c9ff" x="4" y="71" width="166" height="16"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sales Representative Name:]]></text>
 			</staticText>
 			<textField pattern="MM/dd/yyyy">
-				<reportElement uuid="87e8851b-20a5-4e11-911d-be85d7631a70" x="587" y="53" width="73" height="15"/>
+				<reportElement uuid="87e8851b-20a5-4e11-911d-be85d7631a70" x="508" y="53" width="73" height="15"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2c77a152-fef4-4f84-9303-9d67d82856de" x="167" y="67" width="158" height="16"/>
+				<reportElement uuid="2c77a152-fef4-4f84-9303-9d67d82856de" x="170" y="71" width="158" height="16"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -113,35 +113,35 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 	<columnHeader>
 		<band height="17" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="7cd526e8-9630-4786-bb88-2d12528c84b7" mode="Opaque" x="2" y="0" width="154" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
+				<reportElement uuid="7cd526e8-9630-4786-bb88-2d12528c84b7" mode="Opaque" x="2" y="0" width="181" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Customer]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="637cf9e2-32d7-45d3-a781-62b7150864b8" mode="Opaque" x="156" y="0" width="94" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
+				<reportElement uuid="637cf9e2-32d7-45d3-a781-62b7150864b8" mode="Opaque" x="183" y="0" width="94" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Pohone]]></text>
+				<text><![CDATA[Phone]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="499c5048-e93e-45cf-8ab9-331392a94811" mode="Opaque" x="250" y="0" width="104" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
+				<reportElement uuid="499c5048-e93e-45cf-8ab9-331392a94811" mode="Opaque" x="277" y="0" width="104" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Duration]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="eecba9e5-6a0e-4cd6-8f97-9b430751c40a" mode="Opaque" x="354" y="0" width="99" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
+				<reportElement uuid="eecba9e5-6a0e-4cd6-8f97-9b430751c40a" mode="Opaque" x="381" y="0" width="99" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cost]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="78061d20-914c-4a6a-8a43-500a5e08612a" mode="Opaque" x="453" y="0" width="101" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
+				<reportElement uuid="78061d20-914c-4a6a-8a43-500a5e08612a" mode="Opaque" x="480" y="0" width="101" height="16" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -152,30 +152,30 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 	<detail>
 		<band height="18" splitType="Stretch">
 			<line>
-				<reportElement uuid="37af023d-ca88-4b2a-be55-c55d3c0f61f1" x="0" y="17" width="554" height="1"/>
+				<reportElement uuid="37af023d-ca88-4b2a-be55-c55d3c0f61f1" x="0" y="17" width="581" height="1"/>
 			</line>
 			<textField>
-				<reportElement uuid="e0dcefec-778b-4a56-9eec-3c59644dd215" x="354" y="0" width="100" height="16"/>
+				<reportElement uuid="e0dcefec-778b-4a56-9eec-3c59644dd215" x="381" y="0" width="100" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat('$ #,##0.00').format(Float.parseFloat($F{callCost}) != null ? Float.parseFloat($F{callCost}) : 0)]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b1fc3015-9993-45d2-b5c5-36e0cc1ea150" x="454" y="0" width="100" height="16"/>
+				<reportElement uuid="b1fc3015-9993-45d2-b5c5-36e0cc1ea150" x="481" y="0" width="100" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat('$ #,##0.00').format(Float.parseFloat($F{commission}) != null ? Float.parseFloat($F{commission}) : 0)]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d49b0a64-1cf6-48a4-aa8a-df258559d426" x="2" y="2" width="154" height="16"/>
+				<reportElement uuid="d49b0a64-1cf6-48a4-aa8a-df258559d426" x="2" y="2" width="181" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c8e2ac90-7ca9-4644-8c80-ffaa3512f055" x="250" y="0" width="100" height="16"/>
+				<reportElement uuid="c8e2ac90-7ca9-4644-8c80-ffaa3512f055" x="277" y="0" width="100" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{callsDuration}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="a71de990-7641-4052-abf5-77594356ff3d" x="156" y="0" width="94" height="16"/>
+				<reportElement uuid="a71de990-7641-4052-abf5-77594356ff3d" x="183" y="0" width="94" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{telephone}]]></textFieldExpression>
 			</textField>
@@ -187,7 +187,7 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<frame>
-				<reportElement uuid="b492abf6-b9fc-46f0-9af0-97fbe2637d6a" mode="Opaque" x="2" y="5" width="658" height="14" backcolor="#FFFFE1"/>
+				<reportElement uuid="b492abf6-b9fc-46f0-9af0-97fbe2637d6a" mode="Opaque" x="2" y="5" width="579" height="14" backcolor="#FFFFE1"/>
 				<textField>
 					<reportElement uuid="22044a06-102a-4b4d-9d66-59cf22032734" x="0" y="0" width="80" height="14"/>
 					<textElement textAlignment="Right"/>
@@ -198,12 +198,12 @@ Tel: +1 555-472-2349 Fax: +1 555-472-2348]]></text>
 					<textElement/>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement uuid="3e8af5c2-8aa2-4ec7-9660-5f1af433f3fa" mode="Transparent" x="529" y="1" width="129" height="13"/>
-					<textElement/>
-					<text><![CDATA[MUMTEL 2014]]></text>
-				</staticText>
 			</frame>
+			<staticText>
+				<reportElement uuid="3e8af5c2-8aa2-4ec7-9660-5f1af433f3fa" mode="Transparent" x="425" y="7" width="129" height="13"/>
+				<textElement/>
+				<text><![CDATA[MUMTEL 2014]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

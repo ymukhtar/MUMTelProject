@@ -52,7 +52,7 @@
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Pohone]]></text>
+				<text><![CDATA[Phone]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="499c5048-e93e-45cf-8ab9-331392a94811" mode="Transparent" x="325" y="44" width="84" height="14" forecolor="#000000" backcolor="#99B4D1"/>

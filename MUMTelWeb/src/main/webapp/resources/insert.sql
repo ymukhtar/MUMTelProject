@@ -100,9 +100,9 @@ select p.personID as id,p.firstName+' '+p.lastName as name,c.telephone,sum(cd.du
  and cRates.tocallingCode_callingCode=cd.toCallingCode_callingCode
  and cd.callDateandTime>= cRates.dateFrom AND (cd.callDateandTime<= cRates.dateTo OR cRates.dateTo IS NULL)
  and pT.SC_CODE=sC.serviceCountryID
- and MONTH(cd.callDateandTime)=12
- and YEAR(cd.callDateandTime)=2013
- and rep.businesssPhone=23
+ and MONTH(cd.callDateandTime)=@month
+ and YEAR(cd.callDateandTime)=@year
+ and rep.businesssPhone=@salesRep
  and ref.salesRep_personID=rep.personID
  group by p.personID,p.firstName+' '+p.lastName,c.telephone
  end
