@@ -40,8 +40,8 @@
 				</staticText>
 			</frame>
 			<image scaleImage="FillFrame">
-				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="2" y="1" width="111" height="59"/>
-				<imageExpression><![CDATA["final_logo.png"]]></imageExpression>
+				<reportElement uuid="e55f7a5f-3769-4639-9df9-84074796b5f5" x="5" y="5" width="111" height="59"/>
+				<imageExpression><![CDATA["mumtel-logo.png"]]></imageExpression>
 			</image>
 			<line>
 				<reportElement uuid="826b1772-7f0c-4e7b-ae52-1bb7dd58eefa" x="-20" y="68" width="630" height="1"/>
