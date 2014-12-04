@@ -151,7 +151,7 @@ public class SalesRepController {
 	@RequestMapping(value="/viewCommission",method=RequestMethod.GET)
 	public String viewBills(Model model,HttpServletRequest request,@RequestParam("personeId") Long personeId,@RequestParam("month") int month,@RequestParam("year") String year){
 		
-		SalesRep salesRep=salesRepService.get(personeId);
+		SalesRep salesRep=salesRepService.getkSalesRepbyBuisneesPhone(String.valueOf(personeId));
 		
 		List<SalesRepCommisionReport> commList=salesRepService.getCommissionDetail(String.valueOf(personeId), String.valueOf(month), year);
 		model.addAttribute("name",salesRep.getFirstName()+" "+salesRep.getLastName());

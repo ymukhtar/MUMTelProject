@@ -75,4 +75,24 @@ public class SalesRepDAO extends GenericHibernateDAO<SalesRep, Long> implements 
 		return (List<SalesRepCommisionReport>)query.list();
 	}
 	
+	public SalesRep getkSalesRepbyBuisneesPhone(String searchCriteria) {
+		// TODO Auto-generated method stub
+		String q="From SalesRep c where 1=1";
+		if(searchCriteria!=null && searchCriteria.length()>0)
+		{
+			q+=" AND c.businesssPhone=:phone";
+		}
+		Query query=sessionFactory.getCurrentSession().createQuery(q);
+		
+		if(searchCriteria!=null && searchCriteria.length()>0){
+			query.setParameter("phone", searchCriteria);
+		}
+		List<SalesRep> sRep=query.list();
+		
+		if(sRep.size()>0)
+			return sRep.get(0);
+		else
+			return null;
+	}
+	
 }

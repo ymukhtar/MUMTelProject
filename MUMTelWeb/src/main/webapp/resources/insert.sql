@@ -84,11 +84,11 @@ CREATE procedure generate_commission
 @year varchar(4)
 as
 begin
- select p.personID as id,p.firstName+' '+p.lastName as name,c.telephone,sum(cd.duration) as callsDuration,
-    sum(CASE When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then (duration/60.0)*cRates.peakPeriodRate
+select p.personID as id,p.firstName+' '+p.lastName as name,c.telephone,sum(cd.duration) as callsDuration,
+        sum(CAse When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then (duration/60.0)*cRates.peakPeriodRate
 		 When DATEPART(hour,cd.callDateandTime) NOT between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then (duration/60.0)*cRates.offPeakPeriodRate end) callCost,
-	sum(CASE When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then ((duration/60.0)*cRates.peakPeriodRate)*ref.commision
-		 When DATEPART(hour,cd.callDateandTime) NOT between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then ((duration/60.0)*cRates.offPeakPeriodRate)*ref.commision end) commission
+		sum(CASE When DATEPART(hour,cd.callDateandTime) between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then ((duration/60.0)*cRates.peakPeriodRate)*(ref.commision/100)
+		 When DATEPART(hour,cd.callDateandTime) NOT between (pT.peakPeriodStart/100) and (pT.offPeakPeriodStart/100)-1 then ((duration/60.0)*cRates.offPeakPeriodRate)*(ref.commision/100) end) commission
  from SalesRepCustomerRef ref,Customer c,CallDetail cd,ServiceCountry sC,CallRates cRates,PeakTimes pT,ServiceCountry sC1,Person p
  where ref.customer_personID=c.personID
  and p.personID=c.personID

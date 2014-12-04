@@ -45,4 +45,8 @@ public class SalesRepService extends GenericService<SalesRep, Long> implements I
 		// TODO Auto-generated method stub
 		return salesRepDAO.getCommissionDetail(id, month, year);
 	}
+	public SalesRep getkSalesRepbyBuisneesPhone(String searchCriteria) {
+		// TODO Auto-generated method stub
+		return salesRepDAO.getkSalesRepbyBuisneesPhone(searchCriteria);
+	}
 }

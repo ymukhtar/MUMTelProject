@@ -19,4 +19,5 @@ public interface ISalesRepService extends IGenericService<SalesRep, Long>{
 	public long getPagedSalesRepListCount(String searchCriteria);
 	public List<SalesRep> getPagedSalesRepList(int start,int fetchSize,String criteriaString);
 	public List<SalesRepCommisionReport> getCommissionDetail(String id,String month,String year);
+	public SalesRep getkSalesRepbyBuisneesPhone(String searchCriteria);
 }
